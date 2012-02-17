@@ -10,6 +10,14 @@ public class SpriteSheet {
     private Dimension grid;
     private Dimension cells = new Dimension();
     
+    public int getCellWidth() {
+        return grid.width;
+    }
+    
+    public int getCellHeight() {
+        return grid.height;
+    }
+    
     /**
      * Retrieves the width of the sprite sheet in grid cells.
      * 
