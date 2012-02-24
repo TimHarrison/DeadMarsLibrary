@@ -19,15 +19,12 @@ public class FileStorage {
      * Saves an object to a serialized file.
      * 
      * @param filename Name to save file as.
-     * @param obj Object to serialize to disc.
+     * @param obj Object to serialize to file.
      */
     public static void Save(String filename, Object obj) {
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-        
         try {
-            fos = new FileOutputStream(filename);
-            out = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(obj);
             out.close();
             fos.close();
@@ -46,11 +43,10 @@ public class FileStorage {
      */
     public static Object Load(String filename) {        
         Object obj = null;
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
+        
         try {
-            fis = new FileInputStream(filename);
-            in = new ObjectInputStream(fis);
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(fis);
             obj = in.readObject();
             in.close();
             fis.close();
