@@ -2,7 +2,7 @@ package deadmarslib.ScreenManager.Screens;
 
 import deadmarslib.Game.GameTime;
 import deadmarslib.ScreenManager.Screen;
-import deadmarslib.System.ContentManager;
+import deadmarslib.Utility.ContentManager;
 import deadmarslib.System.TimeSpan;
 import java.awt.Graphics;
 import java.awt.Image;
