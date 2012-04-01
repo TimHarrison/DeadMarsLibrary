@@ -221,6 +221,28 @@ public class EntityManager {
         }
     }
     
+    public ArrayList<Entity> getEntities(Class filterout[], Rectangle renderViewArea) {
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
+        ArrayList<Entity> entList = new ArrayList<Entity>();
+        entityTree.getItems(renderViewArea, renderList);
+        
+        copyEntLoop:
+        for(int x = 0; x < renderList.size(); x++) {
+            Entity e = (Entity)renderList.get(x).parent;
+            
+            if(filterout != null) {
+                for(Class fo : filterout) {
+                    if(e.getClass() == fo)
+                        continue copyEntLoop;
+                }
+            }
+            
+            entList.add(e);
+        }
+        
+        return entList;
+    }
+    
     /**
      * Visually renders the {@link QuadTree} contained in this EntityManager.
      * <p>
