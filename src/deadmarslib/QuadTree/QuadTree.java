@@ -2,11 +2,7 @@ package deadmarslib.QuadTree;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
 import deadmarslib.Utility.RectUtility;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 // </editor-fold>
@@ -124,6 +120,18 @@ public class QuadTree {
     public void getItems(Rectangle rect, Class filters[], ArrayList<QuadTreeNodeItem> itemList) {
         if(itemList != null) {
             rootNode.getItems(rect, filters, itemList);
+        }
+    }
+    
+    public void getItems(Polygon pol, ArrayList<QuadTreeNodeItem> itemList) {
+        if(itemList != null) {
+            rootNode.getItems(pol, itemList);
+        }
+    }
+    
+    public void getItems(Polygon pol, Class filters[], ArrayList<QuadTreeNodeItem> itemList) {
+        if(itemList != null) {
+            rootNode.getItems(pol, filters, itemList);
         }
     }
     
