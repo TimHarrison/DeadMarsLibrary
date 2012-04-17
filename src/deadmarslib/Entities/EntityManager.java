@@ -4,10 +4,7 @@ package deadmarslib.Entities;
 import deadmarslib.Game.GameTime;
 import deadmarslib.QuadTree.QuadTree;
 import deadmarslib.QuadTree.QuadTreeNodeItem;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 // </editor-fold>
@@ -221,7 +218,48 @@ public class EntityManager {
         }
     }
     
+    public void renderEntities(Class filterout[], Polygon renderViewArea, GameTime gameTime, Graphics g) {
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
+        entityTree.getItems(renderViewArea, renderList);
+        
+        renderEntLoop:
+        for(int x = 0; x < renderList.size(); x++) {
+            Entity e = (Entity)renderList.get(x).parent;
+            
+            if(filterout != null) {
+                for(Class fo : filterout) {
+                    if(e.getClass() == fo)
+                        continue renderEntLoop;
+                }
+            }
+            
+            e.Render(gameTime, g);
+        }
+    }
+    
     public ArrayList<Entity> getEntities(Class filterout[], Rectangle renderViewArea) {
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
+        ArrayList<Entity> entList = new ArrayList<Entity>();
+        entityTree.getItems(renderViewArea, renderList);
+        
+        copyEntLoop:
+        for(int x = 0; x < renderList.size(); x++) {
+            Entity e = (Entity)renderList.get(x).parent;
+            
+            if(filterout != null) {
+                for(Class fo : filterout) {
+                    if(e.getClass() == fo)
+                        continue copyEntLoop;
+                }
+            }
+            
+            entList.add(e);
+        }
+        
+        return entList;
+    }
+    
+    public ArrayList<Entity> getEntities(Class filterout[], Polygon renderViewArea) {
         ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
         ArrayList<Entity> entList = new ArrayList<Entity>();
         entityTree.getItems(renderViewArea, renderList);
