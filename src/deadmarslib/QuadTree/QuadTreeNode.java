@@ -2,10 +2,7 @@ package deadmarslib.QuadTree;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
 import deadmarslib.Utility.RectUtility;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 // </editor-fold>
@@ -358,6 +355,52 @@ public class QuadTreeNode {
                 trNode.getItems(r, filters, list);
                 blNode.getItems(r, filters, list);
                 brNode.getItems(r, filters, list);
+            }
+        }
+    }
+    
+    public void getItems(Polygon p, ArrayList<QuadTreeNodeItem> list) {
+        if(p.intersects(this.getRect())) {
+            QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(), itemList.toArray().length, QuadTreeNodeItem[].class);
+            for(QuadTreeNodeItem item : items) {
+                if(p.intersects(item.getBoundingBox())){
+                    list.add(item);
+                }
+            }
+            
+            if(isSplit) {
+                tlNode.getItems(p, list);
+                trNode.getItems(p, list);
+                blNode.getItems(p, list);
+                brNode.getItems(p, list);
+            }
+        }
+    }
+    
+    public void getItems(Polygon p, Class filters[], ArrayList<QuadTreeNodeItem> list) {
+        if(p.intersects(this.getRect())) {
+            QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(), itemList.toArray().length, QuadTreeNodeItem[].class);
+            for(QuadTreeNodeItem item : items) {
+                if(filters != null) {
+                    for(Class filter : filters) {
+                        if(item.parent.getClass() == filter) {
+                            if(p.intersects(item.getBoundingBox())){
+                                list.add(item);
+                            }
+                        }
+                    }
+                } else {
+                    if(p.intersects(item.getBoundingBox())){
+                        list.add(item);
+                    }
+                }
+            }
+            
+            if(isSplit) {
+                tlNode.getItems(p, filters, list);
+                trNode.getItems(p, filters, list);
+                blNode.getItems(p, filters, list);
+                brNode.getItems(p, filters, list);
             }
         }
     }
