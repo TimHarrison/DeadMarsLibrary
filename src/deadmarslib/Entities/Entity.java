@@ -14,7 +14,7 @@ import java.awt.Rectangle;
  * 
  * @author Daniel Cecil
  */
-public class Entity {
+public class Entity implements Comparable<Entity> {
 
     // <editor-fold defaultstate="expanded" desc="Fields">
     
@@ -557,6 +557,11 @@ public class Entity {
      * Called as soon as an entity is added to an {@link EntityManager}.
      */
     public void Initialize() {
+    }
+    
+    @Override
+    public int compareTo(Entity o) {
+        return 0;
     }
     
     // </editor-fold>
