@@ -88,7 +88,6 @@ public class SatPoly extends Polygon {
                     smallest = axis;
                     dir = p1.getDirection(p2);
                 }
-                System.out.println(i +": " + o + " " + axis.y/axis.x);
             }
         }
         SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(smallest, overlap, dir);
