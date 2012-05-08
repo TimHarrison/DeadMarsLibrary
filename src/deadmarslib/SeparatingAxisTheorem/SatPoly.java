@@ -50,6 +50,7 @@ public class SatPoly extends Polygon {
         ArrayList<Double> usedAxes = new ArrayList<Double>();
         double overlap = 100000000L;
         SatAxis smallest = null;
+        double dir = 1.0f;
         SatAxis[] a1 = this.getAxes();
         SatAxis[] a2 = oPoly.getAxes();
         for(int i = 0; i < this.npoints; i++) {
@@ -66,6 +67,7 @@ public class SatPoly extends Polygon {
                 if(o < overlap) {
                     overlap = o;
                     smallest = axis;
+                    dir = p1.getDirection(p2);
                 }
             }
             
@@ -84,10 +86,12 @@ public class SatPoly extends Polygon {
                 if(o < overlap) {
                     overlap = o;
                     smallest = axis;
+                    dir = p1.getDirection(p2);
                 }
+                System.out.println(i +": " + o + " " + axis.y/axis.x);
             }
         }
-        SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(smallest, overlap);
+        SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(smallest, overlap, dir);
         return mtv;
     }
 }

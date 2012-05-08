@@ -22,7 +22,7 @@ public class SatAxis {
     }
     
     public static SatAxis normalize(SatAxis p) {
-        double pLen = Math.abs(Math.sqrt(p.x*p.x + p.y*p.y));
+        double pLen = Math.sqrt(p.x*p.x + p.y*p.y);
         SatAxis normalized = new SatAxis((p.x / pLen), (p.y / pLen));
         return normalized;
     }

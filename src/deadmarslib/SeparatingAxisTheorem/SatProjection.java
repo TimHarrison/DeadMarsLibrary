@@ -13,12 +13,12 @@ public class SatProjection {
     }
     
     public double getOverlap(SatProjection proj) {
-        double minOverlap = this.max - this.min < proj.max - proj.min ? this.max - this.min : proj.max - proj.min;
-        if(this.max - proj.min > 0 && this.max - proj.min <= minOverlap)
-            return this.max - proj.min;
-        if(proj.max - this.min > 0 && proj.max - this.min <= minOverlap)
-            return proj.max - this.min;
-        return 0;
+        double x = Math.max(this.min, proj.min);
+        double y = Math.min(this.max, proj.max);
+        return Math.max(x,y) - Math.min(x,y);
     }
     
+    public double getDirection(SatProjection proj) {
+        return Math.abs(this.max) > Math.abs(proj.max) ? 1.0f : -1.0f;
+    }
 }
