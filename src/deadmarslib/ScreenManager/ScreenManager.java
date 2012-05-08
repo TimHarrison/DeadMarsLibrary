@@ -129,6 +129,10 @@ public class ScreenManager extends GameComponent {
         return Arrays.copyOf(screens.toArray(), screens.toArray().length, Screen[].class);
     }
     
+    public GameInput getInput() {
+        return input;
+    }
+    
     public void FadeBackBufferToBlack(Graphics g, int alpha) {
         float fadeAlpha = (float)(alpha / 255.0);
         fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);
