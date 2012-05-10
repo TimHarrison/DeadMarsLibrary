@@ -17,14 +17,12 @@ public class SatAxis {
     }
     
     public static SatAxis getNormal(SatAxis p) {
-        SatAxis normal = new SatAxis(-p.y, p.x);
-        return normal;
+        return new SatAxis(-p.y, p.x);
     }
     
     public static SatAxis normalize(SatAxis p) {
         double pLen = Math.sqrt(p.x*p.x + p.y*p.y);
-        SatAxis normalized = new SatAxis((p.x / pLen), (p.y / pLen));
-        return normalized;
+        return new SatAxis((p.x / pLen), (p.y / pLen));
     }
     
     public double dot(Point vert) {
