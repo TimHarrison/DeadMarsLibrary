@@ -113,8 +113,8 @@ public class QuadTreeNodeItem {
      * Attempts to invoke the move event handler.
      */
     protected final void onMove() {
-        itemBBox.x = (int) (itemPosition.x - (itemSize.width / 2f));
-        itemBBox.y = (int) (itemPosition.y - (itemSize.height / 2f));
+        itemBBox.x = (int) itemPosition.x;
+        itemBBox.y = (int) itemPosition.y;
         itemBBox.width = itemSize.width;
         itemBBox.height = itemSize.height;
         
