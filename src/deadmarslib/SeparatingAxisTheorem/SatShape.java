@@ -17,14 +17,14 @@ public class SatShape extends Polygon {
     
     public SatShape(int[] xpoints, int[] ypoints, int npoints) {
         super(xpoints, ypoints, npoints);
-        x = xpoints[0];
-        y = ypoints[0];
+        x = npoints >= 1 ? xpoints[0] : 0;
+        y = npoints >= 1 ? ypoints[0] : 0;
     }
     
     public SatShape(Polygon p) {
         super(p.xpoints, p.ypoints, p.npoints);
-        x = p.xpoints[0];
-        y = p.ypoints[0];
+        x = p.npoints >= 1 ? p.xpoints[0] : 0;
+        y = p.npoints >= 1 ? p.ypoints[0] : 0;
     }
     
     public SatShape(Rectangle r) {
