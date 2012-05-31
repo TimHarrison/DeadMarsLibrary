@@ -8,6 +8,14 @@ public class SatProjection {
         this.max = max;
     }
     
+    public double getMin() {
+        return min;
+    }
+    
+    public double getMax() {
+        return max;
+    }
+    
     public boolean overlap(SatProjection proj) {
         return (!(proj.max < this.min || this.max < proj.min));
     }
@@ -16,6 +24,10 @@ public class SatProjection {
         double x = Math.max(this.min, proj.min);
         double y = Math.min(this.max, proj.max);
         return Math.max(x,y) - Math.min(x,y);
+    }
+    
+    public boolean contains(SatProjection proj) {
+        return (this.max >= proj.max && this.min <= proj.min);
     }
     
     public double getDirection(SatProjection proj) {
