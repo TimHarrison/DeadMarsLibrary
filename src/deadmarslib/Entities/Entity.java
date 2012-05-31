@@ -3,6 +3,7 @@ package deadmarslib.Entities;
 // <editor-fold defaultstate="collapsed" desc="Imports">
 import deadmarslib.Game.GameTime;
 import deadmarslib.QuadTree.QuadTreeNodeItem;
+import deadmarslib.SeparatingAxisTheorem.SatShape;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -38,14 +39,16 @@ public class Entity implements Comparable<Entity> {
     
     EntityType entType = null;
     
+    public SatShape shape;
+    
     double entX = 0.0;
     double entY = 0.0;
-    double entWidth = 0.0;
-    double entHeight = 0.0;
-    double entOriginX = 0.0;
-    double entOriginY = 0.0;
+//    double entWidth = 0.0;
+//    double entHeight = 0.0;
+//    double entOriginX = 0.0;
+//    double entOriginY = 0.0;
     double entDirection = 0.0;
-    double entScale = 1.0;
+//    double entScale = 1.0;
     double entSpeed = 0.0;
     double entElapsedTime = 0.0;
     double entLifespan = 0.0;
@@ -183,6 +186,7 @@ public class Entity implements Comparable<Entity> {
     public void setX(double x) {
         if(x != entX) {
             entX = x;
+            shape.move((int)entX, (int)entY);
             if(getQuadTreeNodeItemAssociate() != null) {
                 getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
             }
@@ -206,6 +210,7 @@ public class Entity implements Comparable<Entity> {
     public void setY(double y) {
         if(y != entY) {
             entY = y;
+            shape.move((int)entX, (int)entY);
             if(getQuadTreeNodeItemAssociate() != null) {
                 getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
             }
@@ -231,6 +236,7 @@ public class Entity implements Comparable<Entity> {
         if(x != entX || y != entY) {
             entX = x;
             entY = y;
+            shape.move((int)entX, (int)entY);
             if(getQuadTreeNodeItemAssociate() != null) {
                 getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
             }
@@ -246,141 +252,154 @@ public class Entity implements Comparable<Entity> {
         if(pos.x != entX || pos.y != entY) {
             entX = pos.x;
             entY = pos.y;
+            shape.move((int)entX, (int)entY);
             if(getQuadTreeNodeItemAssociate() != null) {
                 getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
             }
         }
     }
 
-    /**
-     * Gets the width of this entity.
-     * 
-     * @return Width.
-     */
+//    /**
+//     * Gets the width of this entity.
+//     * 
+//     * @return Width.
+//     */
+//    public double getWidth() {
+//        return entWidth;
+//    }
+    
     public double getWidth() {
-        return entWidth;
+        return shape.getBounds().width;
     }
 
-    /**
-     * Sets the width of this entity.
-     * 
-     * @param w New width.
-     */
-    public void setWidth(double w) {
-        if(w != entWidth) {
-            entWidth = w;
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
-            }
-        }
-    }
+//    /**
+//     * Sets the width of this entity.
+//     * 
+//     * @param w New width.
+//     */
+//    public void setWidth(double w) {
+//        if(w != entWidth) {
+//            entWidth = w;
+//            if(getQuadTreeNodeItemAssociate() != null) {
+//                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
+//            }
+//        }
+//    }
 
-    /**
-     * Gets the height of this entity.
-     * 
-     * @return Height
-     */
+//    /**
+//     * Gets the height of this entity.
+//     * 
+//     * @return Height
+//     */
+//    public double getHeight() {
+//        return entHeight;
+//    }
+    
     public double getHeight() {
-        return entHeight;
+        return shape.getBounds().height;
     }
 
-    /**
-     * Sets the Height of this entity.
-     * 
-     * @param h New height.
-     */
-    public void setHeight(double h) {
-        if(h != entHeight) {
-            entHeight = h;
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
-            }
-        }
-    }
+//    /**
+//     * Sets the Height of this entity.
+//     * 
+//     * @param h New height.
+//     */
+//    public void setHeight(double h) {
+//        if(h != entHeight) {
+//            entHeight = h;
+//            if(getQuadTreeNodeItemAssociate() != null) {
+//                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
+//            }
+//        }
+//    }
 
-    /**
-     * Gets the dimensions of this entity.
-     * 
-     * @return Dimensions.
-     */
+//    /**
+//     * Gets the dimensions of this entity.
+//     * 
+//     * @return Dimensions.
+//     */
+//    public Dimension getSize() {
+//        return new Dimension((int)entWidth, (int)entHeight);
+//    }
+    
     public Dimension getSize() {
-        return new Dimension((int)entWidth, (int)entHeight);
+        return new Dimension(shape.getBounds().width, shape.getBounds().height);
     }
 
-    /**
-     * Sets the dimensions of this entity.
-     * 
-     * @param w New width.
-     * @param h New height.
-     */
-    public void setSize(double w, double h) {
-        if(w != entWidth || h != entHeight) {
-            entWidth = w;
-            entHeight = h;
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
-            }
-        }
-    }
+//    /**
+//     * Sets the dimensions of this entity.
+//     * 
+//     * @param w New width.
+//     * @param h New height.
+//     */
+//    public void setSize(double w, double h) {
+//        if(w != entWidth || h != entHeight) {
+//            entWidth = w;
+//            entHeight = h;
+//            if(getQuadTreeNodeItemAssociate() != null) {
+//                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
+//            }
+//        }
+//    }
     
-    /**
-     * Sets the dimensions of this entity.
-     * 
-     * @param size New dimensions.
-     */
-    public void setSize(Dimension size) {
-        if(size.width != entWidth || size.height != entHeight) {
-            entWidth = size.width;
-            entHeight = size.height;
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
-            }
-        }
-    }
+//    /**
+//     * Sets the dimensions of this entity.
+//     * 
+//     * @param size New dimensions.
+//     */
+//    public void setSize(Dimension size) {
+//        if(size.width != entWidth || size.height != entHeight) {
+//            entWidth = size.width;
+//            entHeight = size.height;
+//            if(getQuadTreeNodeItemAssociate() != null) {
+//                getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth, (int)entHeight));
+//            }
+//        }
+//    }
 
-    /**
-     * Gets the origin X coordinate of this entity.
-     * <p>
-     * Origin is relative to the entity, not world space.
-     * 
-     * @return Origin X.
-     */
-    public double getOriginX() {
-        return entOriginX;
-    }
+//    /**
+//     * Gets the origin X coordinate of this entity.
+//     * <p>
+//     * Origin is relative to the entity, not world space.
+//     * 
+//     * @return Origin X.
+//     */
+//    public double getOriginX() {
+//        return entOriginX;
+//    }
 
-    private void setOriginX(double ox) {
-        entOriginX = ox;
-    }
+//    private void setOriginX(double ox) {
+//        entOriginX = ox;
+//    }
 
-    /**
-     * Gets the origin Y coordinate of this entity.
-     * <p>
-     * Origin is relative to the entity, not world space.
-     * 
-     * @return Origin Y.
-     */
-    public double getOriginY() {
-        return entOriginY;
-    }
-
-    private void setOriginY(double oy) {
-        entOriginY = oy;
-    }
-
-    public Point getOriginPosition() {
-        return new Point((int)entOriginX, (int)entOriginY);
-    }
-
-    private void setOriginPosition(double ox, double oy) {
-        entOriginX = ox;
-        entOriginY = oy;
-    }
-    
-    private void setOriginPosition(Point opos) {
-        entOriginX = opos.x;
-        entOriginY = opos.y;
-    }
+//    /**
+//     * Gets the origin Y coordinate of this entity.
+//     * <p>
+//     * Origin is relative to the entity, not world space.
+//     * 
+//     * @return Origin Y.
+//     */
+//    public double getOriginY() {
+//        return entOriginY;
+//    }
+//
+//    private void setOriginY(double oy) {
+//        entOriginY = oy;
+//    }
+//
+//    public Point getOriginPosition() {
+//        return new Point((int)entOriginX, (int)entOriginY);
+//    }
+//
+//    private void setOriginPosition(double ox, double oy) {
+//        entOriginX = ox;
+//        entOriginY = oy;
+//    }
+//    
+//    private void setOriginPosition(Point opos) {
+//        entOriginX = opos.x;
+//        entOriginY = opos.y;
+//    }
 
     /**
      * Gets the direction of this entity.
@@ -400,18 +419,18 @@ public class Entity implements Comparable<Entity> {
         entDirection = d;
     }
 
-    /**
-     * Gets the scale of this entity.
-     * 
-     * @return Scale.
-     */
-    public double getScale() {
-        return entScale;
-    }
-
-    private void setScale(double s) {
-        entScale = s;
-    }
+//    /**
+//     * Gets the scale of this entity.
+//     * 
+//     * @return Scale.
+//     */
+//    public double getScale() {
+//        return entScale;
+//    }
+//
+//    private void setScale(double s) {
+//        entScale = s;
+//    }
 
     /**
      * Gets the speed of this entity.
@@ -473,18 +492,22 @@ public class Entity implements Comparable<Entity> {
         entLifespan = ls;
     }
 
-    /**
-     * Retrieves this entity's bounding rectangle.
-     * 
-     * @return this entity's bounding rectangle.
-     */
+//    /**
+//     * Retrieves this entity's bounding rectangle.
+//     * 
+//     * @return this entity's bounding rectangle.
+//     */
+//    public Rectangle getBoundingBox() {
+//        double scale = this.getScale();
+//        int scaledOX = (int) (this.getOriginX() * scale);
+//        int scaledOY = (int) (this.getOriginY() * scale);
+//        int scaledWidth = (int) (this.getWidth() * scale);
+//        int scaledHeight = (int) (this.getHeight() * scale);
+//        return new Rectangle((int)(this.getX() - scaledOX), (int)(this.getY() - scaledOY), scaledWidth, scaledHeight);
+//    }
+    
     public Rectangle getBoundingBox() {
-        double scale = this.getScale();
-        int scaledOX = (int) (this.getOriginX() * scale);
-        int scaledOY = (int) (this.getOriginY() * scale);
-        int scaledWidth = (int) (this.getWidth() * scale);
-        int scaledHeight = (int) (this.getHeight() * scale);
-        return new Rectangle((int)(this.getX() - scaledOX), (int)(this.getY() - scaledOY), scaledWidth, scaledHeight);
+        return shape.getBounds();
     }
     
     // </editor-fold>
@@ -500,10 +523,11 @@ public class Entity implements Comparable<Entity> {
     public Entity(Rectangle rect, EntityType type) {
         entX = rect.x;
         entY = rect.y;
-        entWidth = rect.width;
-        entHeight = rect.height;
-        entOriginX = entWidth / 2f;
-        entOriginY = entHeight / 2f;
+//        entWidth = rect.width;
+//        entHeight = rect.height;
+//        entOriginX = entWidth / 2f;
+//        entOriginY = entHeight / 2f;
+        shape = new SatShape(rect);
         
         entType = type;
         
