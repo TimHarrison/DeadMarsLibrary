@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class SpriteFont {
     
-    private HashMap<String, Integer> characterMap = new HashMap<String, Integer>();
+    private HashMap<String, Integer> characterMap = new HashMap<>();
     private SpriteSheet characterSheet;
     
     public SpriteFont(SpriteSheet cSheet, HashMap<String, Integer> cMap) {
