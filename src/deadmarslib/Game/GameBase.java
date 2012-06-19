@@ -38,7 +38,7 @@ public class GameBase extends Canvas implements Runnable {
     
     // <editor-fold defaultstate="expanded" desc="Fields">
     
-    private ArrayList<GameComponent> components = new ArrayList<GameComponent>();
+    private ArrayList<GameComponent> components = new ArrayList<>();
     
     private Thread thread;
     private boolean running = false;

@@ -18,11 +18,11 @@ public class EntityManager {
     
     // <editor-fold defaultstate="expanded" desc="Properties">
     
-    ArrayList<Entity> entities = new ArrayList<Entity>();
-    ArrayList<Entity> entityActors = new ArrayList<Entity>();
-    ArrayList<Entity> entityProps = new ArrayList<Entity>();
-    ArrayList<Entity> entityBackgrounds = new ArrayList<Entity>();
-    ArrayList<Entity> entitiesToRemove = new ArrayList<Entity>();
+    ArrayList<Entity> entities = new ArrayList<>();
+    ArrayList<Entity> entityActors = new ArrayList<>();
+    ArrayList<Entity> entityProps = new ArrayList<>();
+    ArrayList<Entity> entityBackgrounds = new ArrayList<>();
+    ArrayList<Entity> entitiesToRemove = new ArrayList<>();
     
     QuadTree entityTree = null;
 
@@ -165,7 +165,7 @@ public class EntityManager {
                 }
                 
                 if(e.isCollidable() && e.collisionClassFilters != null && e.collisionDefinitions != null && e.collisionClassFilters.length == e.collisionDefinitions.length) {
-                    ArrayList<QuadTreeNodeItem> iColList = new ArrayList<QuadTreeNodeItem>();
+                    ArrayList<QuadTreeNodeItem> iColList = new ArrayList<>();
                     entityTree.getItems(e.getQuadTreeNodeItemAssociate().getBoundingBox(), e.collisionClassFilters, iColList);
 
                     e.setIsColliding(false);
@@ -200,7 +200,7 @@ public class EntityManager {
      * @param g Reference to the graphics context for drawing.
      */
     public void renderEntities(Class filterout[], Rectangle renderViewArea, GameTime gameTime, Graphics g) {
-        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
         entityTree.getItems(renderViewArea, renderList);
         
         renderEntLoop:
@@ -219,7 +219,7 @@ public class EntityManager {
     }
     
     public void renderEntities(Class filterout[], Polygon renderViewArea, GameTime gameTime, Graphics g) {
-        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
         entityTree.getItems(renderViewArea, renderList);
         
         renderEntLoop:
@@ -238,8 +238,8 @@ public class EntityManager {
     }
     
     public ArrayList<Entity> getEntities(Class filterout[], Rectangle renderViewArea) {
-        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
-        ArrayList<Entity> entList = new ArrayList<Entity>();
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
+        ArrayList<Entity> entList = new ArrayList<>();
         entityTree.getItems(renderViewArea, renderList);
         
         copyEntLoop:
@@ -260,8 +260,8 @@ public class EntityManager {
     }
     
     public ArrayList<Entity> getEntities(Class filterout[], Polygon renderViewArea) {
-        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<QuadTreeNodeItem>();
-        ArrayList<Entity> entList = new ArrayList<Entity>();
+        ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
+        ArrayList<Entity> entList = new ArrayList<>();
         entityTree.getItems(renderViewArea, renderList);
         
         copyEntLoop:
@@ -305,7 +305,7 @@ public class EntityManager {
      */
     public void externalCollision(Point p, Class[] classFilters, EntityCollision[] collisionDefinitions) {
         if(classFilters != null && collisionDefinitions != null && classFilters.length == collisionDefinitions.length) {
-            ArrayList<QuadTreeNodeItem> iColList = new ArrayList<QuadTreeNodeItem>();
+            ArrayList<QuadTreeNodeItem> iColList = new ArrayList<>();
             entityTree.getItems(p, iColList);
 
             colLoop:
@@ -337,7 +337,7 @@ public class EntityManager {
      */
     public void externalCollision(Rectangle r, Class[] classFilters, EntityCollision[] collisionDefinitions) {
         if(classFilters != null && collisionDefinitions != null && classFilters.length == collisionDefinitions.length) {
-            ArrayList<QuadTreeNodeItem> iColList = new ArrayList<QuadTreeNodeItem>();
+            ArrayList<QuadTreeNodeItem> iColList = new ArrayList<>();
             entityTree.getItems(r, iColList);
 
             colLoop:

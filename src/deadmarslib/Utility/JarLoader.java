@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class JarLoader {
     
-    public static HashMap<String, Class> loadedJars = new HashMap<String, Class>();
+    public static HashMap<String, Class> loadedJars = new HashMap<>();
     
     public static void loadJar(File jar, String main) throws MalformedURLException, ClassNotFoundException {
         URL[] url = new URL[]{jar.toURI().toURL()};

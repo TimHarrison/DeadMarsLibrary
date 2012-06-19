@@ -122,7 +122,7 @@ public class SatShape extends Polygon {
     }
     
     public SatMinimumTranslationVector collision(SatShape oShape) {
-        ArrayList<Double> usedAxes = new ArrayList<Double>();
+        ArrayList<Double> usedAxes = new ArrayList<>();
         double overlap = 100000000L;
         SatAxis smallest = null;
         double dir = 1.0f;

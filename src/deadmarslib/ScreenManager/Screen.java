@@ -2,8 +2,8 @@ package deadmarslib.ScreenManager;
 
 import deadmarslib.Game.GameInput;
 import deadmarslib.Game.GameTime;
-import deadmarslib.Utility.MathUtility;
 import deadmarslib.System.TimeSpan;
+import deadmarslib.Utility.MathUtility;
 import java.awt.Graphics;
 
 public class Screen {
