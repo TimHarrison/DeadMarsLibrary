@@ -4,19 +4,15 @@ import deadmarslib.Game.GameBase;
 import deadmarslib.Game.GameComponent;
 import deadmarslib.Game.GameInput;
 import deadmarslib.Game.GameTime;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ScreenManager extends GameComponent {
         
     // <editor-fold defaultstate="expanded" desc="Fields">
-    private ArrayList<Screen> screens = new ArrayList<Screen>();
-    private ArrayList<Screen> screensToUpdate = new ArrayList<Screen>();
+    private ArrayList<Screen> screens = new ArrayList<>();
+    private ArrayList<Screen> screensToUpdate = new ArrayList<>();
     private GameInput input;
     
     boolean isInitialized;

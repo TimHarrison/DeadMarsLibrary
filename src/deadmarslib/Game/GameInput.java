@@ -19,10 +19,10 @@ public class GameInput extends GameComponent {
 
     // <editor-fold defaultstate="expanded" desc="Fields">
 	
-    ArrayList<Integer> kbdInputs = new ArrayList<Integer>();
-    ArrayList<Integer> mseInputs = new ArrayList<Integer>();
+    ArrayList<Integer> kbdInputs = new ArrayList<>();
+    ArrayList<Integer> mseInputs = new ArrayList<>();
     
-    ArrayList<Integer> lastKey = new ArrayList<Integer>();
+    ArrayList<Integer> lastKey = new ArrayList<>();
     
     int mouseX;
     int mouseY;

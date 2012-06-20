@@ -1,6 +1,8 @@
 package deadmarslib.Utility;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * DeadMarsLib SecurityUtility Class
@@ -18,7 +20,7 @@ public class SecurityUtility {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
             }
             return sb.toString();
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
         }
         return null;
     }

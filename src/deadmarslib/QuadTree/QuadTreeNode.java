@@ -58,7 +58,7 @@ public class QuadTreeNode {
     /**
      * A list of all the items contained directly within this node.
      */
-    protected ArrayList<QuadTreeNodeItem> itemList = new ArrayList<QuadTreeNodeItem>();
+    protected ArrayList<QuadTreeNodeItem> itemList = new ArrayList<>();
     
     // </editor-fold>
     
@@ -234,7 +234,7 @@ public class QuadTreeNode {
     }
 
     protected void joinNode(boolean isempty) {
-        ArrayList<QuadTreeNodeItem> iList = new ArrayList<QuadTreeNodeItem>();
+        ArrayList<QuadTreeNodeItem> iList = new ArrayList<>();
         
         if(isempty) {
             this.getAllItems(iList);

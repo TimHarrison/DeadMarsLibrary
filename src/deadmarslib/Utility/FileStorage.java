@@ -1,11 +1,7 @@
 package deadmarslib.Utility;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 // </editor-fold>
 
 /**
@@ -50,7 +46,7 @@ public class FileStorage {
             obj = in.readObject();
             in.close();
             fis.close();
-        } catch(Exception ex) {
+        } catch(IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         

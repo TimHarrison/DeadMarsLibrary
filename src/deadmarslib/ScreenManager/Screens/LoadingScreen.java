@@ -1,7 +1,9 @@
 package deadmarslib.ScreenManager.Screens;
 
 import deadmarslib.Game.GameTime;
-import deadmarslib.ScreenManager.*;
+import deadmarslib.ScreenManager.Screen;
+import deadmarslib.ScreenManager.ScreenManager;
+import deadmarslib.ScreenManager.ScreenState;
 import deadmarslib.System.TimeSpan;
 import java.awt.Color;
 import java.awt.Font;
