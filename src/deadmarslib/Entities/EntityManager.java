@@ -71,7 +71,7 @@ public class EntityManager {
      * 
      * @param tArea The world space that the EntityManager manages.
      * @param maxItemsPerTreeNode Max amount of entities per tree node. Used internally by {@link QuadTree}.
-     * @param dynamicTreeResize Whether or not to dynamically resize the tree as entities move. 
+     * @param dynamicTreeResize Whether or not to dynamically resize the tree as entities are added or move. 
      * Used internally by {@link QuadTree}.
      */
     public EntityManager(Rectangle tArea, int maxItemsPerTreeNode, boolean dynamicTreeResize) {
@@ -83,7 +83,7 @@ public class EntityManager {
     // <editor-fold defaultstate="expanded" desc="Public Methods">
 
     /**
-     * Inserts an {@link Entity} into the EntityManager.
+     * Inserts an {@link Entity} into the {@link EntityManager}.
      * 
      * @param ent {@link Entity} to insert.
      */
@@ -113,7 +113,7 @@ public class EntityManager {
     }
 
     /**
-     * Removes an {@link Entity} from the EntityManager.
+     * Removes an {@link Entity} from the {@link EntityManager}.
      * 
      * @param ent {@link Entity} to remove.
      */
@@ -132,7 +132,7 @@ public class EntityManager {
     }
 
     /**
-     * Removes all entities from the EntityManager.
+     * Removes all entities from the {@link EntityManager}.
      */
     public void removeAllEntities() {
         while(entities.size() > 0) {
@@ -142,7 +142,7 @@ public class EntityManager {
     }
 
     /**
-     * Updates all updatable entities in the EntityManager.
+     * Updates all updatable entities in the {@link EntityManager}.
      * <p>
      * Collision detection is also performed here.
      * 
@@ -190,9 +190,9 @@ public class EntityManager {
     }
 
     /**
-     * Renders all entities contained inside the specified view area.
+     * Renders all entities contained inside the specified rectangular view area.
      * <p>
-     * Filters out entity classes that match classes in the supplied filterout {@link Class} array.
+     * Filters out {@link Entity} classes that match classes in the supplied filterout {@link Class} array.
      * 
      * @param filterout {@link Class} array of classes to filter out of the render.
      * @param renderViewArea View area to render entities from.
@@ -218,6 +218,16 @@ public class EntityManager {
         }
     }
     
+    /**
+     * Renders all entities contained inside the specified polygonal view area.
+     * <p>
+     * Filters out {@link Entity} classes that match classes in the supplied filterout {@link Class} array.
+     * 
+     * @param filterout {@link Class} array of classes to filter out of the render.
+     * @param renderViewArea View area to render entities from.
+     * @param gameTime Reference to the GameTime.
+     * @param g Reference to the graphics context for drawing.
+     */
     public void renderEntities(Class filterout[], Polygon renderViewArea, GameTime gameTime, Graphics g) {
         ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
         entityTree.getItems(renderViewArea, renderList);
@@ -237,10 +247,17 @@ public class EntityManager {
         }
     }
     
-    public ArrayList<Entity> getEntities(Class filterout[], Rectangle renderViewArea) {
+    /**
+     * Retrieve an {@link ArrayList} of entities contained within the specified rectangular view area.
+     * 
+     * @param filterout {@link Class} array of classes to filter out of the query.
+     * @param viewArea Area to retrieve entities from.
+     * @return {@link ArrayList} of entities.
+     */
+    public ArrayList<Entity> getEntities(Class filterout[], Rectangle viewArea) {
         ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
         ArrayList<Entity> entList = new ArrayList<>();
-        entityTree.getItems(renderViewArea, renderList);
+        entityTree.getItems(viewArea, renderList);
         
         copyEntLoop:
         for(int x = 0; x < renderList.size(); x++) {
@@ -259,6 +276,13 @@ public class EntityManager {
         return entList;
     }
     
+    /**
+     * Retrieve an {@link ArrayList} of entities contained within the specified polygonal view area.
+     * 
+     * @param filterout {@link Class} array of classes to filter out of the query.
+     * @param renderViewArea Area to retrieve entities from.
+     * @return {@link ArrayList} of entities.
+     */
     public ArrayList<Entity> getEntities(Class filterout[], Polygon renderViewArea) {
         ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
         ArrayList<Entity> entList = new ArrayList<>();
