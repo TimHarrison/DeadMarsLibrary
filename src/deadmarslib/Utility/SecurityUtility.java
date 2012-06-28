@@ -1,8 +1,10 @@
 package deadmarslib.Utility;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+// </editor-fold>
 
 /**
  * DeadMarsLib SecurityUtility Class
@@ -11,6 +13,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class SecurityUtility {
     
+    /**
+     * Create an MD5 hash of a string.
+     * 
+     * @param md5 String to hash.
+     * @return String representation of hash.
+     */
     public static String MD5(String md5) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
