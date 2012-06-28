@@ -1,19 +1,36 @@
 package deadmarslib.Graphics;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary SpriteSheet Class
+ * 
+ * @author Daniel Cecil
+ */
 public class SpriteSheet {
     
     private BufferedImage sheet;
     private Dimension grid;
     private Dimension cells = new Dimension();
     
+    /**
+     * Retrieves the width of the cells of this {@link SpriteSheet}.
+     * 
+     * @return cell width.
+     */
     public int getCellWidth() {
         return grid.width;
     }
     
+    /**
+     * Retrieves the height of the cells of this {@link SpriteSheet}.
+     * 
+     * @return cell height.
+     */
     public int getCellHeight() {
         return grid.height;
     }
@@ -59,8 +76,8 @@ public class SpriteSheet {
      * @param g Graphics context to draw to.
      * @param sCell Cell to start drawing from.
      * @param gCells Dimensions of sprite in cells to draw.
-     * @param dX X coordinate of where to draw the sprite to on the graphics context.
-     * @param dY Y coordinate of where to draw the sprite to on the graphics context.
+     * @param dX X coordinate of where to draw the sprite on the graphics context.
+     * @param dY Y coordinate of where to draw the sprite on the graphics context.
      */
     public void renderSprite(Graphics g, int sCell, Dimension gCells, int dX, int dY) {
         int sGridX = (sCell % cells.width);
@@ -72,8 +89,8 @@ public class SpriteSheet {
      * Render a sprite to a graphics context.
      * 
      * @param g Graphics context to draw to.
-     * @param sGridX X of grid cell to start drawing from.
-     * @param sGridY Y of grid cell to start drawing from.
+     * @param sGridX X of grid cells to start drawing from.
+     * @param sGridY Y of grid cells to start drawing from.
      * @param gCellsX Amount of cells wide the sprite is.
      * @param gCellsY Amount of cells high the sprite is.
      * @param dX X coordinate of where to draw the sprite to on the graphics context.
