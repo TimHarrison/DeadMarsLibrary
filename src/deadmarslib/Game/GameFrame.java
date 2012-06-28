@@ -43,7 +43,8 @@ public class GameFrame extends GameBase implements WindowListener {
     
     /**
      * Retrieves the {@link JFrame} associated with this game.
-     * @return 
+     * 
+     * @return {@link JFrame}.
      */
     public final JFrame getFrame() {
         return window;

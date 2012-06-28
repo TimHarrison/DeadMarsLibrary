@@ -82,7 +82,7 @@ public class GameCamera {
     /**
      * Sets the height of this {@link GameCamera}.
      * 
-     * @param w new height.
+     * @param h new height.
      */
     public void setHeight(int h) {
         Height = h;
