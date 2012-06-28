@@ -91,14 +91,30 @@ public class GameBase extends Canvas implements Runnable {
         sizeChanged = true;
     }
     
+    /**
+     * Wrapper for the setSize method.
+     * 
+     * @param width
+     * @param height 
+     */
     public final void setResolution(int width, int height) {
         this.setSize(width, height);
     }
     
+    /**
+     * Wrapper for the setSize method.
+     * 
+     * @param size 
+     */
     public final void setResolution(Dimension size) {
         this.setSize(size);
     }
     
+    /**
+     * Retrieves the dimensions of the draw surface.
+     * 
+     * @return Dimensions of window.
+     */
     public Dimension getResolution() {
         return new Dimension(this.dbImage.getWidth(), this.dbImage.getHeight());
     }
@@ -294,7 +310,7 @@ public class GameBase extends Canvas implements Runnable {
         }
     }
     
-    public void gameUpdate() {
+    private void gameUpdate() {
         gelapsedafter = System.nanoTime();
         
         gameTime.elapsedGameTime.setSpan(gelapsedbefore, gelapsedafter);
@@ -314,7 +330,7 @@ public class GameBase extends Canvas implements Runnable {
         }
     }
     
-    public void gameRender() {
+    private void gameRender() {
         if (dbImage == null || sizeChanged) {
             Dimension size = new Dimension(getWidth(), getHeight());
             setSize(size);
@@ -345,7 +361,7 @@ public class GameBase extends Canvas implements Runnable {
         }
     }
     
-    public void paintScreen() {
+    private void paintScreen() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
                 createBufferStrategy(3);
@@ -363,6 +379,9 @@ public class GameBase extends Canvas implements Runnable {
     
     // <editor-fold defaultstate="expanded" desc="Public Methods">
     
+    /**
+     * Attempts to start the game thread.
+     */
     public synchronized void startGame() {
         if (running) return;
         running = true;
@@ -370,6 +389,9 @@ public class GameBase extends Canvas implements Runnable {
         thread.start();
     }
     
+    /**
+     * Attempts to stop the game thread.
+     */
     public synchronized void stopGame() {
         if (!running) return;
         running = false;
@@ -424,16 +446,25 @@ public class GameBase extends Canvas implements Runnable {
         components.remove(gc);
     }
     
+    /**
+     * Resumes the game from being paused.
+     */
     public void resumeGame() {
         isPaused = false;
     }
 
+    /**
+     * Pauses the game.
+     */
     public void pauseGame() {
         isPaused = true;
     }
     
     // </editor-fold>
     
+    /**
+     * Prints some general performance statistics to the console.
+     */
     public void printStats() {
         System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
         System.out.println("Average FPS: " + df.format(averageFPS));
