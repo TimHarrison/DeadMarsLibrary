@@ -2,11 +2,7 @@ package deadmarslib.Game;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.ArrayList;
 // </editor-fold>
 
@@ -108,6 +104,11 @@ public class GameInput extends GameComponent {
     
     // <editor-fold defaultstate="expanded" desc="Public Methods">
     
+    /**
+     * Retrieves the {@link Integer} code of the last key that was pressed.
+     * 
+     * @return key code.
+     */
     public Integer lastKeyPressed() {
         if(lastKey.size() > 0) {
             Integer key = lastKey.get(lastKey.size() - 1);
