@@ -57,7 +57,8 @@ public class Entity implements Comparable<Entity> {
      * Set collision definitions for when this entity collides with another entity.
      * <p>
      * The filters and definitions arrays must be of equal length for the {@link EntityManager} to
-     * accept them during collision detection.
+     * accept them during collision detection. If they are not of equal length, the {@link EntityManager}
+     * will ignore this entity outright and perform no collision detection.
      * 
      * @param filters Array of classes this entity can collide with. (Must inherently
      * be a list subclasses of {@link Entity}.
@@ -259,11 +260,11 @@ public class Entity implements Comparable<Entity> {
         }
     }
 
-//    /**
-//     * Gets the width of this entity.
-//     * 
-//     * @return Width.
-//     */
+    /**
+     * Gets the width of this entity.
+     * 
+     * @return Width.
+     */
 //    public double getWidth() {
 //        return entWidth;
 //    }
@@ -286,11 +287,11 @@ public class Entity implements Comparable<Entity> {
 //        }
 //    }
 
-//    /**
-//     * Gets the height of this entity.
-//     * 
-//     * @return Height
-//     */
+    /**
+     * Gets the height of this entity.
+     * 
+     * @return Height
+     */
 //    public double getHeight() {
 //        return entHeight;
 //    }
@@ -313,11 +314,11 @@ public class Entity implements Comparable<Entity> {
 //        }
 //    }
 
-//    /**
-//     * Gets the dimensions of this entity.
-//     * 
-//     * @return Dimensions.
-//     */
+    /**
+     * Gets the dimensions of this entity.
+     * 
+     * @return Dimensions.
+     */
 //    public Dimension getSize() {
 //        return new Dimension((int)entWidth, (int)entHeight);
 //    }
@@ -492,11 +493,11 @@ public class Entity implements Comparable<Entity> {
         entLifespan = ls;
     }
 
-//    /**
-//     * Retrieves this entity's bounding rectangle.
-//     * 
-//     * @return this entity's bounding rectangle.
-//     */
+    /**
+     * Retrieves this entity's bounding rectangle.
+     * 
+     * @return this entity's bounding rectangle.
+     */
 //    public Rectangle getBoundingBox() {
 //        double scale = this.getScale();
 //        int scaledOX = (int) (this.getOriginX() * scale);
