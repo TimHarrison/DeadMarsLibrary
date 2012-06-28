@@ -1,5 +1,6 @@
 package deadmarslib.ScreenManager;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import deadmarslib.Game.GameBase;
 import deadmarslib.Game.GameComponent;
 import deadmarslib.Game.GameInput;
@@ -7,7 +8,21 @@ import deadmarslib.Game.GameTime;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary ScreenManager Class
+ * <p>
+ * ScreenManager and all included classes are a close code port of the
+ * XNA Game State Management sample on App Hub (http://create.msdn.com/en-US).
+ * <p>
+ * Game State Management
+ * <br/>http://create.msdn.com/en-US/education/catalog/sample/game_state_management
+ * <br/>Copyright (C) Microsoft Corporation.
+ * <br/>See included Microsoft Permissive License.
+ * 
+ * @author Daniel Cecil
+ */
 public class ScreenManager extends GameComponent {
         
     // <editor-fold defaultstate="expanded" desc="Fields">
@@ -17,11 +32,16 @@ public class ScreenManager extends GameComponent {
     
     boolean isInitialized;
     // </editor-fold>
-    
-    // <editor-fold defaultstate="expanded" desc="Properties">
-    // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Initialize">
+    
+    /**
+     * Constructor.
+     * <p>
+     * Attaches this ScreenManager to a {@link GameBase}.
+     * 
+     * @param game reference to GameBase.
+     */
     public ScreenManager(GameBase game) {
         super(game);
         
@@ -101,6 +121,12 @@ public class ScreenManager extends GameComponent {
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Public Methods">
+    
+    /**
+     * Adds a {@link Screen} to the {@link ScreenManager}.
+     * 
+     * @param screen {@link Screen} to add.
+     */
     public void AddScreen(Screen screen) {
         screen.setScreenManager(this);
         screen.setIsExiting(false);
@@ -112,6 +138,11 @@ public class ScreenManager extends GameComponent {
         screens.add(screen);
     }
     
+    /**
+     * Removes a {@link Screen} from the {@link ScreenManager}.
+     * 
+     * @param screen {@link Screen} to remove.
+     */
     public void RemoveScreen(Screen screen) {
         if(isInitialized) {
             screen.UnloadContent();
@@ -121,10 +152,20 @@ public class ScreenManager extends GameComponent {
         screensToUpdate.remove(screen);
     }
 
+    /**
+     * Retrieves an array of all screens currently in the {@link ScreenManager}.
+     * 
+     * @return Array of screens.
+     */
     public Screen[] getScreens() {
         return Arrays.copyOf(screens.toArray(), screens.toArray().length, Screen[].class);
     }
     
+    /**
+     * Retrieves the {@link GameInput} object of the {@link ScreenManager}.
+     * 
+     * @return {@link GameInput} object.
+     */
     public GameInput getInput() {
         return input;
     }

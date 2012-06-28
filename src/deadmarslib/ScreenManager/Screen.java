@@ -1,11 +1,18 @@
 package deadmarslib.ScreenManager;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import deadmarslib.Game.GameInput;
 import deadmarslib.Game.GameTime;
 import deadmarslib.System.TimeSpan;
 import deadmarslib.Utility.MathUtility;
 import java.awt.Graphics;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary Screen Class
+ * 
+ * @author Daniel Cecil
+ */
 public class Screen {
     
     // <editor-fold defaultstate="expanded" desc="Fields">
@@ -20,6 +27,12 @@ public class Screen {
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Properties">
+    
+    /**
+     * Retrieves whether this {@link Screen} is a pop-up or not.
+     * 
+     * @return whether Screen is pup-up.
+     */
     public boolean getIsPopup() {
         return isPopup;
     }
@@ -28,6 +41,11 @@ public class Screen {
         isPopup = flag;
     }
     
+    /**
+     * Retrieves the {@link TimeSpan} of this {@link Screen}'s transition to on.
+     * 
+     * @return {@link TimeSpan}.
+     */
     public TimeSpan getTransitionOnTime() {
         return transitionOnTime;
     }
@@ -36,6 +54,11 @@ public class Screen {
         transitionOnTime = time;
     }
     
+    /**
+     * Retrieves the {@link TimeSpan} of this {@link Screen}'s transition to off.
+     * 
+     * @return {@link TimeSpan}.
+     */
     public TimeSpan getTransitionOffTime() {
         return transitionOffTime;
     }
@@ -44,6 +67,11 @@ public class Screen {
         transitionOffTime = time;
     }
     
+    /**
+     * Retrieves how far along in transition the screen is.
+     * 
+     * @return transition position.
+     */
     public float getTransitionPosition() {
         return transitionPosition;
     }
@@ -52,10 +80,20 @@ public class Screen {
         transitionPosition = time;
     }
     
+    /**
+     * Retrieves an alpha value based on the transition position.
+     * 
+     * @return transition alpha.
+     */
     public int getTransitionAlpha() {
         return (int)(255 - getTransitionPosition() * 255);
     }
     
+    /**
+     * Retrieves the {@link ScreenState} of this {@link Screen}.
+     * 
+     * @return {@link ScreenState}.
+     */
     public ScreenState getScreenState() {
         return screenState;
     }
@@ -64,6 +102,11 @@ public class Screen {
         screenState = state;
     }
     
+    /**
+     * Retrieves whether this {@link Screen} is currently exiting.
+     * 
+     * @return whether {@link Screen} is exiting.
+     */
     public boolean getIsExiting() {
         return isExiting;
     }
@@ -72,17 +115,27 @@ public class Screen {
         isExiting = flag;
     }
     
+    /**
+     * Retrieves whether this {@link Screen} is currently active.
+     * 
+     * @return whether {@link Screen} is active.
+     */
     public boolean getIsActive() {
         return !otherScreenHasFocus &&
                        (screenState == ScreenState.TransitionOn ||
                         screenState == ScreenState.Active);
     }
     
+    /**
+     * Retrieves the {@link ScreenManager} associated with this {@link Screen}.
+     * 
+     * @return {@link ScreenManager}.
+     */
     public ScreenManager getScreenManager() {
         return screenManager;
     }
     
-    public void setScreenManager(ScreenManager sm) {
+    protected void setScreenManager(ScreenManager sm) {
         screenManager = sm;
     }
     // </editor-fold>
@@ -153,6 +206,13 @@ public class Screen {
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Public Methods">
+    /**
+     * Exit the screen.
+     * <p>
+     * If the transition off time is zero, the screen will exit immediately.
+     * If there is a transition off time, the screen will be marked as exiting
+     * and will exit automatically when it is done.
+     */
     public void ExitScreen() {
         if (transitionOffTime == TimeSpan.Zero)
         {
