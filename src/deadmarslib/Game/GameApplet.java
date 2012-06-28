@@ -17,17 +17,20 @@ public class GameApplet extends GameBase {
     /**
      * Constructor
      * 
-     * @param winName Name of window. Not used in Applet, only for consistency.
+     * @param applet JApplet reference. Required.
+     * @param size Size of applet window frame.
      * @param fps Desired game update speed.
      */
     public GameApplet(JApplet applet, Dimension size, long fps) {
         super(size, fps);
         this.setIsApplet(true);
         
-        applet.getContentPane().add(this);
-        applet.setSize(size);
-        applet.setFocusable(true);
-        applet.requestFocus();
+        if(applet != null) {
+            applet.getContentPane().add(this);
+            applet.setSize(size);
+            applet.setFocusable(true);
+            applet.requestFocus();
+        }
     }
     
     // </editor-fold>
