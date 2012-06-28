@@ -41,10 +41,19 @@ public class GameFrame extends GameBase implements WindowListener {
         window.setLocationRelativeTo(null);
     }
     
+    /**
+     * Retrieves the {@link JFrame} associated with this game.
+     * @return 
+     */
     public final JFrame getFrame() {
         return window;
     }
     
+    /**
+     * Attempts to create a full-screen window.
+     * 
+     * @param flag 
+     */
     public final void setFullScreen(boolean flag) {
         if(flag) {
             GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
