@@ -1,12 +1,19 @@
 package deadmarslib.ScreenManager.Screens;
 
+// <editor-fold defaultstate="expanded" desc="Imports">
 import deadmarslib.Game.GameTime;
 import deadmarslib.ScreenManager.Screen;
 import deadmarslib.System.TimeSpan;
 import deadmarslib.Utility.ContentManager;
 import java.awt.Graphics;
 import java.awt.Image;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary BackgroundScreen Class
+ *
+ * @author Daniel Cecil
+ */
 public class BackgroundScreen extends Screen {
 
     // <editor-fold defaultstate="expanded" desc="Fields">
