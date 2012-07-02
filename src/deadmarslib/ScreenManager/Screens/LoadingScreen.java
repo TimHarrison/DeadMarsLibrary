@@ -1,5 +1,6 @@
 package deadmarslib.ScreenManager.Screens;
 
+// <editor-fold default="collapsed" desc="Imports">
 import deadmarslib.Game.GameTime;
 import deadmarslib.ScreenManager.Screen;
 import deadmarslib.ScreenManager.ScreenManager;
@@ -8,7 +9,13 @@ import deadmarslib.System.TimeSpan;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary LoadingScreen Class
+ *
+ * @author Daniel Cecil
+ */
 public class LoadingScreen extends Screen {
 
     // <editor-fold defaultstate="expanded" desc="Fields">
