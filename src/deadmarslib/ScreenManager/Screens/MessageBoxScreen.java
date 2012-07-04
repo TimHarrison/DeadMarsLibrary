@@ -1,5 +1,6 @@
 package deadmarslib.ScreenManager.Screens;
 
+// <editor-fold default="collapsed" desc="Imports">
 import deadmarslib.Game.GameInput;
 import deadmarslib.Game.GameTime;
 import deadmarslib.ScreenManager.Screen;
@@ -10,7 +11,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+// </editor-fold>
 
+/**
+ * DeadMarsLibrary MessageBoxScreen Class
+ * 
+ * @author Daniel Cecil
+ */
 public class MessageBoxScreen extends Screen {
 
     // <editor-fold defaultstate="expanded" desc="Fields">
