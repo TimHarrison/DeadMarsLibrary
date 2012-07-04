@@ -543,7 +543,7 @@ public class Entity implements Comparable<Entity> {
                 this.entCollidable = false;
                 break;
             default:
-                this.entCollidable = false;
+                this.entCollidable = true;
                 this.entType = EntityType.Actor;
                 break;
         }  
