@@ -25,6 +25,11 @@ public class QuadTree {
         this.maxItems = m;
     }
     
+    /**
+     * Retrieve the maximum number of allowed items in a tree node.
+     * 
+     * @return max no. of node items.
+     */
     public int getTreeMaxItems() {
         return this.maxItems;
     }
