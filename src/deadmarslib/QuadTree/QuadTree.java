@@ -34,6 +34,11 @@ public class QuadTree {
         return this.maxItems;
     }
     
+    /**
+     * Retrieve the {@link Rectangle} that represents the world space of this {@link QuadTree}.
+     * 
+     * @return world space of tree.
+     */
     public Rectangle getWorldRect() {
         return rootNode.getRect();
     }
