@@ -4,6 +4,7 @@ package deadmarslib.Utility;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 // </editor-fold>
@@ -21,12 +22,12 @@ public class ContentManager {
      * @param filepath File path to the image file.
      * @return A {@link BufferedImage} containing the loaded image.
      */
-    public static BufferedImage LoadImage(String filepath) {
+    public static BufferedImage loadImage(String filepath) {
         try{
             BufferedImage img = ImageIO.read(ContentManager.class.getResource(filepath));
             System.out.println("Loaded File: " + filepath);
             return img;
-        } catch(Exception e) {
+        } catch(IOException | IllegalArgumentException e) {
             System.out.println("Missing File: " + filepath);
             return null;
         }
@@ -38,7 +39,7 @@ public class ContentManager {
      * @param filepath File path to the sound file.
      * @return A {@link Clip} containing the loaded sound.
      */
-    public static AudioClip LoadSound(String filepath) {
+    public static AudioClip loadSound(String filepath) {
         AudioClip sound = null;
         
         try{
@@ -56,7 +57,7 @@ public class ContentManager {
      * 
      * @param sound Sound {@link Clip} to play.
      */
-    public static void PlaySound(AudioClip sound) {
+    public static void playSound(AudioClip sound) {
         final AudioClip clip = sound;
         try{
             new Thread() {
@@ -65,8 +66,7 @@ public class ContentManager {
                     clip.play();
                 }
             }.start();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IllegalThreadStateException | NullPointerException e) {
         }
     }
 

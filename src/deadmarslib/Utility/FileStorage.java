@@ -6,51 +6,69 @@ import java.io.*;
 
 /**
  * DeadMarsLib FileStorage Class
- * 
+ *
  * @author Daniel Cecil
  */
 public class FileStorage {
-    
+
     /**
      * Saves an object to a serialized file.
-     * 
+     *
      * @param filename Name to save file as.
      * @param obj Object to serialize to file.
      */
-    public static void Save(String filename, Object obj) {
+    public static void save(String filename, Object obj) {
+        //Untested FindBugs Bug-fix
+        FileOutputStream fos;
+        ObjectOutputStream out;
         try {
-            FileOutputStream fos = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(obj);
-            out.close();
-            fos.close();
-        } catch(IOException ex) {
-            ex.printStackTrace();
+            fos = new FileOutputStream(filename);
+            try {
+                out = new ObjectOutputStream(fos);
+                try {
+                    out.writeObject(obj);
+                    out.close();
+                    fos.close();
+                } catch (IOException ex) {
+                    out.close();
+                    fos.close();
+                }
+            } catch (IOException ex) {
+            }
+        } catch (FileNotFoundException ex) {
         }
     }
-    
+
     /**
-     * Loads a serialized object file into an Object.
-     * <p>
-     * You must cast the returned Object to the same Object as when it was saved.
-     * 
+     * Loads a serialized object file into an Object. <p> You must cast the
+     * returned Object to the same Object as when it was saved.
+     *
      * @param filename Name of serialized object file to load.
      * @return Object containing loaded serialized object.
      */
-    public static Object Load(String filename) {        
+    public static Object load(String filename) {
+        //Untested FindBugs Bug-fix
         Object obj = null;
-        
+
+        FileInputStream fis;
+        ObjectInputStream in;
         try {
-            FileInputStream fis = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(fis);
-            obj = in.readObject();
-            in.close();
-            fis.close();
-        } catch(IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+            fis = new FileInputStream(filename);
+            try {
+                in = new ObjectInputStream(fis);
+                try {
+                    obj = in.readObject();
+                    in.close();
+                    fis.close();
+                } catch (IOException | ClassNotFoundException ex) {
+                    in.close();
+                    fis.close();
+                }
+            } catch (IOException ex) {
+            }
+        } catch (FileNotFoundException ex) {
         }
-        
+
         return obj;
     }
-    
 }

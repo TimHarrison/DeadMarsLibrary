@@ -8,11 +8,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Arrays;
 // </editor-fold>
 
 /**
  * DeadMarsLib Entity Class
- * 
+ *
  * @author Daniel Cecil
  */
 public class Entity implements Comparable<Entity> {
@@ -27,7 +28,7 @@ public class Entity implements Comparable<Entity> {
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Properties">
-
+    
     QuadTreeNodeItem entQTItemAssociate = null;
     
     Class[] collisionClassFilters;
@@ -52,35 +53,37 @@ public class Entity implements Comparable<Entity> {
     double entSpeed = 0.0;
     double entElapsedTime = 0.0;
     double entLifespan = 0.0;
-    
+
     /**
-     * Set collision definitions for when this entity collides with another entity.
-     * <p>
-     * The filters and definitions arrays must be of equal length for the {@link EntityManager} to
-     * accept them during collision detection. If they are not of equal length, the {@link EntityManager}
-     * will ignore this entity outright and perform no collision detection.
-     * 
-     * @param filters Array of classes this entity can collide with. (Must inherently
-     * be a list subclasses of {@link Entity}.
-     * @param definitions Array of {@link EntityCollision} interfaces. Defines what to do in the
-     * event of a collision.
+     * Set collision definitions for when this entity collides with another
+     * entity. <p> The filters and definitions arrays must be of equal length
+     * for the {@link EntityManager} to accept them during collision detection.
+     * If they are not of equal length, the {@link EntityManager} will ignore
+     * this entity outright and perform no collision detection.
+     *
+     * @param filters Array of classes this entity can collide with. (Must
+     * inherently be a list subclasses of {@link Entity}.
+     * @param definitions Array of {@link EntityCollision} interfaces. Defines
+     * what to do in the event of a collision.
      */
     public void setCollisions(Class[] filters, EntityCollision[] definitions) {
-        collisionClassFilters = filters;
-        collisionDefinitions = definitions;
+        // Untested FindBugs bug-fix.
+        // Assigns copies of filters and definitions arrays.
+        collisionClassFilters = Arrays.copyOf(filters, filters.length, filters.getClass());
+        collisionDefinitions = Arrays.copyOf(definitions, definitions.length, definitions.getClass());
     }
 
     /**
-     * Sets the {@link QuadTreeNodeItem} to associate with this entity.
-     * <p>
-     * When an Entity is inserted into an {@link EntityManager} a {@link QuadTreeNodeItem} is automatically
-     * assigned to the Entity. It is not necessary or recommended to assign a new {@link QuadTreeNodeItem} to 
-     * the Entity unless you are building your own {@link EntityManager}.
-     * <p>
-     * {@link QuadTreeNodeItem} and {@link Entity} are not synchronized. You must manually update the
-     * position, size, etc. of the {@link QuadTreeNodeItem}, whenever the entity is updated, for collision
+     * Sets the {@link QuadTreeNodeItem} to associate with this entity. <p> When
+     * an Entity is inserted into an {@link EntityManager} a
+     * {@link QuadTreeNodeItem} is automatically assigned to the Entity. It is
+     * not necessary or recommended to assign a new {@link QuadTreeNodeItem} to
+     * the Entity unless you are building your own {@link EntityManager}. <p>
+     * {@link QuadTreeNodeItem} and {@link Entity} are not synchronized. You
+     * must manually update the position, size, etc. of the
+     * {@link QuadTreeNodeItem}, whenever the entity is updated, for collision
      * detection and rendering to work properly.
-     * 
+     *
      * @param i {@link QuadTreeNodeItem} to be associated with this entity.
      */
     public void setQuadTreeNodeItemAssociate(QuadTreeNodeItem i) {
@@ -88,8 +91,9 @@ public class Entity implements Comparable<Entity> {
     }
 
     /**
-     * Retrieves the {@link QuadTreeNodeItem} associated with this entity if one exists.
-     * 
+     * Retrieves the {@link QuadTreeNodeItem} associated with this entity if one
+     * exists.
+     *
      * @return {@link QuadTreeNodeItem} associated with this entity.
      */
     public QuadTreeNodeItem getQuadTreeNodeItemAssociate() {
@@ -105,7 +109,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Retrieves the destruction status of this entity.
-     * 
+     *
      * @return whether this entity is marked to be destroyed.
      */
     public boolean isDestroyed() {
@@ -114,7 +118,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Retrieves whether or not this entity can be collided with.
-     * 
+     *
      * @return whether or not this entity can be collided with.
      */
     public boolean isCollidable() {
@@ -123,47 +127,44 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Set whether or not this entity can be collided with.
-     * 
+     *
      * @param state Can this entity be collided with?
      */
     public void setIsCollidable(boolean state) {
         entCollidable = state;
     }
-    
+
     /**
      * Retrieves whether or not this entity is currently colliding.
-     * 
+     *
      * @return whether or not this entity is currently colliding.
      */
     public boolean isColliding() {
         return entIsColliding;
     }
-    
+
     /**
      * Sets whether or not this entity is currently colliding.
-     * 
-     * @param state 
+     *
+     * @param state
      */
     public void setIsColliding(boolean state) {
         entIsColliding = state;
     }
-    
+
     /**
-     * Gets the type of this entity.
-     * <p>
-     * Can be Actor, Prop, or Background.
-     * 
+     * Gets the type of this entity. <p> Can be Actor, Prop, or Background.
+     *
      * @return type of this entity.
      */
     public EntityType getType() {
         return entType;
     }
-    
+
     /**
-     * Sets the type of this entity.
-     * <p>
-     * Available types are Actor, Prop, and Background.
-     * 
+     * Sets the type of this entity. <p> Available types are Actor, Prop, and
+     * Background.
+     *
      * @param type this entity's new type.
      */
     public void setType(EntityType type) {
@@ -172,7 +173,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Gets the X coordinate of the entity.
-     * 
+     *
      * @return X coordinate.
      */
     public double getX() {
@@ -181,22 +182,22 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Sets the X coordinate of the entity.
-     * 
+     *
      * @param x New X coordinate.
      */
     public void setX(double x) {
-        if(x != entX) {
+        if ((int) x != (int) entX) {
             entX = x;
-            shape.move((int)entX, (int)entY);
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
+            shape.move((int) entX, (int) entY);
+            if (getQuadTreeNodeItemAssociate() != null) {
+                getQuadTreeNodeItemAssociate().setPosition(new Point((int) entX, (int) entY));
             }
         }
     }
 
     /**
      * Gets the Y coordinate of the entity.
-     * 
+     *
      * @return Y coordinate.
      */
     public double getY() {
@@ -205,64 +206,64 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Sets the Y coordinate of the entity.
-     * 
+     *
      * @param y New Y coordinate.
      */
     public void setY(double y) {
-        if(y != entY) {
+        if ((int) y != (int) entY) {
             entY = y;
-            shape.move((int)entX, (int)entY);
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
+            shape.move((int) entX, (int) entY);
+            if (getQuadTreeNodeItemAssociate() != null) {
+                getQuadTreeNodeItemAssociate().setPosition(new Point((int) entX, (int) entY));
             }
         }
     }
-    
+
     /**
      * Gets the XY coordinates of the entity.
-     * 
+     *
      * @return XY coordinates.
      */
     public Point getPosition() {
-        return new Point((int)entX, (int)entY);
+        return new Point((int) entX, (int) entY);
     }
 
     /**
      * Sets the XY coordinates of the entity.
-     * 
+     *
      * @param x New X coordinate.
      * @param y New Y coordinate.
      */
     public void setPosition(double x, double y) {
-        if(x != entX || y != entY) {
+        if ((int) x != (int) entX || (int) y != (int) entY) {
             entX = x;
             entY = y;
-            shape.move((int)entX, (int)entY);
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
+            shape.move((int) entX, (int) entY);
+            if (getQuadTreeNodeItemAssociate() != null) {
+                getQuadTreeNodeItemAssociate().setPosition(new Point((int) entX, (int) entY));
             }
         }
     }
-    
+
     /**
      * Sets the XY coordinates of the entity.
-     * 
+     *
      * @param pos New XY coordinate.
      */
     public void setPosition(Point pos) {
-        if(pos.x != entX || pos.y != entY) {
+        if ((int) pos.x != (int) entX || (int) pos.y != (int) entY) {
             entX = pos.x;
             entY = pos.y;
-            shape.move((int)entX, (int)entY);
-            if(getQuadTreeNodeItemAssociate() != null) {
-                getQuadTreeNodeItemAssociate().setPosition(new Point((int)entX, (int)entY));
+            shape.move((int) entX, (int) entY);
+            if (getQuadTreeNodeItemAssociate() != null) {
+                getQuadTreeNodeItemAssociate().setPosition(new Point((int) entX, (int) entY));
             }
         }
     }
 
     /**
      * Gets the width of this entity.
-     * 
+     *
      * @return Width.
      */
 //    public double getWidth() {
@@ -286,10 +287,10 @@ public class Entity implements Comparable<Entity> {
 //            }
 //        }
 //    }
-
+    
     /**
      * Gets the height of this entity.
-     * 
+     *
      * @return Height
      */
 //    public double getHeight() {
@@ -313,10 +314,10 @@ public class Entity implements Comparable<Entity> {
 //            }
 //        }
 //    }
-
+    
     /**
      * Gets the dimensions of this entity.
-     * 
+     *
      * @return Dimensions.
      */
 //    public Dimension getSize() {
@@ -357,7 +358,7 @@ public class Entity implements Comparable<Entity> {
 //            }
 //        }
 //    }
-
+    
 //    /**
 //     * Gets the origin X coordinate of this entity.
 //     * <p>
@@ -368,11 +369,11 @@ public class Entity implements Comparable<Entity> {
 //    public double getOriginX() {
 //        return entOriginX;
 //    }
-
+    
 //    private void setOriginX(double ox) {
 //        entOriginX = ox;
 //    }
-
+    
 //    /**
 //     * Gets the origin Y coordinate of this entity.
 //     * <p>
@@ -401,10 +402,10 @@ public class Entity implements Comparable<Entity> {
 //        entOriginX = opos.x;
 //        entOriginY = opos.y;
 //    }
-
+    
     /**
      * Gets the direction of this entity.
-     * 
+     *
      * @return Direction.
      */
     public double getDirection() {
@@ -413,7 +414,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Sets the direction of this entity.
-     * 
+     *
      * @param d New direction.
      */
     public void setDirection(double d) {
@@ -432,10 +433,10 @@ public class Entity implements Comparable<Entity> {
 //    private void setScale(double s) {
 //        entScale = s;
 //    }
-
+    
     /**
      * Gets the speed of this entity.
-     * 
+     *
      * @return Speed.
      */
     public double getSpeed() {
@@ -444,7 +445,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Sets the speed of this entity.
-     * 
+     *
      * @param s New speed.
      */
     public void setSpeed(double s) {
@@ -453,7 +454,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Gets the amount of time this entity has been alive for.
-     * 
+     *
      * @return time this entity has been alive.
      */
     public double getElapsedTime() {
@@ -461,19 +462,18 @@ public class Entity implements Comparable<Entity> {
     }
 
     /**
-     * Sets the amount of time this entity has been alive for.
-     * <p>
-     * Can be used to manipulate the entity's life.
-     * 
+     * Sets the amount of time this entity has been alive for. <p> Can be used
+     * to manipulate the entity's life.
+     *
      * @param et elapsed entity time.
      */
     public void setElapsedTime(double et) {
         entElapsedTime = et;
     }
-    
+
     /**
      * Gets the time this entity is allowed to be alive for.
-     * 
+     *
      * @return allowed lifetime of this entity.
      */
     public double getLifespan() {
@@ -481,12 +481,11 @@ public class Entity implements Comparable<Entity> {
     }
 
     /**
-     * Sets the time this entity is allowed to be alive for.
-     * <p>
-     * Can be used to set, shorten, or lengthen an entity's lifespan.
-     * <p>
-     * A value of 0 denotes an unspecified lifetime. The entity will live until you manually destroy it.
-     * 
+     * Sets the time this entity is allowed to be alive for. <p> Can be used to
+     * set, shorten, or lengthen an entity's lifespan. <p> A value of 0 denotes
+     * an unspecified lifetime. The entity will live until you manually destroy
+     * it.
+     *
      * @param ls new lifespan to give this entity.
      */
     public void setLifespan(double ls) {
@@ -495,7 +494,7 @@ public class Entity implements Comparable<Entity> {
 
     /**
      * Retrieves this entity's bounding rectangle.
-     * 
+     *
      * @return this entity's bounding rectangle.
      */
 //    public Rectangle getBoundingBox() {
@@ -510,14 +509,14 @@ public class Entity implements Comparable<Entity> {
     public Rectangle getBoundingBox() {
         return shape.getBounds();
     }
-    
+
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Initialization">
-
+    
     /**
      * Constructor
-     * 
+     *
      * @param rect Position and Size of new Entity.
      * @param type Type of new Entity.
      */
@@ -529,13 +528,11 @@ public class Entity implements Comparable<Entity> {
 //        entOriginX = entWidth / 2f;
 //        entOriginY = entHeight / 2f;
         shape = new SatShape(rect);
-        
+
         entType = type;
-        
-        switch(type) {
+
+        switch (type) {
             case Actor:
-                this.entCollidable = true;
-                break;
             case Prop:
                 this.entCollidable = true;
                 break;
@@ -546,7 +543,7 @@ public class Entity implements Comparable<Entity> {
                 this.entCollidable = true;
                 this.entType = EntityType.Actor;
                 break;
-        }  
+        }
     }
 
 //    public Entity(Rectangle rect, Point point, EntityType type) {
@@ -575,80 +572,77 @@ public class Entity implements Comparable<Entity> {
 //                break;
 //        }
 //    }
-
-    /**
-     * Used to initialize an Entity when it is added to an {@link EntityManager}.
-     * <p>
-     * Called as soon as an entity is added to an {@link EntityManager}.
-     */
-    public void Initialize() {
-    }
     
+    /**
+     * Used to initialize an Entity when it is added to an
+     * {@link EntityManager}. <p> Called as soon as an entity is added to an
+     * {@link EntityManager}.
+     */
+    public void initialize() {
+    }
+
     @Override
     public int compareTo(Entity o) {
         return 0;
     }
-    
-    // </editor-fold>
 
+    // </editor-fold>
+    
     // <editor-fold defaultstate="expanded" desc="Load and Unload">
-
-    /**
-     * Overridable. Used to load content in an Entity.
-     * <p>
-     * Called as soon as an entity is added to an {@link EntityManager}.
-     * <p>
-     * Essentially the same as Initialize().
-     */
-    public void LoadContent() {
-    }
-
-    /**
-     * Overridable. Used to clean up Entity content.
-     * <p>
-     * Called when an entity is being removed from an {@link EntityManager}.
-     */
-    public void UnloadContent() {
-    }
     
+    /**
+     * Overridable. Used to load content in an Entity. <p> Called as soon as an
+     * entity is added to an {@link EntityManager}. <p> Essentially the same as
+     * Initialize().
+     */
+    public void loadContent() {
+    }
+
+    /**
+     * Overridable. Used to clean up Entity content. <p> Called when an entity
+     * is being removed from an {@link EntityManager}.
+     */
+    public void unloadContent() {
+    }
+
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="expanded" desc="Update and Render">
-
+    
     /**
      * Overridable. Used to update Entity logic.
-     * 
+     *
      * @param gameTime reference to the current {@link GameTime}.
      */
-    public void Update(GameTime gameTime) {
+    public void update(GameTime gameTime) {
         entElapsedTime += gameTime.elapsedGameTime.getMilliseconds();
     }
 
     /**
      * Overridable. Used to render an Entity to the game screen.
-     * 
+     *
      * @param gameTime reference to the current {@link GameTime}.
      * @param g reference to the graphics context for drawing.
      */
-    public void Render(GameTime gameTime, Graphics g) {
+    public void render(GameTime gameTime, Graphics g) {
     }
-    
+
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="expanded" desc="Collision">
-
+    
     /**
      * Creates a collision event between this Entity and the specified Entity.
-     * <p>
-     * Event is only created if the specified Entity exists in THIS Entity's collision definitions.
-     * 
+     * <p> Event is only created if the specified Entity exists in THIS Entity's
+     * collision definitions.
+     *
      * @param ent Entity to collide with.
      */
-    public void Collision(Entity ent) {
+    public void collision(Entity ent) {
         int onColIndex = 0;
-        
-        if(collisionClassFilters != null && collisionDefinitions != null && collisionClassFilters.length == collisionDefinitions.length) {
-        
+
+        if (collisionClassFilters != null && collisionDefinitions != null && collisionClassFilters.length == collisionDefinitions.length) {
+
             for (Class clazz : collisionClassFilters) {
                 if (ent.getClass() == clazz) {
                     collisionDefinitions[onColIndex].onCollision(this, ent);

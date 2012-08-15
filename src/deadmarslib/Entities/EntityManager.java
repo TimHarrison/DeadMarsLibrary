@@ -92,8 +92,8 @@ public class EntityManager {
         
         if(ent.entityManager == null) {
             ent.entityManager = this;
-            ent.Initialize();
-            ent.LoadContent();
+            ent.initialize();
+            ent.loadContent();
             
             QuadTreeNodeItem qtEnt = new QuadTreeNodeItem(ent, ent.getPosition(), ent.getSize());
             ent.setQuadTreeNodeItemAssociate(qtEnt);
@@ -120,7 +120,7 @@ public class EntityManager {
     public void removeEntity(Entity ent) {
         if(ent.entityManager == this) {
             ent.entityManager = null;
-            ent.UnloadContent();
+            ent.unloadContent();
             
             ent.getQuadTreeNodeItemAssociate().delete();
             
@@ -157,7 +157,7 @@ public class EntityManager {
             if(e.isDestroyed()) {
                 entitiesToRemove.add(e);
             } else {
-                e.Update(gameTime);
+                e.update(gameTime);
                 
                 if(e.getLifespan() != 0 && e.getElapsedTime() >= e.getLifespan()) {
                     entitiesToRemove.add(e);
@@ -173,7 +173,7 @@ public class EntityManager {
                     for(int y = 0; y < iColList.size(); y++) {
                         QuadTreeNodeItem item2 = iColList.get(y);
                         if(((Entity)item2.parent).isCollidable() && !e.equals((Entity)item2.parent)) {
-                            e.Collision((Entity)item2.parent);
+                            e.collision((Entity)item2.parent);
                             e.setIsColliding(true);
                         }
                     }
@@ -214,7 +214,7 @@ public class EntityManager {
                 }
             }
             
-            e.Render(gameTime, g);
+            e.render(gameTime, g);
         }
     }
     
@@ -243,7 +243,7 @@ public class EntityManager {
                 }
             }
             
-            e.Render(gameTime, g);
+            e.render(gameTime, g);
         }
     }
     

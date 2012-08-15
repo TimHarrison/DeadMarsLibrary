@@ -49,32 +49,32 @@ public class ScreenManager extends GameComponent {
     }
     
     @Override
-    public void Initialize() {
+    public void initialize() {
         isInitialized = true;
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Load and Unload">
     @Override
-    public void LoadContent() {
+    public void loadContent() {
         for(int x = 0; x < screens.size(); x++) {
             Screen screen = screens.get(x);
-            screen.LoadContent();
+            screen.loadContent();
         }
     }
     
     @Override
-    public void UnloadContent() {
+    public void unloadContent() {
         for(int x = 0; x < screens.size(); x++) {
             Screen screen = screens.get(x);
-            screen.UnloadContent();
+            screen.unloadContent();
         }
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
     @Override
-    public void Update(GameTime gameTime) {
+    public void update(GameTime gameTime) {
         screensToUpdate.clear();
         
         for(int x = 0; x < screens.size(); x++) {
@@ -82,7 +82,7 @@ public class ScreenManager extends GameComponent {
             screensToUpdate.add(screen);
         }
         
-        boolean otherScreenHasFocus = !Game.getIsActive();
+        boolean otherScreenHasFocus = !game.getIsActive();
         boolean coveredByOtherScreen = false;
         
         while(screensToUpdate.size() > 0) {
@@ -90,13 +90,13 @@ public class ScreenManager extends GameComponent {
             
             screensToUpdate.remove(screensToUpdate.size() - 1);
             
-            screen.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            screen.update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             
             if(screen.getScreenState() == ScreenState.TransitionOn ||
                screen.getScreenState() == ScreenState.Active)
             {
                 if(!otherScreenHasFocus) {
-                    screen.HandleInput(input);
+                    screen.handleInput(input);
                     otherScreenHasFocus = true;
                 }
                 
@@ -108,14 +108,14 @@ public class ScreenManager extends GameComponent {
     }
 
     @Override
-    public void Render(GameTime gameTime, Graphics g) {
+    public void render(GameTime gameTime, Graphics g) {
         for(int x = 0; x < screens.size(); x++) {
             Screen screen = screens.get(x);
             
             if(screen.getScreenState() == ScreenState.Hidden)
                 continue;
             
-            screen.Render(gameTime, g);
+            screen.render(gameTime, g);
         }
     }
     // </editor-fold>
@@ -127,12 +127,12 @@ public class ScreenManager extends GameComponent {
      * 
      * @param screen {@link Screen} to add.
      */
-    public void AddScreen(Screen screen) {
+    public void addScreen(Screen screen) {
         screen.setScreenManager(this);
         screen.setIsExiting(false);
         
         if(isInitialized) {
-            screen.LoadContent();
+            screen.loadContent();
         }
         
         screens.add(screen);
@@ -143,9 +143,9 @@ public class ScreenManager extends GameComponent {
      * 
      * @param screen {@link Screen} to remove.
      */
-    public void RemoveScreen(Screen screen) {
+    public void removeScreen(Screen screen) {
         if(isInitialized) {
-            screen.UnloadContent();
+            screen.unloadContent();
         }
         
         screens.remove(screen);
@@ -170,7 +170,7 @@ public class ScreenManager extends GameComponent {
         return input;
     }
     
-    public void FadeBackBufferToBlack(Graphics g, int alpha) {
+    public void fadeBackBufferToBlack(Graphics g, int alpha) {
         float fadeAlpha = (float)(alpha / 255.0);
         fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);
         Graphics2D g2d = (Graphics2D)g;
@@ -178,7 +178,7 @@ public class ScreenManager extends GameComponent {
         AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fadeAlpha);
         g2d.setComposite(composite);
         g2d.setColor(Color.black);
-        g2d.fillRect(0, 0, this.Game.getWidth(), this.Game.getHeight());
+        g2d.fillRect(0, 0, this.game.getWidth(), this.game.getHeight());
         g2d.setComposite(ogComposite);
     }
     // </editor-fold>

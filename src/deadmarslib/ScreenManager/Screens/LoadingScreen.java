@@ -38,12 +38,12 @@ public class LoadingScreen extends Screen {
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
     @Override
-    public void Update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
-        super.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+    public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
+        super.update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
         if (otherScreensAreGone)
         {
-            this.getScreenManager().RemoveScreen(this);
+            this.getScreenManager().removeScreen(this);
 
             if(screensToLoad != null)
             {
@@ -53,17 +53,17 @@ public class LoadingScreen extends Screen {
 
                     if (screen != null)
                     {
-                        this.getScreenManager().AddScreen(screen);
+                        this.getScreenManager().addScreen(screen);
                     }
                 }
             }
 
-            this.getScreenManager().Game.resetElapsedTime();
+            this.getScreenManager().game.resetElapsedTime();
         }
     }
 
     @Override
-    public void Render(GameTime gameTime, Graphics g) {
+    public void render(GameTime gameTime, Graphics g) {
         if ((this.getScreenState() == ScreenState.Active) &&
             (this.getScreenManager().getScreens().length == 1))
         {
@@ -77,13 +77,13 @@ public class LoadingScreen extends Screen {
 
             int posx, posy;
 
-            posx = this.getScreenManager().Game.getResolution().width / 2;
-            posy = this.getScreenManager().Game.getResolution().height / 2;
+            posx = this.getScreenManager().game.getResolution().width / 2;
+            posy = this.getScreenManager().game.getResolution().height / 2;
 
             int textWidth = g.getFontMetrics().stringWidth("Loading...");
 
             g.setColor(Color.black);
-            g.fillRect(0, 0, this.getScreenManager().Game.getResolution().width, this.getScreenManager().Game.getResolution().height);
+            g.fillRect(0, 0, this.getScreenManager().game.getResolution().width, this.getScreenManager().game.getResolution().height);
             g.setColor(Color.white);
             g.drawString(message, posx - textWidth / 2, posy);
         }
@@ -91,18 +91,18 @@ public class LoadingScreen extends Screen {
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Public Methods">
-    public static void Load(ScreenManager screenManager, boolean loadingIsSlow, Screen[] screensToLoad) {
+    public static void load(ScreenManager screenManager, boolean loadingIsSlow, Screen[] screensToLoad) {
         Screen[] screens = screenManager.getScreens();
         
         for (int x = 0; x < screens.length; x++) {
             Screen screen = screens[x];
 
-            screen.ExitScreen();
+            screen.exitScreen();
         }
 
         LoadingScreen loadingScreen = new LoadingScreen(loadingIsSlow, screensToLoad);
 
-        screenManager.AddScreen(loadingScreen);
+        screenManager.addScreen(loadingScreen);
     }
     // </editor-fold>
 

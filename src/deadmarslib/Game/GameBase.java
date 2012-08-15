@@ -324,7 +324,7 @@ public class GameBase extends Canvas implements Runnable {
         if (running && !isPaused && !gameOver) {
             for(int i = 0; i < components.size(); i++) {
                 GameComponent gc = components.get(i);
-                gc.Update(gameTime);
+                gc.update(gameTime);
             }
             updates++;
         }
@@ -340,15 +340,15 @@ public class GameBase extends Canvas implements Runnable {
             
             sizeChanged = false;
             
-            try{
+//            try{
                 dbImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-            } catch(Exception e) {
-                dbImage = null;
-                System.out.println("Render Error: " + e);
-                System.out.println("Render Error: Buffer not initialized properly");
-                System.out.println("Render Error: Resolving...");
-                return;
-            }
+//            } catch(Exception e) {
+//                dbImage = null;
+//                System.out.println("Render Error: " + e);
+//                System.out.println("Render Error: Buffer not initialized properly");
+//                System.out.println("Render Error: Resolving...");
+//                return;
+//            }
         }
 
         dbg = dbImage.getGraphics();
@@ -357,7 +357,7 @@ public class GameBase extends Canvas implements Runnable {
 
         for(int i = 0; i < components.size(); i++) {
             GameComponent gc = components.get(i);
-            gc.Render(gameTime, dbg);
+            gc.render(gameTime, dbg);
         }
     }
     
@@ -432,8 +432,8 @@ public class GameBase extends Canvas implements Runnable {
      * @param gc {@link GameComponent} to add.
      */
     public void addComponent(GameComponent gc) {
-        gc.Initialize();
-        gc.LoadContent();
+        gc.initialize();
+        gc.loadContent();
         components.add(gc);
     }
 
@@ -442,7 +442,7 @@ public class GameBase extends Canvas implements Runnable {
      * @param gc {@link GameComponent} to remove.
      */
     public void removeComponent(GameComponent gc) {
-        gc.UnloadContent();
+        gc.unloadContent();
         components.remove(gc);
     }
     

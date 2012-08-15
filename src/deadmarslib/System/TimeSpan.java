@@ -52,7 +52,7 @@ public class TimeSpan {
          * Constructs a TimeSpan with zero length.
          */
         public TimeSpan() {
-            this.span = 0L;
+            this.setSpan(0L);
         }
         
         /**
@@ -126,6 +126,24 @@ public class TimeSpan {
          */
         public long getSeconds() {
             return this.span / 1000000000L;
+        }
+        
+        /**
+         * Gets the starting point of this timespan.
+         * 
+         * @return start of timespan.
+         */
+        public long getStart() {
+            return this.start;
+        }
+        
+        /**
+         * Gets the ending point of this timespan.
+         * 
+         * @return end of timespan.
+         */
+        public long getEnd() {
+            return this.end;
         }
         
     }

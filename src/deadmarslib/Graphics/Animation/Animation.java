@@ -172,7 +172,7 @@ public class Animation {
      * 
      * @param gameTime reference to a {@link GameTime} object.
      */
-    public void Update(GameTime gameTime) {
+    public void update(GameTime gameTime) {
         if (aIsAnimating) {
             aElapsed += (float) (gameTime.elapsedGameTime.getMilliseconds() / 1000.0);
 
@@ -193,7 +193,7 @@ public class Animation {
      * @param x X position to draw to.
      * @param y Y position to draw to.
      */
-    public void Render(Graphics g, int x, int y) {
+    public void render(Graphics g, int x, int y) {
         Rectangle source = this.getSourceRect();
         if(sourceSpriteSheet != null)
             this.sourceSpriteSheet.renderSprite(g, source.x, source.y, source.width, source.height, x, y);

@@ -13,8 +13,8 @@ public class GameCamera {
     
     int X;
     int Y;
-    int Width;
-    int Height;
+    int width;
+    int height;
     
     /**
      * Retrieve the X position of this {@link GameCamera}.
@@ -58,7 +58,7 @@ public class GameCamera {
      * @return width.
      */
     public int getWidth() {
-        return Width;
+        return width;
     }
     
     /**
@@ -67,7 +67,7 @@ public class GameCamera {
      * @param w new width.
      */
     public void setWidth(int w) {
-        Width = w;
+        width = w;
     }
     
     /**
@@ -76,7 +76,7 @@ public class GameCamera {
      * @return height.
      */
     public int getHeight() {
-        return Height;
+        return height;
     }
     
     /**
@@ -85,7 +85,7 @@ public class GameCamera {
      * @param h new height.
      */
     public void setHeight(int h) {
-        Height = h;
+        height = h;
     }
     
     /**
@@ -145,8 +145,8 @@ public class GameCamera {
     public final void setCamera(int x, int y, int w, int h) {
         X = x;
         Y = y;
-        Width = w;
-        Height = h;
+        width = w;
+        height = h;
     }
     
     /**
@@ -154,7 +154,7 @@ public class GameCamera {
      * @return {@link Rectangle} of camera.
      */
     public Rectangle getCamera() {
-        return new Rectangle(X, Y, Width, Height);
+        return new Rectangle(X, Y, width, height);
     }
     
 }

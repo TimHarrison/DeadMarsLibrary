@@ -24,14 +24,13 @@ public class MessageBoxScreen extends Screen {
     String message;
     String optionOK;
     String optionCancel;
-    String gradTexPath;
     BufferedImage gradientTexture;
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Events">
-    protected void Accepted() { }
+    protected void accepted() { }
 
-    protected void Cancelled() { }
+    protected void cancelled() { }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Initialization">
@@ -49,39 +48,39 @@ public class MessageBoxScreen extends Screen {
     }
 
     @Override
-    public void LoadContent() {
+    public void loadContent() {
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Handle Input">
     @Override
-    public void HandleInput(GameInput input)
+    public void handleInput(GameInput input)
     {
         if(input.isKeyDown(KeyEvent.VK_ENTER)) {
             input.removeKeyDown(KeyEvent.VK_ENTER);
-            Accepted();
-            ExitScreen();
+            accepted();
+            exitScreen();
         } else if (input.isKeyDown(KeyEvent.VK_ESCAPE)) {
             input.removeKeyDown(KeyEvent.VK_ESCAPE);
-            Cancelled();
-            ExitScreen();
+            cancelled();
+            exitScreen();
         }
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Render">
     @Override
-    public void Render(GameTime gameTime, Graphics g)
+    public void render(GameTime gameTime, Graphics g)
     {
         g.setFont(new Font("Arial Black", Font.BOLD, 12));
-        this.getScreenManager().FadeBackBufferToBlack(g, this.getTransitionAlpha() * 2 / 3);
+        this.getScreenManager().fadeBackBufferToBlack(g, this.getTransitionAlpha() * 2 / 3);
 
         int posx, posy;
         int textWidth = g.getFontMetrics().stringWidth(message);
         int textHeight = g.getFontMetrics().getHeight();
 
-        posx = this.getScreenManager().Game.getResolution().width / 2;
-        posy = this.getScreenManager().Game.getResolution().height / 2;
+        posx = this.getScreenManager().game.getResolution().width / 2;
+        posy = this.getScreenManager().game.getResolution().height / 2;
 
         final int hPad = 32;
         final int vPad = 16;

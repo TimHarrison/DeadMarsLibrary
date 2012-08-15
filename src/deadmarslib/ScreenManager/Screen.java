@@ -146,31 +146,31 @@ public class Screen {
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Load and Unload">
-    public void LoadContent() {
+    public void loadContent() {
     }
     
-    public void UnloadContent() {
+    public void unloadContent() {
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
-    public void Update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
+    public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
         this.otherScreenHasFocus = otherScreenHasFocus;
         
         if(getIsExiting()) {
             setScreenState(ScreenState.TransitionOff);
             
-            if(!UpdateTransition(gameTime, getTransitionOffTime(), 1)) {
-                screenManager.RemoveScreen(this);
+            if(!updateTransition(gameTime, getTransitionOffTime(), 1)) {
+                screenManager.removeScreen(this);
             }
         } else if(coveredByOtherScreen) {
-            if(UpdateTransition(gameTime, getTransitionOffTime(), 1)) {
+            if(updateTransition(gameTime, getTransitionOffTime(), 1)) {
                 setScreenState(ScreenState.TransitionOff);
             } else {
                 setScreenState(ScreenState.Hidden);
             }
         } else {
-            if(UpdateTransition(gameTime, getTransitionOnTime(), -1)) {
+            if(updateTransition(gameTime, getTransitionOnTime(), -1)) {
                 setScreenState(ScreenState.TransitionOn);
             } else {
                 setScreenState(ScreenState.Active);
@@ -178,7 +178,7 @@ public class Screen {
         }
     }
     
-    boolean UpdateTransition(GameTime gameTime, TimeSpan time, int direction) {
+    boolean updateTransition(GameTime gameTime, TimeSpan time, int direction) {
         float transitionDelta;
         
         if(time == TimeSpan.Zero) {
@@ -200,9 +200,9 @@ public class Screen {
         return true;
     }
     
-    public void HandleInput(GameInput input) { }
+    public void handleInput(GameInput input) { }
     
-    public void Render(GameTime gameTime, Graphics g) { }
+    public void render(GameTime gameTime, Graphics g) { }
     // </editor-fold>
     
     // <editor-fold defaultstate="expanded" desc="Public Methods">
@@ -213,10 +213,10 @@ public class Screen {
      * If there is a transition off time, the screen will be marked as exiting
      * and will exit automatically when it is done.
      */
-    public void ExitScreen() {
+    public void exitScreen() {
         if (transitionOffTime == TimeSpan.Zero)
         {
-            screenManager.RemoveScreen(this);
+            screenManager.removeScreen(this);
         }
         else
         {

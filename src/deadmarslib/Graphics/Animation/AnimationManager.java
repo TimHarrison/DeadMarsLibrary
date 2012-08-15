@@ -53,7 +53,7 @@ public class AnimationManager {
      */
     public void updateAnimation(GameTime gameTime) {
         if(currentAnimation != null)
-            currentAnimation.Update(gameTime);
+            currentAnimation.update(gameTime);
     }
     
     /**
@@ -67,6 +67,6 @@ public class AnimationManager {
      */
     public void renderAnimation(Graphics g, int x, int y) {
         if(currentAnimation != null)
-            currentAnimation.Render(g, x, y);
+            currentAnimation.render(g, x, y);
     }    
 }

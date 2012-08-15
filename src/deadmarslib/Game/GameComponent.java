@@ -16,7 +16,7 @@ public class GameComponent {// extends JComponent {
     /**
      * Reference to the Game this component is attached to.
      */
-    public GameBase Game = null;
+    public GameBase game = null;
 
     // </editor-fold>
     
@@ -28,13 +28,13 @@ public class GameComponent {// extends JComponent {
      * @param game Game to attach this component to.
      */
     public GameComponent(GameBase game) {
-        this.Game = game;
+        this.game = game;
     }
 
     /**
      * Overrideable method for initializing a component.
      */
-    public void Initialize() {
+    public void initialize() {
     }
 
     // </editor-fold>
@@ -46,7 +46,7 @@ public class GameComponent {// extends JComponent {
      * <p>
      * Called automatically when a component is added to a game.
      */
-    public void LoadContent() {
+    public void loadContent() {
     }
 
     /**
@@ -54,7 +54,7 @@ public class GameComponent {// extends JComponent {
      * <p>
      * Called automatically when a component is removed from a game.
      */
-    public void UnloadContent() {
+    public void unloadContent() {
     }
 
     // </editor-fold>
@@ -66,7 +66,7 @@ public class GameComponent {// extends JComponent {
      * <p>
      * Called automatically during the game loop.
      */
-    public void Update(GameTime gameTime) {
+    public void update(GameTime gameTime) {
     }
 
     /**
@@ -74,7 +74,7 @@ public class GameComponent {// extends JComponent {
      * <p>
      * Called automatically during the game loop.
      */
-    public void Render(GameTime gameTime, Graphics g) {
+    public void render(GameTime gameTime, Graphics g) {
     }
     
     // </editor-fold>

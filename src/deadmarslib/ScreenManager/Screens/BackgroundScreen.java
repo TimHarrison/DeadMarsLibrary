@@ -31,19 +31,19 @@ public class BackgroundScreen extends Screen {
 
     // <editor-fold defaultstate="expanded" desc="Load and Unload">
     @Override
-    public void LoadContent() {
-        backgroundImage = ContentManager.LoadImage(imagePath);
+    public void loadContent() {
+        backgroundImage = ContentManager.loadImage(imagePath);
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
     @Override
-    public void Update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
-        super.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+    public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
+        super.update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
     }
 
     @Override
-    public void Render(GameTime gameTime, Graphics g) {
+    public void render(GameTime gameTime, Graphics g) {
         g.drawImage(backgroundImage, 0, 0, null);
     }
     // </editor-fold>
