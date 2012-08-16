@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * QuadTreeNode class
  *
- * @author Cecil
+ * @author Daniel Cecil
  */
 public class QuadTreeNode {
     
