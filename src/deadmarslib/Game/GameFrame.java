@@ -33,6 +33,7 @@ public class GameFrame extends GameBase implements WindowListener {
         GameFrame thisFrame = this;
         
         window = new JFrame(title);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(thisFrame);
         window.addWindowListener(thisFrame);
         window.setResizable(false);
@@ -90,6 +91,7 @@ public class GameFrame extends GameBase implements WindowListener {
             window.dispose();
             
             window = new JFrame(title);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.getContentPane().add(this);
             window.addWindowListener(this);
             window.setResizable(false);
@@ -114,6 +116,7 @@ public class GameFrame extends GameBase implements WindowListener {
 
     @Override
     public void windowClosed(WindowEvent e) {
+        stopGame();
     }
 
     @Override
