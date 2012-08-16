@@ -52,17 +52,51 @@ public class GameFrame extends GameBase implements WindowListener {
     
     /**
      * Attempts to create a full-screen window.
+     * <p>
+     * Does not decorate or undecorate window. Use overloaded method.
      * 
-     * @param flag 
+     * @param fullscreen 
      */
-    public final void setFullScreen(boolean flag) {
-        if(flag) {
+    public final void setFullScreen(boolean fullscreen) {
+        setFullScreen(fullscreen, false);
+    }
+    
+    /**
+     * Attempts to create a full-screen window.
+     * <p>
+     * Can specify whether the window should be rebuilt or not. If the window
+     * is rebuilt, it will undecorate it for fullscreen, and decorate it for windowed.
+     * @param fullscreen
+     * @param rebuild 
+     */
+    public final void setFullScreen(boolean fullscreen, boolean rebuild) {
+        if(rebuild) {
+            rebuildWindow(!fullscreen);
+        }
+        
+        if(fullscreen) {
             GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             device.setFullScreenWindow(window);
         } else {
             GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             device.setFullScreenWindow(null);
+            
         }
+    }
+    
+    public final void rebuildWindow(boolean decorated) {
+            String title = window.getTitle();
+            
+            window.dispose();
+            
+            window = new JFrame(title);
+            window.getContentPane().add(this);
+            window.addWindowListener(this);
+            window.setResizable(false);
+            window.setUndecorated(!decorated);
+            window.setVisible(true);
+            window.pack();
+            window.setLocationRelativeTo(null);
     }
     
     // </editor-fold>
