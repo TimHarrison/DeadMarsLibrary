@@ -40,7 +40,7 @@ public class GameBase extends Canvas implements Runnable {
     
     private ArrayList<GameComponent> components = new ArrayList<>();
     
-    private Thread thread;
+    //private Thread thread;
     private boolean running = false;
     private boolean isPaused = false;
     private boolean gameOver = false;
@@ -222,7 +222,7 @@ public class GameBase extends Canvas implements Runnable {
         while (running) {
             gameUpdate();
             gameRender();
-            paintScreen();
+            //paintScreen();
             
             afterTime = System.nanoTime();
             timeDiff = afterTime - beforeTime;
@@ -331,12 +331,19 @@ public class GameBase extends Canvas implements Runnable {
     }
     
     private void gameRender() {
+        BufferStrategy bs = getBufferStrategy();
+        if (bs == null) {
+                createBufferStrategy(3);
+                requestFocus();
+                return;
+        }
+        
         if (dbImage == null || sizeChanged) {
             Dimension size = new Dimension(getWidth(), getHeight());
             setSize(size);
-            setPreferredSize(size);
             setMinimumSize(size);
             setMaximumSize(size);
+            setPreferredSize(size);
             
             sizeChanged = false;
             
@@ -359,21 +366,28 @@ public class GameBase extends Canvas implements Runnable {
             GameComponent gc = components.get(i);
             gc.render(gameTime, dbg);
         }
-    }
-    
-    private void paintScreen() {
-        BufferStrategy bs = getBufferStrategy();
-        if (bs == null) {
-                createBufferStrategy(3);
-                return;
-        }
-                
+        
         Graphics g = bs.getDrawGraphics();
         //g.fillRect(0, 0, this.getResolution().width, this.getResolution().height);
         g.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
         bs.show();
     }
+    
+//    private void paintScreen() {
+//        BufferStrategy bs = getBufferStrategy();
+//        if (bs == null) {
+//                createBufferStrategy(3);
+//                requestFocus();
+//                return;
+//        }
+//                
+//        Graphics g = bs.getDrawGraphics();
+//        //g.fillRect(0, 0, this.getResolution().width, this.getResolution().height);
+//        g.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
+//        g.dispose();
+//        bs.show();
+//    }
     
     // </editor-fold>
     
@@ -383,23 +397,21 @@ public class GameBase extends Canvas implements Runnable {
      * Attempts to start the game thread.
      */
     public synchronized void startGame() {
-        if (running) return;
+        if (running) {
+            return;
+        }
         running = true;
-        thread = new Thread(this);
-        thread.start();
+        new Thread(this).start();
     }
     
     /**
      * Attempts to stop the game thread.
      */
     public synchronized void stopGame() {
-        if (!running) return;
+        if (!running) {
+            return;
+        }
         running = false;
-//        try {
-//            thread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
     
     /**
