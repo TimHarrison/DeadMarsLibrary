@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * QuadTree class
  *
- * @author Cecil
+ * @author Daniel Cecil
  */
 public class QuadTree {
 
@@ -25,10 +25,20 @@ public class QuadTree {
         this.maxItems = m;
     }
     
+    /**
+     * Retrieve the maximum number of allowed items in a tree node.
+     * 
+     * @return max no. of node items.
+     */
     public int getTreeMaxItems() {
         return this.maxItems;
     }
     
+    /**
+     * Retrieve the {@link Rectangle} that represents the world space of this {@link QuadTree}.
+     * 
+     * @return world space of tree.
+     */
     public Rectangle getWorldRect() {
         return rootNode.getRect();
     }
