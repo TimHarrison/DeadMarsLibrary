@@ -258,6 +258,8 @@ public class GameBase extends Canvas implements Runnable {
         }
 
         printStats();
+        
+        System.exit(0);
     }
     
     private void storeStats() {
