@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
@@ -45,7 +46,8 @@ public class GameBase extends Canvas implements Runnable {
     private boolean isPaused = false;
     private boolean gameOver = false;
     private boolean isApplet = false;
-    private boolean sizeChanged = false;
+    private Dimension resolution = new Dimension();
+    private boolean resChange = false;
     private Graphics dbg;
     private BufferedImage dbImage;
     private GameTime gameTime = new GameTime();
@@ -82,13 +84,24 @@ public class GameBase extends Canvas implements Runnable {
     @Override
     public final void setSize(int width, int height) {
         super.setSize(width, height);
-        sizeChanged = true;
+        Dimension size = new Dimension(width, height);
+        this.setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
     }
     
     @Override
     public final void setSize(Dimension size) {
         super.setSize(size);
-        sizeChanged = true;
+        this.setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
+    }
+    
+    @Override
+    public Dimension getSize() {
+        return new Dimension(this.getWidth(), this.getHeight());
+        
     }
     
     /**
@@ -98,7 +111,8 @@ public class GameBase extends Canvas implements Runnable {
      * @param height 
      */
     public final void setResolution(int width, int height) {
-        this.setSize(width, height);
+        resolution = new Dimension(width, height);
+        resChange = true;
     }
     
     /**
@@ -106,8 +120,9 @@ public class GameBase extends Canvas implements Runnable {
      * 
      * @param size 
      */
-    public final void setResolution(Dimension size) {
-        this.setSize(size);
+    public final void setResolution(Dimension res) {
+        resolution = res;
+        resChange = true;
     }
     
     /**
@@ -116,7 +131,7 @@ public class GameBase extends Canvas implements Runnable {
      * @return Dimensions of window.
      */
     public Dimension getResolution() {
-        return new Dimension(this.dbImage.getWidth(), this.dbImage.getHeight());
+        return resolution;
     }
     
     /**
@@ -176,14 +191,27 @@ public class GameBase extends Canvas implements Runnable {
     /**
      * Constructor
      * 
-     * @param size Preferred game size.
+     * @param size Preferred game window size.
      * @param fps Preferred game update rate.
      */
     public GameBase(Dimension size, long fps) {
+        _init(size, size, fps);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param size Preferred game window size.
+     * @param res Preferred game resolution.
+     * @param fps Preferred game update rate.
+     */
+    public GameBase(Dimension size, Dimension res, long fps) {
+        _init(size, res, fps);
+    }
+    
+    private void _init(Dimension size, Dimension res, long fps) {
         setSize(size);
-        setPreferredSize(size);
-        setMinimumSize(size);
-        setMaximumSize(size);
+        setResolution(res);
         
         setBackground(Color.white);
         
@@ -192,7 +220,7 @@ public class GameBase extends Canvas implements Runnable {
         
         setPreferredFPS(fps);
         
-        dbImage = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+        //dbImage = new BufferedImage(resolution.width, resolution.height, BufferedImage.TYPE_INT_RGB);
         
         fpsStore = new double[NUM_FPS];
         upsStore = new double[NUM_FPS];
@@ -339,17 +367,10 @@ public class GameBase extends Canvas implements Runnable {
                 return;
         }
         
-        if (dbImage == null || sizeChanged) {
-            Dimension size = new Dimension(getWidth(), getHeight());
-            setSize(size);
-            setMinimumSize(size);
-            setMaximumSize(size);
-            setPreferredSize(size);
-            
-            sizeChanged = false;
-            
+        if (dbImage == null || resChange) {
+            resChange = false;
 //            try{
-                dbImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+                dbImage = new BufferedImage(resolution.width, resolution.height, BufferedImage.TYPE_INT_RGB);
 //            } catch(Exception e) {
 //                dbImage = null;
 //                System.out.println("Render Error: " + e);

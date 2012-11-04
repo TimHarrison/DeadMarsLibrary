@@ -29,7 +29,15 @@ public class GameFrame extends GameBase implements WindowListener {
      */
     public GameFrame(String title, Dimension size, long fps) {
         super(size, fps);
-        
+        _init(title);
+    }
+    
+    public GameFrame(String title, Dimension size, Dimension res, long fps) {
+        super(size, res, fps);
+        _init(title);
+    }
+    
+    private void _init(String title) {        
         GameFrame thisFrame = this;
         
         window = new JFrame(title);
