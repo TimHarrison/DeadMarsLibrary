@@ -157,4 +157,13 @@ public class GameCamera {
         return new Rectangle(X, Y, width, height);
     }
     
+    /**
+     * Locks the game camera into a specified area.
+     * 
+     * @param rect area to lock camera into.
+     */
+    public void lockTo(Rectangle rect) {
+        this.X = this.X < rect.x ? rect.x : this.X + this.width > rect.width ? rect.width - this.width : this.X;
+        this.Y = this.Y < rect.y ? rect.y : this.Y + this.height > rect.height ? rect.height - this.height : this.Y;
+    }
 }
