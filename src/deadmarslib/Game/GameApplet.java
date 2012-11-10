@@ -24,6 +24,17 @@ public class GameApplet extends GameBase {
     public GameApplet(JApplet applet, Dimension size, long fps) {
         super(size, fps);
         this.setIsApplet(true);
+        _init(applet, size);
+    }
+    
+    public GameApplet(JApplet applet, Dimension size, Dimension res, long fps) {
+        super(size, res, fps);
+        this.setIsApplet(true);
+        _init(applet, size);
+    }
+    
+    private void _init(JApplet applet, Dimension size) {
+        this.setIsApplet(true);
         
         if(applet != null) {
             applet.getContentPane().add(this);
