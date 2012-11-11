@@ -3,6 +3,7 @@ package deadmarslib.Graphics;
 // <editor-fold defaultstate="collapsed" desc="Imports">
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.HashMap;
 // </editor-fold>
 
@@ -41,18 +42,25 @@ public class SpriteFont {
         int chrIndx = 0;
         for(char c : msg.toCharArray()) {
             Integer chr;
-            if(characterMap != null)
+            if(characterMap != null) {
                 chr = characterMap.get(((Character)c).toString());
-            else
+            }
+            else {
                 chr = null;
+            }
             
             if(chr!=null) {
-                characterSheet.renderSprite(g, chr.intValue(), new Dimension(1,1), x + chrIndx * characterSheet.getCellWidth(), y);
+                renderCharacter(g, chr.intValue(), new Dimension(1,1), new Point(x + chrIndx * characterSheet.getCellWidth(), y));
             } else {
                 g.drawRect(x + chrIndx * characterSheet.getCellWidth() + 1, y + 1, characterSheet.getCellWidth() - 2, characterSheet.getCellHeight() - 2);
             }
             chrIndx++;
         }
     }
-    
+
+    public void renderCharacter(Graphics g, int sCell, Dimension gCells, Point dest) {
+        int sGridX = (sCell % characterSheet.getXCells());
+        int sGridY = ((sCell - sGridX) / characterSheet.getXCells());
+        characterSheet.renderSprite(g, sGridX, sGridY, gCells.width, gCells.width, dest.x, dest.y, 1.0);
+    }
 }
