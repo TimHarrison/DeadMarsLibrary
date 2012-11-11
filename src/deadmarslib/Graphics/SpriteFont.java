@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class SpriteFont {
     
-    private HashMap<String, Integer> characterMap = new HashMap<>();
+    private HashMap<String, Point> characterMap = new HashMap<>();
     private SpriteSheet characterSheet;
     
     /**
@@ -23,7 +23,7 @@ public class SpriteFont {
      * @param cSheet {@link SpriteSheet} to use for the font.
      * @param cMap Character {@link SpriteSheet} cell mappings.
      */
-    public SpriteFont(SpriteSheet cSheet, HashMap<String, Integer> cMap) {
+    public SpriteFont(SpriteSheet cSheet, HashMap<String, Point> cMap) {
         characterSheet = cSheet;
         characterMap = cMap;
     }
@@ -41,7 +41,7 @@ public class SpriteFont {
     public void drawMessage(String msg, Graphics g, int x, int y) {
         int chrIndx = 0;
         for(char c : msg.toCharArray()) {
-            Integer chr;
+            Point chr;
             if(characterMap != null) {
                 chr = characterMap.get(((Character)c).toString());
             }
@@ -50,17 +50,11 @@ public class SpriteFont {
             }
             
             if(chr!=null) {
-                renderCharacter(g, chr.intValue(), new Dimension(1,1), new Point(x + chrIndx * characterSheet.getCellWidth(), y));
+                characterSheet.renderSprite(g, chr, new Dimension(1,1), new Point(x + chrIndx * characterSheet.getCellWidth(), y));
             } else {
                 g.drawRect(x + chrIndx * characterSheet.getCellWidth() + 1, y + 1, characterSheet.getCellWidth() - 2, characterSheet.getCellHeight() - 2);
             }
             chrIndx++;
         }
-    }
-
-    public void renderCharacter(Graphics g, int sCell, Dimension gCells, Point dest) {
-        int sGridX = (sCell % characterSheet.getXCells());
-        int sGridY = ((sCell - sGridX) / characterSheet.getXCells());
-        characterSheet.renderSprite(g, sGridX, sGridY, gCells.width, gCells.width, dest.x, dest.y, 1.0);
     }
 }
