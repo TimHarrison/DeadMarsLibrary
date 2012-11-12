@@ -5,6 +5,7 @@ import deadmarslib.Game.GameTime;
 import deadmarslib.Graphics.SpriteSheet;
 import deadmarslib.Utility.MathUtility;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 // </editor-fold>
 
@@ -29,6 +30,7 @@ public class Animation {
     float aElapsed = 0.0f;
     
     Rectangle aFrame = new Rectangle(0,0,4,4);
+    Point aOrigin = new Point(0,0);
     
     int aFrameCount = 1;
     int aCurrentFrame = 0;
@@ -148,12 +150,20 @@ public class Animation {
         return new Rectangle(this.aFrame.x + this.aFrame.width * this.aCurrentFrame, this.aFrame.y, this.aFrame.width, this.aFrame.height);
     }
     
+    public Point getOrigin() {
+        return (Point)aOrigin.clone();
+    }
+    
+    public void setOrigin(Point origin) {
+        aOrigin = (Point)origin.clone();
+    }
+    
     /**
      * Constructor.
      * 
      * @param sheet Image texture.
      * @param name Animation name.
-     * @param frame Position of starting frame and Dimensions of frames.
+     * @param frame Cell position of starting frame and cell dimensions of frames.
      * @param count Number of frames.
      * @param rate Rate of animation.
      */
@@ -195,8 +205,9 @@ public class Animation {
      */
     public void render(Graphics g, int x, int y) {
         Rectangle source = this.getSourceRect();
-        if(sourceSpriteSheet != null)
-            this.sourceSpriteSheet.renderSprite(g, source.x, source.y, source.width, source.height, x, y);
+        if(sourceSpriteSheet != null) {
+            this.sourceSpriteSheet.renderSprite(g, source.x, source.y, source.width, source.height, x - aOrigin.x, y - aOrigin.y);
+        }
     }
     
 }
