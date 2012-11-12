@@ -23,6 +23,9 @@ public class AnimationManager {
      */
     public void addAnimation(Animation anim) {
         animationList.put(anim.getName(), anim);
+        if(currentAnimation == null) {
+            currentAnimation = anim;
+        }
     }
     
     /**
@@ -30,7 +33,24 @@ public class AnimationManager {
      * @param name Name of animation to remove.
      */
     public void removeAnimation(String name) {
-        animationList.remove(name);
+        Animation anim = animationList.remove(name);
+        if(animationList.isEmpty()) {
+            currentAnimation = null;
+        } else if(currentAnimation.equals(anim)) {
+            currentAnimation = (Animation) animationList.values().toArray()[0];
+        }
+    }
+    
+    /**
+     * Retrieve an animation from the {@link AnimationManager}.
+     * <p>
+     * Useful for making modifications to an animation at runtime.
+     * 
+     * @param name Name of animation to retrieve.
+     * @return 
+     */
+    public Animation getAmination(String name) {
+        return animationList.get(name);
     }
     
     /**
@@ -40,8 +60,9 @@ public class AnimationManager {
      */
     public void setCurrentAnimation(String name) {
         Animation temp = animationList.get(name);
-        if(temp != null)
+        if(temp != null) {
             currentAnimation = temp;
+        }
     }
     
     /**
@@ -52,8 +73,9 @@ public class AnimationManager {
      * @param gameTime reference to a {@link GameTime} object.
      */
     public void updateAnimation(GameTime gameTime) {
-        if(currentAnimation != null)
+        if(currentAnimation != null) {
             currentAnimation.update(gameTime);
+        }
     }
     
     /**
@@ -66,7 +88,8 @@ public class AnimationManager {
      * @param y Y position to draw to.
      */
     public void renderAnimation(Graphics g, int x, int y) {
-        if(currentAnimation != null)
+        if(currentAnimation != null) {
             currentAnimation.render(g, x, y);
+        }
     }    
 }
