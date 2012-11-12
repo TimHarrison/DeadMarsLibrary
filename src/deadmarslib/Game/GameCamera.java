@@ -158,6 +158,19 @@ public class GameCamera {
     }
     
     /**
+     * Retrieves the rectangular area of this {@link GameCamera}.
+     * <p>
+     * Allows for parallax coefficients.
+     * 
+     * @param pXCoef
+     * @param pYCoef
+     * @return 
+     */
+    public Rectangle getCamera(double pXCoef, double pYCoef) {
+        return new Rectangle((int)(X*pXCoef), (int)(Y*pYCoef), width, height);
+    }
+    
+    /**
      * Locks the game camera into a specified area.
      * 
      * @param rect area to lock camera into.
