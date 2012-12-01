@@ -170,6 +170,18 @@ public class SatShape extends Polygon {
                 return null;
             } else {
                 double o = p1.getOverlap(p2);
+                
+                if(p1.contains(p2) || p2.contains(p1)) {
+                    double mins = Math.abs(p1.getMin() - p2.getMin());
+                    double maxs = Math.abs(p1.getMax() - p2.getMax());
+                    
+                    if(mins > maxs) {
+                        o += mins;
+                    } else {
+                        o += maxs;
+                    }
+                }
+                
                 if(o < overlap) {
                     overlap = o;
                     smallest = axis;
