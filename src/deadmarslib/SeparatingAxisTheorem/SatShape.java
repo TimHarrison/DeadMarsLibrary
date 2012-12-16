@@ -33,6 +33,11 @@ public class SatShape extends Polygon {
         y = r.y;
     }
     
+    public Point getBBCenter() {
+        Rectangle rect = this.getBounds();
+        return new Point(rect.x + rect.width / 2, rect.y + rect.height / 2);
+    }
+    
     public void setOriginX(int x) {
         this.x = x;
     }
@@ -129,8 +134,9 @@ public class SatShape extends Polygon {
         SatAxis[] a1 = this.getAxes();
         SatAxis[] a2 = oShape.getAxes();
         for(int i = 0; i < this.npoints; i++) {
-            if(usedAxes.contains(a1[i].y/a1[i].x))
+            if(usedAxes.contains(a1[i].y/a1[i].x)) {
                 continue;
+            }
             usedAxes.add(a1[i].y/a1[i].x);
             SatAxis axis = a1[i];
             SatProjection p1 = this.project(axis);
@@ -160,8 +166,9 @@ public class SatShape extends Polygon {
             
         }
         for(int i = 0; i < oShape.npoints; i++) {
-            if(usedAxes.contains(a2[i].y/a2[i].x))
+            if(usedAxes.contains(a2[i].y/a2[i].x)) {
                 continue;
+            }
             usedAxes.add(a2[i].y/a2[i].x);
             SatAxis axis = a2[i];
             SatProjection p1 = this.project(axis);
@@ -189,6 +196,9 @@ public class SatShape extends Polygon {
                 }
             }
         }
+        
+        dir = (smallest.x != 0 && smallest.y != 0) ? (dir * smallest.x * smallest.y < 0 ? -1.0 : 1.0) : dir;
+
         SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(smallest, overlap, dir);
         return mtv;
     }
