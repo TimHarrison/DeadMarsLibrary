@@ -98,36 +98,47 @@ public class GameCamera {
     }
     
     /**
-     * Basic Constructor.
+     * Constructor.
      * <p>
      * Creates a size 0 {@link GameCamera} at position (x, y).
      * 
-     * @param x
-     * @param y 
+     * @param x X position of created GameCamera.
+     * @param y Y position of created GameCamera.
      */
     public GameCamera(int x, int y) {
         setCamera(x, y, 0, 0);
     }
     
     /**
-     * Versatile Constructor.
+     * Constructor.
      * <p>
      * Creates a size (w, h) {@link GameCamera} at position (x, y).
      * 
-     * @param x
-     * @param y
-     * @param w
-     * @param h 
+     * @param x X position of created GameCamera.
+     * @param y Y position of created GameCamera.
+     * @param w Width of created GameCamera.
+     * @param h Height of created GameCamera.
      */
     public GameCamera(int x, int y, int w, int h) {
         setCamera(x, y, w, h);
     }
     
     /**
+     * Constructor.
+     * <p>
+     * Creates a {@link GameCamera} with position and size of given Rectangle.
+     * 
+     * @param rect Rectangle to create GameCamera from.
+     */
+    public GameCamera(Rectangle rect) {
+        setCamera(rect.x, rect.y, rect.width, rect.height);
+    }
+    
+    /**
      * Sets this {@link GameCamera}'s X and Y position.
      * 
-     * @param x
-     * @param y 
+     * @param x new X Position.
+     * @param y new Y Position.
      */
     public final void setCamera(int x, int y) {
         X = x;
@@ -137,10 +148,10 @@ public class GameCamera {
     /**
      * Sets this {@link GameCamera}'s X and Y position as well as width and height dimensions.
      * 
-     * @param x
-     * @param y 
-     * @param w 
-     * @param h 
+     * @param x new X Position.
+     * @param y new Y Position.
+     * @param w new Width.
+     * @param h new Height.
      */
     public final void setCamera(int x, int y, int w, int h) {
         X = x;
@@ -164,7 +175,7 @@ public class GameCamera {
      * 
      * @param pXCoef
      * @param pYCoef
-     * @return 
+     * @return {@link Rectangle} of camera.
      */
     public Rectangle getCamera(double pXCoef, double pYCoef) {
         return new Rectangle((int)(X*pXCoef), (int)(Y*pYCoef), width, height);
