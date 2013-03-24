@@ -8,7 +8,7 @@ import java.util.Arrays;
 // </editor-fold>
 
 /**
- * QuadTree class
+ * DeadMarsLibrary QuadTree class
  *
  * @author Daniel Cecil
  */

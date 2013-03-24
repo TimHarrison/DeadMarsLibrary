@@ -47,7 +47,7 @@ public class AnimationManager {
      * Useful for making modifications to an animation at runtime.
      * 
      * @param name Name of animation to retrieve.
-     * @return 
+     * @return Requested Animation.
      */
     public Animation getAmination(String name) {
         return animationList.get(name);

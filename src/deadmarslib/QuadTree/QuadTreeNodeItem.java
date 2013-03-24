@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 // </editor-fold>
 
 /**
- * QuadTreeNodeItem class
+ * DeadMarsLibrary QuadTreeNodeItem class
  *
  * @author Cecil
  */

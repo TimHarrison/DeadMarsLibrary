@@ -3,7 +3,7 @@ package deadmarslib.QuadTree;
 import java.awt.Rectangle;
 
 /**
- * QuadTreeResizeDelegate interface
+ * DeadMarsLibrary QuadTreeResizeDelegate interface
  *
  * @author Cecil
  */

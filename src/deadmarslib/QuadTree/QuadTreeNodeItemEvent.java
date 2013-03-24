@@ -1,7 +1,7 @@
 package deadmarslib.QuadTree;
 
 /**
- * QuadTreeNodeItemEvent interface
+ * DeadMarsLibrary QuadTreeNodeItemEvent interface
  *
  * @author Cecil
  */
