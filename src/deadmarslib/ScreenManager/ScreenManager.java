@@ -48,6 +48,9 @@ public class ScreenManager extends GameComponent {
         input = new GameInput(game);
     }
     
+    /**
+     * Not sure?
+     */
     @Override
     public void initialize() {
         isInitialized = true;
@@ -55,6 +58,9 @@ public class ScreenManager extends GameComponent {
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Load and Unload">
+    /**
+     * Performs the loading of content for Screens in this ScreenManager.
+     */
     @Override
     public void loadContent() {
         for(int x = 0; x < screens.size(); x++) {
@@ -63,6 +69,9 @@ public class ScreenManager extends GameComponent {
         }
     }
     
+    /**
+     * Performs the unloading of content for Screens in this ScreenManager.
+     */
     @Override
     public void unloadContent() {
         for(int x = 0; x < screens.size(); x++) {
@@ -73,6 +82,11 @@ public class ScreenManager extends GameComponent {
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
+    /**
+     * Updates all visible active screens in this ScreenManager.
+     * 
+     * @param gameTime GameTime object to update with.
+     */
     @Override
     public void update(GameTime gameTime) {
         screensToUpdate.clear();
@@ -107,6 +121,12 @@ public class ScreenManager extends GameComponent {
         }
     }
 
+    /**
+     * Renders all visible screens in this ScreenManager.
+     * 
+     * @param gameTime GameTime object to render with.
+     * @param g Graphics context to render to.
+     */
     @Override
     public void render(GameTime gameTime, Graphics g) {
         for(int x = 0; x < screens.size(); x++) {

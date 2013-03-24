@@ -154,6 +154,13 @@ public class Screen {
     // </editor-fold>
 
     // <editor-fold defaultstate="expanded" desc="Update and Render">
+    /**
+     * Update this Screen's transition and state.
+     * 
+     * @param gameTime GameTime object to update with.
+     * @param otherScreenHasFocus If other Screen has focus.
+     * @param coveredByOtherScreen If this Screen Covered by another.
+     */
     public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
         this.otherScreenHasFocus = otherScreenHasFocus;
         
@@ -178,7 +185,7 @@ public class Screen {
         }
     }
     
-    boolean updateTransition(GameTime gameTime, TimeSpan time, int direction) {
+    protected boolean updateTransition(GameTime gameTime, TimeSpan time, int direction) {
         float transitionDelta;
         
         if(time == TimeSpan.Zero) {
