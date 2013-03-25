@@ -197,7 +197,7 @@ public class SatShape extends Polygon {
             }
         }
         
-        dir = (smallest.x != 0 && smallest.y != 0) ? (dir * smallest.x * smallest.y < 0 ? -1.0 : 1.0) : dir;
+        dir = (smallest.x * smallest.y < 0) ? dir * -1.0 : dir;
 
         SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(smallest, overlap, dir);
         return mtv;
