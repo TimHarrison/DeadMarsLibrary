@@ -1,9 +1,16 @@
 package deadmarslib.Utility;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 // </editor-fold>
 
 /**
@@ -15,6 +22,8 @@ public class SecurityUtility {
     
     /**
      * Create an MD5 hash of a string.
+     * 
+     * @deprecated 
      * 
      * @param md5 String to hash.
      * @return String representation of hash.
@@ -32,5 +41,26 @@ public class SecurityUtility {
         }
         return null;
     }
+
+    public static String textHash(MessageDigest algorithm, String text) throws UnsupportedEncodingException {
+        byte[] digest = algorithm.digest(text.getBytes("UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        for(byte b: digest)
+            sb.append(String.format("%02x", b&0xff));
+        return sb.toString();
+
+    }
     
+    public static String fileHash(MessageDigest algorithm, String fileName) throws FileNotFoundException, IOException {
+        InputStream is = new FileInputStream(fileName);
+        is = new DigestInputStream(is, algorithm);
+        while(is.read() > -1){}
+        is.close();
+        byte[] digest = algorithm.digest();
+        StringBuilder sb = new StringBuilder();
+        for(byte b: digest)
+           sb.append(String.format("%02x", b&0xff));
+        return sb.toString();
+    }
+
 }
