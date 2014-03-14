@@ -42,11 +42,11 @@ public class GameFrame extends GameBase implements WindowListener {
         
         window = new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().add(thisFrame);
         window.addWindowListener(thisFrame);
+        window.getContentPane().add(thisFrame);
         window.setResizable(false);
-        window.setVisible(true);
         window.pack();
+        window.setVisible(true);
         window.setLocationRelativeTo(null);
     }
     
