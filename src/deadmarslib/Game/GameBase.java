@@ -45,7 +45,6 @@ public class GameBase extends Canvas implements Runnable {
     private boolean running = false;
     private boolean isPaused = false;
     private boolean gameOver = false;
-    private boolean isApplet = false;
     private Dimension resolution = new Dimension();
     private boolean resChange = false;
     private Graphics dbg;
@@ -143,27 +142,6 @@ public class GameBase extends Canvas implements Runnable {
      */
     public boolean getIsActive() {
         return !isPaused;
-    }
-
-    /**
-     * Retrieves whether or not this game is an Applet.
-     * 
-     * @return whether or not this game is an Applet.
-     */
-    public boolean getIsApplet() {
-        return isApplet;
-    }
-
-    /**
-     * Sets this games applet status.
-     * <p>
-     * A non-applet game can be manually set to be an 'applet'
-     * although it will not actually turn the game into an applet.
-     * 
-     * @param flag new applet state.
-     */
-    public void setIsApplet(boolean flag) {
-        isApplet = flag;
     }
     
     /**
