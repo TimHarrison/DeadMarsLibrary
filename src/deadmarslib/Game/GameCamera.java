@@ -161,6 +161,18 @@ public class GameCamera {
     }
     
     /**
+     * Sets this {@link GameCamera}'s position as well as dimensions.
+     * 
+     * @param rect
+     */
+    public final void setCamera(Rectangle rect) {
+        X = rect.x;
+        Y = rect.y;
+        width = rect.width;
+        height = rect.height;
+    }
+    
+    /**
      * Retrieves the rectangular area of this {@link GameCamera}.
      * @return {@link Rectangle} of camera.
      */
