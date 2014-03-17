@@ -86,9 +86,8 @@ public class GameBase extends Canvas implements Runnable {
 	}
 
 	@Override
-	public Dimension getSize() {
+	public final Dimension getSize() {
 		return new Dimension(this.getWidth(), this.getHeight());
-
 	}
 
 	/**
@@ -117,7 +116,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @return Dimensions of window.
 	 */
-	public Dimension getResolution() {
+	public final Dimension getResolution() {
 		return resolution;
 	}
 
@@ -128,7 +127,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @return whether or not the game is currently active.
 	 */
-	public boolean getIsActive() {
+	public final boolean getIsActive() {
 		return !isPaused;
 	}
 
@@ -137,7 +136,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @return average frames per second this game is running at.
 	 */
-	public double getStatsAvgFps() {
+	public final double getAverageFps() {
 		return averageFPS;
 	}
 
@@ -146,12 +145,12 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @return average updates per second this game is running at.
 	 */
-	public double getStatsAvgUps() {
+	public final double getAverageUps() {
 		return averageUPS;
 	}
 
 	/**
-	 * Constructor
+	 * GameBase Constructor.
 	 * 
 	 * @param size Preferred game window size.
 	 * @param fps Preferred game update rate.
@@ -161,7 +160,7 @@ public class GameBase extends Canvas implements Runnable {
 	}
 
 	/**
-	 * Constructor
+	 * GameBase Constructor.
 	 * 
 	 * @param size Preferred game window size.
 	 * @param res Preferred game resolution.
@@ -181,9 +180,6 @@ public class GameBase extends Canvas implements Runnable {
 		requestFocus();
 
 		setPreferredFPS(fps);
-
-		// dbImage = new BufferedImage(resolution.width, resolution.height,
-		// BufferedImage.TYPE_INT_RGB);
 
 		fpsStore = new double[NUM_FPS];
 		upsStore = new double[NUM_FPS];
@@ -209,7 +205,6 @@ public class GameBase extends Canvas implements Runnable {
 		while (running) {
 			gameUpdate();
 			gameRender();
-			// paintScreen();
 
 			afterTime = System.nanoTime();
 			timeDiff = afterTime - beforeTime;
@@ -257,10 +252,6 @@ public class GameBase extends Canvas implements Runnable {
 
 			long realElapsedTime = timeNow - prevStatsTime;
 			totalElapsedTime += realElapsedTime;
-
-			// double timingError =
-			// ((double) (realElapsedTime - statsInterval) / statsInterval) *
-			// 100.0;
 
 			totalFramesSkipped += framesSkipped;
 
@@ -326,16 +317,8 @@ public class GameBase extends Canvas implements Runnable {
 
 		if (dbImage == null || resChange) {
 			resChange = false;
-			// try{
 			dbImage = new BufferedImage(resolution.width, resolution.height,
 					BufferedImage.TYPE_INT_RGB);
-			// } catch(Exception e) {
-			// dbImage = null;
-			// System.out.println("Render Error: " + e);
-			// System.out.println("Render Error: Buffer not initialized properly");
-			// System.out.println("Render Error: Resolving...");
-			// return;
-			// }
 		}
 
 		dbg = dbImage.getGraphics();
@@ -349,28 +332,10 @@ public class GameBase extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		// g.fillRect(0, 0, this.getResolution().width,
-		// this.getResolution().height);
 		g.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
-
-	// private void paintScreen() {
-	// BufferStrategy bs = getBufferStrategy();
-	// if (bs == null) {
-	// createBufferStrategy(3);
-	// requestFocus();
-	// return;
-	// }
-	//
-	// Graphics g = bs.getDrawGraphics();
-	// //g.fillRect(0, 0, this.getResolution().width,
-	// this.getResolution().height);
-	// g.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
-	// g.dispose();
-	// bs.show();
-	// }
 
 	/**
 	 * Attempts to start the game thread.
@@ -421,7 +386,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @param gc {@link GameComponent} to add.
 	 */
-	public void addComponent(GameComponent gc) {
+	public final void addComponent(GameComponent gc) {
 		gc.initialize();
 		gc.loadContent();
 		components.add(gc);
@@ -433,7 +398,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * 
 	 * @param gc {@link GameComponent} to remove.
 	 */
-	public void removeComponent(GameComponent gc) {
+	public final void removeComponent(GameComponent gc) {
 		gc.unloadContent();
 		components.remove(gc);
 	}
@@ -441,14 +406,14 @@ public class GameBase extends Canvas implements Runnable {
 	/**
 	 * Resumes the game from being paused.
 	 */
-	public void resumeGame() {
+	public final void resumeGame() {
 		isPaused = false;
 	}
 
 	/**
 	 * Pauses the game.
 	 */
-	public void pauseGame() {
+	public final void pauseGame() {
 		isPaused = true;
 	}
 

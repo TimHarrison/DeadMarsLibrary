@@ -17,17 +17,25 @@ public class GameFrame extends GameBase implements WindowListener {
 	private JFrame window = null;
 
 	/**
-	 * Constructor
+	 * GameFrame Constructor.
 	 * 
-	 * @param title
-	 * @param size
-	 * @param fps
+	 * @param title Game Window Title.
+	 * @param size GameFrame Window size.
+	 * @param fps Desired game update speed.
 	 */
 	public GameFrame(String title, Dimension size, long fps) {
 		super(size, fps);
 		_init(title);
 	}
 
+	/**
+	 * GameFrame Constructor.
+	 * 
+	 * @param title Game Window Title.
+	 * @param size GameFrame Window size.
+	 * @param res GameFrame Window resolution.
+	 * @param fps Desired game update speed.
+	 */
 	public GameFrame(String title, Dimension size, Dimension res, long fps) {
 		super(size, res, fps);
 		_init(title);
@@ -71,7 +79,7 @@ public class GameFrame extends GameBase implements WindowListener {
 	 * <p>
 	 * Can specify whether the window should be rebuilt or not. If the window is
 	 * rebuilt, it will undecorate it for fullscreen, and decorate it for
-	 * windowed.
+	 * windowed. This is the recommended method for switching full-screen.
 	 * 
 	 * @param fullscreen
 	 * @param rebuild
@@ -93,7 +101,7 @@ public class GameFrame extends GameBase implements WindowListener {
 		}
 	}
 
-	public final void rebuildWindow(boolean decorated) {
+	private final void rebuildWindow(boolean decorated) {
 		String title = window.getTitle();
 
 		window.dispose();
@@ -111,6 +119,7 @@ public class GameFrame extends GameBase implements WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
+		//startGame();
 	}
 
 	@Override

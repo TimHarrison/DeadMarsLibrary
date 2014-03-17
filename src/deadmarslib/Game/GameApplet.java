@@ -4,14 +4,14 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 
 /**
- * DeadMarsLib GameApplet Class
+ * DeadMarsLib GameApplet Class.
  * 
  * @author Daniel Cecil
  */
 public class GameApplet extends GameBase {
 
 	/**
-	 * Constructor
+	 * GameApplet Constructor.
 	 * 
 	 * @param applet JApplet reference. Required.
 	 * @param size Size of applet window frame.
@@ -22,6 +22,14 @@ public class GameApplet extends GameBase {
 		_init(applet, size);
 	}
 
+	/**
+	 * GameApplet Constructor.
+	 * 
+	 * @param applet JApplet reference. Required.
+	 * @param size Size of applet window frame.
+	 * @param res Resolution of applet window frame.
+	 * @param fps Desired game update speed.
+	 */
 	public GameApplet(JApplet applet, Dimension size, Dimension res, long fps) {
 		super(size, res, fps);
 		_init(applet, size);

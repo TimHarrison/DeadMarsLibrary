@@ -7,7 +7,7 @@ import java.awt.Graphics;
  * 
  * @author Daniel Cecil
  */
-public class GameComponent {// extends JComponent {
+public class GameComponent {
 
 	/**
 	 * Reference to the Game this component is attached to.
@@ -15,7 +15,7 @@ public class GameComponent {// extends JComponent {
 	public GameBase game = null;
 
 	/**
-	 * Constructor
+	 * GameComponent Constructor.
 	 * 
 	 * @param game Game to attach this component to.
 	 */
