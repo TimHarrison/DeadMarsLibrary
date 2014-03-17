@@ -1,9 +1,7 @@
 package deadmarslib.Utility;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.awt.Point;
 import java.awt.Rectangle;
-// </editor-fold>
 
 /**
  * DeadMarsLib RectUtility Class

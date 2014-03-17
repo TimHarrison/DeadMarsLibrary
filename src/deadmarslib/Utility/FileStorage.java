@@ -1,8 +1,6 @@
 package deadmarslib.Utility;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.io.*;
-// </editor-fold>
 
 /**
  * DeadMarsLib FileStorage Class
@@ -18,7 +16,6 @@ public class FileStorage {
      * @param obj Object to serialize to file.
      */
     public static void save(String filename, Object obj) {
-        //Untested FindBugs Bug-fix
         FileOutputStream fos;
         ObjectOutputStream out;
         try {
@@ -47,7 +44,6 @@ public class FileStorage {
      * @return Object containing loaded serialized object.
      */
     public static Object load(String filename) {
-        //Untested FindBugs Bug-fix
         Object obj = null;
 
         FileInputStream fis;

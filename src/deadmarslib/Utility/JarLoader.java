@@ -1,12 +1,10 @@
 package deadmarslib.Utility;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
-// </editor-fold>
 
 /**
  * DeadMarsLibrary JarLoader Class

@@ -1,6 +1,5 @@
 package deadmarslib.ScreenManager.Screens;
 
-// <editor-fold defaultstate="expanded" desc="Imports">
 import deadmarslib.Game.GameInput;
 import deadmarslib.Game.GameTime;
 import deadmarslib.ScreenManager.Screen;
@@ -9,7 +8,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-// </editor-fold>
 
 /**
  * DeadMarsLibrary SplashScreen Class
@@ -18,7 +16,6 @@ import java.awt.image.BufferedImage;
  */
 public class SplashScreen extends Screen {
 
-    // <editor-fold defaultstate="expanded" desc="Fields">
     private BufferedImage splashImage = null;
     private Screen[] screenArr = null;
     private double screenTime = 0.0f;
@@ -64,9 +61,7 @@ public class SplashScreen extends Screen {
     public final void setFadeInOutDuration(double fadeInOutDuration) {
         this.fadeInOutDuration = fadeInOutDuration;
     }
-    // </editor-fold>
-    
-    // <editor-fold defaultstate="expanded" desc="Initialize">
+
     public SplashScreen(Screen[] screenArr, BufferedImage splashImage, double screenDuration, double fadeInOutDuration) {
         super();
         
@@ -76,9 +71,7 @@ public class SplashScreen extends Screen {
         this.setTransitionOnTime(TimeSpan.fromSeconds(fadeInOutDuration));
         this.setTransitionOffTime(TimeSpan.fromSeconds(fadeInOutDuration));
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="expanded" desc="Update and Render">
     @Override
     public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
         screenTime += (float)(gameTime.elapsedGameTime.getMilliseconds() / 1000.0f);
@@ -105,9 +98,7 @@ public class SplashScreen extends Screen {
         g2.drawImage(this.getSplashImage(), 0, 0, resW, resH, 0, 0, this.getSplashImage().getWidth(), this.getSplashImage().getHeight(), null);
         
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="expanded" desc="Handle Input">
     @Override
     public void handleInput(GameInput input) {
         super.handleInput(input);
@@ -117,6 +108,5 @@ public class SplashScreen extends Screen {
             this.setScreenTime(this.getScreenDuration());
         }
     }
-    // </editor-fold>
-    
+
 }

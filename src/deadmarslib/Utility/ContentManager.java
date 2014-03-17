@@ -1,13 +1,11 @@
 package deadmarslib.Utility;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
-// </editor-fold>
 
 /**
  * DeadMarsLib ContentManager Class

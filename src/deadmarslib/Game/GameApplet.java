@@ -1,9 +1,7 @@
 package deadmarslib.Game;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.awt.Dimension;
 import javax.swing.JApplet;
-// </editor-fold>
 
 /**
  * DeadMarsLib GameApplet Class
@@ -12,34 +10,30 @@ import javax.swing.JApplet;
  */
 public class GameApplet extends GameBase {
 
-    // <editor-fold defaultstate="expanded" desc="Initialize">
-    
-    /**
-     * Constructor
-     * 
-     * @param applet JApplet reference. Required.
-     * @param size Size of applet window frame.
-     * @param fps Desired game update speed.
-     */
-    public GameApplet(JApplet applet, Dimension size, long fps) {
-        super(size, fps);
-        _init(applet, size);
-    }
-    
-    public GameApplet(JApplet applet, Dimension size, Dimension res, long fps) {
-        super(size, res, fps);
-        _init(applet, size);
-    }
-    
-    private void _init(JApplet applet, Dimension size) {
-        if(applet != null) {
-            applet.getContentPane().add(this);
-            applet.setSize(size);
-            applet.setFocusable(true);
-            applet.requestFocus();
-        }
-    }
-    
-    // </editor-fold>
+	/**
+	 * Constructor
+	 * 
+	 * @param applet JApplet reference. Required.
+	 * @param size Size of applet window frame.
+	 * @param fps Desired game update speed.
+	 */
+	public GameApplet(JApplet applet, Dimension size, long fps) {
+		super(size, fps);
+		_init(applet, size);
+	}
+
+	public GameApplet(JApplet applet, Dimension size, Dimension res, long fps) {
+		super(size, res, fps);
+		_init(applet, size);
+	}
+
+	private void _init(JApplet applet, Dimension size) {
+		if (applet != null) {
+			applet.getContentPane().add(this);
+			applet.setSize(size);
+			applet.setFocusable(true);
+			applet.requestFocus();
+		}
+	}
 
 }
