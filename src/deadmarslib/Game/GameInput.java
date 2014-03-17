@@ -3,6 +3,7 @@ package deadmarslib.Game;
 import java.awt.Point;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * DeadMarsLib GameInput Class
@@ -15,6 +16,8 @@ public class GameInput extends GameComponent {
 	ArrayList<Integer> mseInputs = new ArrayList<>();
 
 	ArrayList<Integer> lastKey = new ArrayList<>();
+	
+	HashMap<String, Object> inputMappings = new HashMap<>();
 
 	int mouseX;
 	int mouseY;
@@ -96,6 +99,27 @@ public class GameInput extends GameComponent {
 						+ e.getY() + ")");
 			}
 		});
+	}
+	
+	public void setDefaultInputMappings() {
+		setMapping("A", KeyEvent.VK_A);
+		setMapping("B", KeyEvent.VK_B);
+		setMapping("X", KeyEvent.VK_X);
+		setMapping("Y", KeyEvent.VK_Y);
+		setMapping("start", KeyEvent.VK_ENTER);
+		setMapping("back", KeyEvent.VK_BACK_SPACE);
+		setMapping("guide", KeyEvent.VK_TAB);
+	}
+
+	public Object getMapping(String key) {
+		if (this.inputMappings.containsKey(key)) {
+			return this.inputMappings.get(key);
+		}
+		return new Object();
+	}
+
+	public void setMapping(String key, Object input) {
+		this.inputMappings.put(key, input);
 	}
 
 	/**
