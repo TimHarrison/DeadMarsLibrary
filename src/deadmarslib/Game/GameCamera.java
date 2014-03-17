@@ -1,7 +1,10 @@
 package deadmarslib.Game;
 
-// <editor-fold defaultstate="collapsed" desc="Imports">
+//<editor-fold defaultstate="collapsed" desc="Imports">
+
+import java.awt.Point;
 import java.awt.Rectangle;
+
 // </editor-fold>
 
 /**
@@ -11,10 +14,10 @@ import java.awt.Rectangle;
  */
 public class GameCamera {
     
-    int X;
-    int Y;
-    int width;
-    int height;
+    private int X;
+    private int Y;
+    private int width;
+    private int height;
     
     /**
      * Retrieve the X position of this {@link GameCamera}.
@@ -89,12 +92,91 @@ public class GameCamera {
     }
     
     /**
+     * Gets this {@link GameCamera}'s X and Y position.
+     * 
+     * @return X and Y coordinates of the camera.
+     */
+    public final Point getPosition() {
+        return new Point(X, Y);
+    }
+    
+    /**
+     * Sets this {@link GameCamera}'s X and Y position.
+     * 
+     * @param x new X Position.
+     * @param y new Y Position.
+     */
+    public final void setPosition(int x, int y) {
+        X = x;
+        Y = y;
+    }
+    
+    /**
+     * Sets this {@link GameCamera}'s X and Y position.
+     * 
+     * @param position Coordinates to set position to.
+     */
+    public final void setPosition(Point position) {
+        X = position.x;
+        Y = position.y;
+    }
+    
+    /**
+     * Retrieves the rectangular bounds of this {@link GameCamera}.
+     * 
+     * @return {@link Rectangle} of camera bounds.
+     */
+    public Rectangle getBounds() {
+        return new Rectangle(X, Y, width, height);
+    }
+    
+    /**
+     * Retrieves the rectangular bounds of this {@link GameCamera}.
+     * <p>
+     * Allows for parallax coefficients.
+     * 
+     * @param pXCoef
+     * @param pYCoef
+     * @return {@link Rectangle} of camera bounds from coefficients.
+     */
+    public Rectangle getBounds(double pXCoef, double pYCoef) {
+        return new Rectangle((int)(X*pXCoef), (int)(Y*pYCoef), width, height);
+    }
+    
+    /**
+     * Sets this {@link GameCamera}'s X and Y position as well as width and height dimensions.
+     * 
+     * @param x new X Position.
+     * @param y new Y Position.
+     * @param w new Width.
+     * @param h new Height.
+     */
+    public final void setBounds(int x, int y, int w, int h) {
+        X = x;
+        Y = y;
+        width = w;
+        height = h;
+    }
+    
+    /**
+     * Sets this {@link GameCamera}'s position as well as dimensions.
+     * 
+     * @param rect Coordinates and Size to set position and dimensions to.
+     */
+    public final void setBounds(Rectangle rect) {
+        X = rect.x;
+        Y = rect.y;
+        width = rect.width;
+        height = rect.height;
+    }
+    
+    /**
      * Default constructor.
      * <p>
      * Creates a size 0 {@link GameCamera} at position (0, 0).
      */
     public GameCamera() {
-        setCamera(0, 0, 0, 0);
+    	setBounds(0, 0, 0, 0);
     }
     
     /**
@@ -106,7 +188,7 @@ public class GameCamera {
      * @param y Y position of created GameCamera.
      */
     public GameCamera(int x, int y) {
-        setCamera(x, y, 0, 0);
+    	setBounds(x, y, 0, 0);
     }
     
     /**
@@ -120,7 +202,7 @@ public class GameCamera {
      * @param h Height of created GameCamera.
      */
     public GameCamera(int x, int y, int w, int h) {
-        setCamera(x, y, w, h);
+    	setBounds(x, y, w, h);
     }
     
     /**
@@ -131,66 +213,7 @@ public class GameCamera {
      * @param rect Rectangle to create GameCamera from.
      */
     public GameCamera(Rectangle rect) {
-        setCamera(rect.x, rect.y, rect.width, rect.height);
-    }
-    
-    /**
-     * Sets this {@link GameCamera}'s X and Y position.
-     * 
-     * @param x new X Position.
-     * @param y new Y Position.
-     */
-    public final void setCamera(int x, int y) {
-        X = x;
-        Y = y;
-    }
-    
-    /**
-     * Sets this {@link GameCamera}'s X and Y position as well as width and height dimensions.
-     * 
-     * @param x new X Position.
-     * @param y new Y Position.
-     * @param w new Width.
-     * @param h new Height.
-     */
-    public final void setCamera(int x, int y, int w, int h) {
-        X = x;
-        Y = y;
-        width = w;
-        height = h;
-    }
-    
-    /**
-     * Sets this {@link GameCamera}'s position as well as dimensions.
-     * 
-     * @param rect
-     */
-    public final void setCamera(Rectangle rect) {
-        X = rect.x;
-        Y = rect.y;
-        width = rect.width;
-        height = rect.height;
-    }
-    
-    /**
-     * Retrieves the rectangular area of this {@link GameCamera}.
-     * @return {@link Rectangle} of camera.
-     */
-    public Rectangle getCamera() {
-        return new Rectangle(X, Y, width, height);
-    }
-    
-    /**
-     * Retrieves the rectangular area of this {@link GameCamera}.
-     * <p>
-     * Allows for parallax coefficients.
-     * 
-     * @param pXCoef
-     * @param pYCoef
-     * @return {@link Rectangle} of camera.
-     */
-    public Rectangle getCamera(double pXCoef, double pYCoef) {
-        return new Rectangle((int)(X*pXCoef), (int)(Y*pYCoef), width, height);
+    	setBounds(rect);
     }
     
     /**
