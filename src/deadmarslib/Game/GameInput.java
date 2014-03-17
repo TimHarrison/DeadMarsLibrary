@@ -38,6 +38,7 @@ public class GameInput extends GameComponent {
         super(game);
         
         thisGame = game;
+        final GameInput me = this;
         
         game.addKeyListener(new KeyAdapter() {
             @Override
@@ -87,15 +88,17 @@ public class GameInput extends GameComponent {
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
-                mouseX = e.getX();
-                mouseY = e.getY();
+                me.mouseX = e.getX();
+                me.mouseY = e.getY();
+                System.out.println("Mouse Moved: (" + e.getX() + ", " + e.getY() + ")");
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                mouseX = e.getX();
-                mouseY = e.getY();
+                me.mouseX = e.getX();
+                me.mouseY = e.getY();
+                System.out.println("Mouse Dragged: (" + e.getX() + ", " + e.getY() + ")");
             }
         });
     }
