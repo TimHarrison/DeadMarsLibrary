@@ -220,11 +220,7 @@ public class GameCamera {
 	 * @param rect area to lock camera into.
 	 */
 	public void lockTo(Rectangle rect) {
-		this.X = this.X < rect.x ? rect.x
-				: this.X + this.width > rect.width ? rect.width - this.width
-						: this.X;
-		this.Y = this.Y < rect.y ? rect.y
-				: this.Y + this.height > rect.height ? rect.height
-						- this.height : this.Y;
+		this.X = this.X < rect.x ? rect.x : (this.X + this.width) > (rect.x + rect.width) ? rect.x + rect.width - this.width : this.X;
+		this.Y = this.Y < rect.y ? rect.y : (this.Y + this.height) > (rect.y + rect.height) ? rect.y + rect.height - this.height : this.Y;
 	}
 }
