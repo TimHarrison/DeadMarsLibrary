@@ -1,8 +1,9 @@
 package deadmarslib.Entities;
 
 import deadmarslib.Game.GameTime;
-import deadmarslib.QuadTree.QuadTree;
-import deadmarslib.QuadTree.QuadTreeNodeItem;
+import deadmarslib.SpacialIndexing.QuadTree.QuadTree;
+import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;

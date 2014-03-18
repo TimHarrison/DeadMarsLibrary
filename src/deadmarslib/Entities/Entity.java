@@ -1,8 +1,9 @@
 package deadmarslib.Entities;
 
 import deadmarslib.Game.GameTime;
-import deadmarslib.QuadTree.QuadTreeNodeItem;
 import deadmarslib.SeparatingAxisTheorem.SatShape;
+import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;

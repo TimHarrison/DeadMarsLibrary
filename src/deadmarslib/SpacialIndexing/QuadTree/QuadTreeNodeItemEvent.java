@@ -1,4 +1,4 @@
-package deadmarslib.QuadTree;
+package deadmarslib.SpacialIndexing.QuadTree;
 
 /**
  * DeadMarsLibrary QuadTreeNodeItemEvent interface

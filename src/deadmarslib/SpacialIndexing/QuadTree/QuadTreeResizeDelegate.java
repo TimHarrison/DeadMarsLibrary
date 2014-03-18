@@ -1,4 +1,4 @@
-package deadmarslib.QuadTree;
+package deadmarslib.SpacialIndexing.QuadTree;
 
 import java.awt.Rectangle;
 
