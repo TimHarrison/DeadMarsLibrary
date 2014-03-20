@@ -4,5 +4,10 @@
 !src/*/*
 !src/*/*/*
 !src/*/*/*/*
+!tests
+!tests/*
+!tests/*/*
+!tests/*/*/*
+!tests/*/*/*/*
 !.gitignore
 !README.md
