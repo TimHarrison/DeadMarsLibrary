@@ -162,11 +162,11 @@ public class SatShape extends Polygon {
 				if (o < overlap) {
 					overlap = o;
 					smallest = axis;
-					dir = p1.getDirection(p2);
+					dir = (smallest.x * smallest.y >= 0) && (smallest.x < 0 || smallest.y < 0) ? p1.getDirection(p2) * -1 : p1.getDirection(p2);
 				}
 			}
-
 		}
+		
 		for (int i = 0; i < oShape.npoints; i++) {
 			if (usedAxes.contains(a2[i].y / a2[i].x)) {
 				continue;
@@ -194,12 +194,10 @@ public class SatShape extends Polygon {
 				if (o < overlap) {
 					overlap = o;
 					smallest = axis;
-					dir = p1.getDirection(p2);
+					dir = (smallest.x * smallest.y >= 0) && (smallest.x < 0 || smallest.y < 0) ? p1.getDirection(p2) * -1 : p1.getDirection(p2);
 				}
 			}
 		}
-
-		dir = (smallest.x * smallest.y < 0) ? dir * -1.0 : dir;
 
 		SatMinimumTranslationVector mtv = new SatMinimumTranslationVector(
 				smallest, overlap, dir);

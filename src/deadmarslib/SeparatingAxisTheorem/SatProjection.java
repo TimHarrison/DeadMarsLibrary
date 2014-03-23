@@ -31,6 +31,6 @@ public class SatProjection {
 	}
 
 	public double getDirection(SatProjection proj) {
-		return Math.abs(this.max) > Math.abs(proj.max) ? 1.0f : -1.0f;
+		return this.max > proj.max ? 1.0f : -1.0f;
 	}
 }
