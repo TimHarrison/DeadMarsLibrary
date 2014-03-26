@@ -33,7 +33,6 @@ public class GameBase extends Canvas implements Runnable {
 
 	private ArrayList<GameComponent> components = new ArrayList<>();
 
-	// private Thread thread;
 	private boolean running = false;
 	private boolean isPaused = false;
 	private boolean gameOver = false;
@@ -129,6 +128,24 @@ public class GameBase extends Canvas implements Runnable {
 	 */
 	public final boolean getIsActive() {
 		return !isPaused;
+	}
+	
+	/**
+	 * Retrieves the average frames per second this game is running at.
+	 * 
+	 * @return average frames per second this game is running at.
+	 */
+	public final double getCurrentFps() {
+		return fpsStore[(int) statsCount % NUM_FPS];
+	}
+
+	/**
+	 * Retrieves the current updates per second this game is running at.
+	 * 
+	 * @return current updates per second this game is running at.
+	 */
+	public final double getCurrentUps() {
+		return upsStore[(int) statsCount % NUM_FPS];
 	}
 
 	/**
@@ -238,8 +255,6 @@ public class GameBase extends Canvas implements Runnable {
 
 			storeStats();
 		}
-
-		printStats();
 	}
 
 	private void storeStats() {
@@ -415,19 +430,6 @@ public class GameBase extends Canvas implements Runnable {
 	 */
 	public final void pauseGame() {
 		isPaused = true;
-	}
-
-	/**
-	 * Prints some general performance statistics to the console.
-	 */
-	public void printStats() {
-		System.out.println("Frame Count/Loss: " + frameCount + " / "
-				+ totalFramesSkipped);
-		System.out.println("Average FPS: " + df.format(averageFPS));
-		System.out.println("Average UPS: " + df.format(averageUPS));
-		System.out.println("Time Spent: " + timeSpentInGame + " secs");
-		System.out.println("Total Updates: " + updates);
-		System.out.println("dbImage: " + dbImage.toString());
 	}
 
 }
