@@ -10,15 +10,18 @@ import java.awt.Graphics;
 public class GameComponent {
 
 	/**
-	 * Reference to the Game this component is attached to.
+	 * Reference to the {@link GameBase} this component is attached to.
 	 */
+	// TODO: Use getter and setter instead of direct access.
 	public GameBase game = null;
 
 	/**
 	 * GameComponent Constructor.
 	 * 
-	 * @param game Game to attach this component to.
+	 * @param game
+	 *            {@link GameBase} to attach this component to.
 	 */
+	// TODO: maybe instead set the game when adding to the games components?
 	public GameComponent(GameBase game) {
 		this.game = game;
 	}
@@ -32,7 +35,7 @@ public class GameComponent {
 	/**
 	 * Overrideable method for loading content from a component.
 	 * <p>
-	 * Called automatically when a component is added to a game.
+	 * Called automatically when a component is added to the game.
 	 */
 	public void loadContent() {
 	}
@@ -40,7 +43,7 @@ public class GameComponent {
 	/**
 	 * Overrideable method for unloading content from a component.
 	 * <p>
-	 * Called automatically when a component is removed from a game.
+	 * Called automatically when a component is removed from the game.
 	 */
 	public void unloadContent() {
 	}

@@ -67,47 +67,69 @@ public class GameBase extends Canvas implements Runnable {
 	private double averageUPS = 0.0;
 	private DecimalFormat df = new DecimalFormat("0.##");
 
-	@Override
-	public final void setSize(int width, int height) {
+	/**
+	 * Set the size of the games viewport.
+	 * 
+	 * @param width
+	 *            Viewport width.
+	 * @param height
+	 *            Viewport height.
+	 */
+	public final void setViewport(int width, int height) {
 		super.setSize(width, height);
+
 		Dimension size = new Dimension(width, height);
+
 		this.setPreferredSize(size);
-		setMinimumSize(size);
-		setMaximumSize(size);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 	}
 
-	@Override
-	public final void setSize(Dimension size) {
+	/**
+	 * Set the size of the games viewport.
+	 * 
+	 * @param size
+	 *            Viewport size.
+	 */
+	public final void setViewport(Dimension size) {
 		super.setSize(size);
+
 		this.setPreferredSize(size);
-		setMinimumSize(size);
-		setMaximumSize(size);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 	}
 
-	@Override
-	public final Dimension getSize() {
+	/**
+	 * Get the size of the game sviewport.
+	 * 
+	 * @return Dimension representation of the games viewport.
+	 */
+	public final Dimension getViewport() {
 		return new Dimension(this.getWidth(), this.getHeight());
 	}
 
 	/**
-	 * Wrapper for the setSize method.
+	 * Set the viewport render resolution.
 	 * 
 	 * @param width
+	 *            Resolution width.
 	 * @param height
+	 *            Resolution height.
 	 */
 	public final void setResolution(int width, int height) {
-		resolution = new Dimension(width, height);
-		resChange = true;
+		this.resolution = new Dimension(width, height);
+		this.resChange = true;
 	}
 
 	/**
-	 * Wrapper for the setSize method.
+	 * Set the viewport render resolution.
 	 * 
-	 * @param size
+	 * @param res
+	 *            Resolution of viewport.
 	 */
 	public final void setResolution(Dimension res) {
-		resolution = res;
-		resChange = true;
+		this.resolution = res;
+		this.resChange = true;
 	}
 
 	/**
@@ -116,7 +138,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * @return Dimensions of window.
 	 */
 	public final Dimension getResolution() {
-		return resolution;
+		return this.resolution;
 	}
 
 	/**
@@ -127,16 +149,16 @@ public class GameBase extends Canvas implements Runnable {
 	 * @return whether or not the game is currently active.
 	 */
 	public final boolean getIsActive() {
-		return !isPaused;
+		return !this.isPaused;
 	}
-	
+
 	/**
 	 * Retrieves the average frames per second this game is running at.
 	 * 
 	 * @return average frames per second this game is running at.
 	 */
 	public final double getCurrentFps() {
-		return fpsStore[(int) statsCount % NUM_FPS];
+		return this.fpsStore[(int) this.statsCount % NUM_FPS];
 	}
 
 	/**
@@ -145,7 +167,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * @return current updates per second this game is running at.
 	 */
 	public final double getCurrentUps() {
-		return upsStore[(int) statsCount % NUM_FPS];
+		return this.upsStore[(int) this.statsCount % NUM_FPS];
 	}
 
 	/**
@@ -154,7 +176,7 @@ public class GameBase extends Canvas implements Runnable {
 	 * @return average frames per second this game is running at.
 	 */
 	public final double getAverageFps() {
-		return averageFPS;
+		return this.averageFPS;
 	}
 
 	/**
@@ -163,46 +185,51 @@ public class GameBase extends Canvas implements Runnable {
 	 * @return average updates per second this game is running at.
 	 */
 	public final double getAverageUps() {
-		return averageUPS;
+		return this.averageUPS;
 	}
 
 	/**
 	 * GameBase Constructor.
 	 * 
-	 * @param size Preferred game window size.
-	 * @param fps Preferred game update rate.
+	 * @param size
+	 *            Preferred game window size.
+	 * @param fps
+	 *            Preferred game update rate.
 	 */
 	public GameBase(Dimension size, long fps) {
-		_init(size, size, fps);
+		this._init(size, size, fps);
 	}
 
 	/**
 	 * GameBase Constructor.
 	 * 
-	 * @param size Preferred game window size.
-	 * @param res Preferred game resolution.
-	 * @param fps Preferred game update rate.
+	 * @param size
+	 *            Preferred game window size.
+	 * @param res
+	 *            Preferred game resolution.
+	 * @param fps
+	 *            Preferred game update rate.
 	 */
 	public GameBase(Dimension size, Dimension res, long fps) {
-		_init(size, res, fps);
+		this._init(size, res, fps);
 	}
 
 	private void _init(Dimension size, Dimension res, long fps) {
-		setSize(size);
-		setResolution(res);
+		this.setSize(size);
+		this.setResolution(res);
 
-		setBackground(Color.white);
+		this.setBackground(Color.white);
 
-		setFocusable(true);
-		requestFocus();
+		this.setFocusable(true);
+		this.requestFocus();
 
-		setPreferredFPS(fps);
+		this.setPreferredFPS(fps);
 
-		fpsStore = new double[NUM_FPS];
-		upsStore = new double[NUM_FPS];
+		this.fpsStore = new double[NUM_FPS];
+		this.upsStore = new double[NUM_FPS];
 		for (int i = 0; i < NUM_FPS; i++) {
-			fpsStore[i] = 0.0;
-			upsStore[i] = 0.0;
+			this.fpsStore[i] = 0.0;
+			this.upsStore[i] = 0.0;
 		}
 	}
 
@@ -213,19 +240,19 @@ public class GameBase extends Canvas implements Runnable {
 		int noDelays = 0;
 		long excess = 0L;
 
-		gameStartTime = System.nanoTime();
-		prevStatsTime = gameStartTime;
-		beforeTime = gameStartTime;
+		this.gameStartTime = System.nanoTime();
+		this.prevStatsTime = this.gameStartTime;
+		beforeTime = this.gameStartTime;
 
-		running = true;
+		this.running = true;
 
-		while (running) {
-			gameUpdate();
-			gameRender();
+		while (this.running) {
+			this.update();
+			this.render();
 
 			afterTime = System.nanoTime();
 			timeDiff = afterTime - beforeTime;
-			sleepTime = (period - timeDiff) - overSleepTime;
+			sleepTime = (this.period - timeDiff) - overSleepTime;
 
 			if (sleepTime > 0) {
 				try {
@@ -246,83 +273,87 @@ public class GameBase extends Canvas implements Runnable {
 			beforeTime = System.nanoTime();
 
 			int skips = 0;
-			while ((excess > period) && (skips < MAX_FRAME_SKIPS)) {
-				excess -= period;
-				gameUpdate();
+			while ((excess > this.period) && (skips < MAX_FRAME_SKIPS)) {
+				excess -= this.period;
+				this.update();
 				skips++;
 			}
-			framesSkipped += skips;
+			this.framesSkipped += skips;
 
-			storeStats();
+			this.storeStats();
 		}
 	}
 
 	private void storeStats() {
-		frameCount++;
-		statsInterval += period;
+		this.frameCount++;
+		this.statsInterval += this.period;
 
-		if (statsInterval >= MAX_STATS_INTERVAL) {
+		if (this.statsInterval >= MAX_STATS_INTERVAL) {
 			long timeNow = System.nanoTime();
-			timeSpentInGame = (int) ((timeNow - gameStartTime) / 1000000000L);
+			this.timeSpentInGame = (int) ((timeNow - this.gameStartTime) / 1000000000L);
 
-			long realElapsedTime = timeNow - prevStatsTime;
-			totalElapsedTime += realElapsedTime;
+			long realElapsedTime = timeNow - this.prevStatsTime;
+			this.totalElapsedTime += realElapsedTime;
 
-			totalFramesSkipped += framesSkipped;
+			this.totalFramesSkipped += this.framesSkipped;
 
 			double actualFPS = 0;
 			double actualUPS = 0;
-			if (totalElapsedTime > 0) {
-				actualFPS = (((double) frameCount / totalElapsedTime) * 1000000000L);
-				actualUPS = (((double) (frameCount + totalFramesSkipped) / totalElapsedTime) * 1000000000L);
+			if (this.totalElapsedTime > 0) {
+				actualFPS = (((double) this.frameCount / this.totalElapsedTime) * 1000000000L);
+				actualUPS = (((double) (this.frameCount + this.totalFramesSkipped) / this.totalElapsedTime) * 1000000000L);
 			}
 
-			fpsStore[(int) statsCount % NUM_FPS] = actualFPS;
-			upsStore[(int) statsCount % NUM_FPS] = actualUPS;
-			statsCount = statsCount + 1;
+			this.fpsStore[(int) this.statsCount % NUM_FPS] = actualFPS;
+			this.upsStore[(int) this.statsCount % NUM_FPS] = actualUPS;
+			this.statsCount = this.statsCount + 1;
 
 			double totalFPS = 0.0;
 			double totalUPS = 0.0;
 			for (int i = 0; i < NUM_FPS; i++) {
-				totalFPS += fpsStore[i];
-				totalUPS += upsStore[i];
+				totalFPS += this.fpsStore[i];
+				totalUPS += this.upsStore[i];
 			}
 
-			if (statsCount < NUM_FPS) {
-				averageFPS = totalFPS / statsCount;
-				averageUPS = totalUPS / statsCount;
+			if (this.statsCount < NUM_FPS) {
+				this.averageFPS = totalFPS / this.statsCount;
+				this.averageUPS = totalUPS / this.statsCount;
 			} else {
-				averageFPS = totalFPS / NUM_FPS;
-				averageUPS = totalUPS / NUM_FPS;
+				this.averageFPS = totalFPS / NUM_FPS;
+				this.averageUPS = totalUPS / NUM_FPS;
 			}
 
-			framesSkipped = 0;
-			prevStatsTime = timeNow;
-			statsInterval = 0L;
+			this.framesSkipped = 0;
+			this.prevStatsTime = timeNow;
+			this.statsInterval = 0L;
 		}
 	}
 
-	private void gameUpdate() {
-		gelapsedafter = System.nanoTime();
+	private void update() {
+		this.gelapsedafter = System.nanoTime();
 
-		gameTime.elapsedGameTime.setSpan(gelapsedbefore, gelapsedafter);
-		gameTime.elapsedRealTime.setSpan(gelapsedbefore, gelapsedafter);
+		this.gameTime.elapsedGameTime.setSpan(this.gelapsedbefore,
+				this.gelapsedafter);
+		this.gameTime.elapsedRealTime.setSpan(this.gelapsedbefore,
+				this.gelapsedafter);
 
-		gameTime.totalGameTime.setSpan(gameStartTime, gelapsedafter);
-		gameTime.totalRealTime.setSpan(gameStartTime, gelapsedafter);
+		this.gameTime.totalGameTime.setSpan(this.gameStartTime,
+				this.gelapsedafter);
+		this.gameTime.totalRealTime.setSpan(this.gameStartTime,
+				this.gelapsedafter);
 
-		gelapsedbefore = System.nanoTime();
+		this.gelapsedbefore = System.nanoTime();
 
-		if (running && !isPaused && !gameOver) {
-			for (int i = 0; i < components.size(); i++) {
-				GameComponent gc = components.get(i);
+		if (this.running && !this.isPaused && !this.gameOver) {
+			for (int i = 0; i < this.components.size(); i++) {
+				GameComponent gc = this.components.get(i);
 				gc.update(gameTime);
 			}
-			updates++;
+			this.updates++;
 		}
 	}
 
-	private void gameRender() {
+	private void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -330,57 +361,61 @@ public class GameBase extends Canvas implements Runnable {
 			return;
 		}
 
-		if (dbImage == null || resChange) {
-			resChange = false;
-			dbImage = new BufferedImage(resolution.width, resolution.height,
-					BufferedImage.TYPE_INT_RGB);
+		if (this.dbImage == null || this.resChange) {
+			this.resChange = false;
+			this.dbImage = new BufferedImage(this.resolution.width,
+					this.resolution.height, BufferedImage.TYPE_INT_RGB);
 		}
 
-		dbg = dbImage.getGraphics();
-		dbg.setColor(Color.black);
-		dbg.fillRect(0, 0, this.getResolution().width,
+		this.dbg = this.dbImage.getGraphics();
+		this.dbg.setColor(Color.black);
+		this.dbg.fillRect(0, 0, this.getResolution().width,
 				this.getResolution().height);
 
-		for (int i = 0; i < components.size(); i++) {
-			GameComponent gc = components.get(i);
-			gc.render(gameTime, dbg);
+		for (int i = 0; i < this.components.size(); i++) {
+			GameComponent gc = this.components.get(i);
+			gc.render(this.gameTime, this.dbg);
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(this.dbImage, 0, 0, this.getWidth(), this.getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
 
 	/**
-	 * Attempts to start the game thread.
+	 * Start the game thread.
+	 * <p>
+	 * Returns immediately if the game thread is already started. No game thread
+	 * will be started.
 	 */
-	public synchronized void startGame() {
-		if (running) {
+	public synchronized void start() {
+		if (this.running) {
 			return;
 		}
-		running = true;
+		this.running = true;
 		new Thread(this).start();
 	}
 
 	/**
-	 * Attempts to stop the game thread.
+	 * Stop the game thread.
+	 * <p>
+	 * Sets the games running flag to false. All logic will be executed and the
+	 * thread will break out of its loop and stop.
 	 */
-	public synchronized void stopGame() {
-		if (!running) {
-			return;
-		}
-		running = false;
+	public synchronized void stop() {
+		this.running = false;
 	}
 
 	/**
-	 * Changes the preferred frame rate of the game.
+	 * Sets the preferred frame rate of the game.
 	 * <p>
 	 * Frame rate is determined by the update rate. This actually sets the
 	 * preferred update rate, and the frame rate attempts to match throughout
 	 * the lifetime of the game.
 	 * 
-	 * @param fps new preferred frame rate of the game.
+	 * @param fps
+	 *            new preferred frame rate of the game.
 	 */
 	public final void setPreferredFPS(long fps) {
 		this.period = ((long) 1000.0 / fps) * 1000000L;
@@ -389,47 +424,57 @@ public class GameBase extends Canvas implements Runnable {
 	/**
 	 * Not exactly sure what this is really for. I Think it's supposed to
 	 * prevent the game from trying to 'catch up' after doing some loading
-	 * operations. I don't think it actually does its job though.
+	 * operations. I don't think it actually does its job though. TODO: Review
+	 * and fix this.
 	 */
 	public final void resetElapsedTime() {
-		gameTime.elapsedGameTime.setSpan(0);
-		gameTime.elapsedRealTime.setSpan(0);
+		this.gameTime.elapsedGameTime.setSpan(0);
+		this.gameTime.elapsedRealTime.setSpan(0);
 	}
 
 	/**
-	 * Appends the specified {@link GameComponent} to this games component list.
+	 * Appends the specified {@link GameComponent} to the games component list.
 	 * 
-	 * @param gc {@link GameComponent} to add.
+	 * @param gc
+	 *            {@link GameComponent} to add.
 	 */
 	public final void addComponent(GameComponent gc) {
 		gc.initialize();
 		gc.loadContent();
-		components.add(gc);
+		this.components.add(gc);
 	}
 
 	/**
-	 * Removes the specified {@link GameComponent} from this games component
+	 * Removes the specified {@link GameComponent} from the games component
 	 * list.
 	 * 
-	 * @param gc {@link GameComponent} to remove.
+	 * @param gc
+	 *            {@link GameComponent} to remove.
 	 */
 	public final void removeComponent(GameComponent gc) {
 		gc.unloadContent();
-		components.remove(gc);
+		this.components.remove(gc);
 	}
 
 	/**
-	 * Resumes the game from being paused.
+	 * Resumes the Game from being paused.
 	 */
-	public final void resumeGame() {
-		isPaused = false;
+	public final void unPause() {
+		this.isPaused = false;
 	}
 
 	/**
-	 * Pauses the game.
+	 * Pauses the Game.
 	 */
-	public final void pauseGame() {
-		isPaused = true;
+	public final void pause() {
+		this.isPaused = true;
+	}
+
+	/**
+	 * Toggle whether the Game is paused.
+	 */
+	public final void togglePause() {
+		this.isPaused = !this.isPaused;
 	}
 
 }

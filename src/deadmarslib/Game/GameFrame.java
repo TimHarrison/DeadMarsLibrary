@@ -18,10 +18,16 @@ public class GameFrame extends GameBase implements WindowListener {
 
 	/**
 	 * GameFrame Constructor.
+	 * <p>
+	 * Constructs GameFrame instance with specified window title, window size,
+	 * and framerate.
 	 * 
-	 * @param title Game Window Title.
-	 * @param size GameFrame Window size.
-	 * @param fps Desired game update speed.
+	 * @param title
+	 *            Game Window Title.
+	 * @param size
+	 *            GameFrame Window size.
+	 * @param fps
+	 *            Desired game update speed.
 	 */
 	public GameFrame(String title, Dimension size, long fps) {
 		super(size, fps);
@@ -30,11 +36,18 @@ public class GameFrame extends GameBase implements WindowListener {
 
 	/**
 	 * GameFrame Constructor.
+	 * <p>
+	 * Constructs GameFrame instance with specified window title, window size,
+	 * window resolution, and framerate.
 	 * 
-	 * @param title Game Window Title.
-	 * @param size GameFrame Window size.
-	 * @param res GameFrame Window resolution.
-	 * @param fps Desired game update speed.
+	 * @param title
+	 *            Game Window Title.
+	 * @param size
+	 *            GameFrame Window size.
+	 * @param res
+	 *            GameFrame Window resolution.
+	 * @param fps
+	 *            Desired game update speed.
 	 */
 	public GameFrame(String title, Dimension size, Dimension res, long fps) {
 		super(size, res, fps);
@@ -119,37 +132,37 @@ public class GameFrame extends GameBase implements WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		//startGame();
+		// this.start();
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		stopGame();
+		this.stop();
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		stopGame();
+		this.stop();
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		pauseGame();
+		this.pause();
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		resumeGame();
+		this.unPause();
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		resumeGame();
+		this.unPause();
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		pauseGame();
+		this.pause();
 	}
 
 }

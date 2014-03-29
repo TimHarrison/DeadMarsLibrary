@@ -10,48 +10,45 @@ import java.util.HashMap;
  * 
  * @author Daniel Cecil
  */
+// TODO: Refactor GameInput API
 public class GameInput extends GameComponent {
 
 	ArrayList<Integer> kbdInputs = new ArrayList<>();
 	ArrayList<Integer> mseInputs = new ArrayList<>();
 
 	ArrayList<Integer> lastKey = new ArrayList<>();
-	
+
 	HashMap<String, Object> inputMappings = new HashMap<>();
 
 	int mouseX;
 	int mouseY;
 
-	final GameBase thisGame;
-
 	/**
 	 * Constructor
 	 * 
-	 * @param game Game to attach this input component to.
+	 * @param game
+	 *            Game to attach this input component to.
 	 */
 	public GameInput(GameBase game) {
 		super(game);
 
-		thisGame = game;
+		final GameBase thisGame = game;
 		final GameInput me = this;
 
 		game.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (!kbdInputs.contains(e.getKeyCode())) {
-					lastKey.clear();
-					lastKey.add(e.getKeyCode());
-					kbdInputs.add(e.getKeyCode());
-					System.out.println("Keyboard Key Added: " + e.getKeyCode());
+				if (!me.kbdInputs.contains(e.getKeyCode())) {
+					me.lastKey.clear();
+					me.lastKey.add(e.getKeyCode());
+					me.kbdInputs.add(e.getKeyCode());
 				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (kbdInputs.contains(e.getKeyCode())) {
-					kbdInputs.remove((Integer) e.getKeyCode());
-					System.out.println("Keyboard Key Removed: "
-							+ e.getKeyCode());
+				if (me.kbdInputs.contains(e.getKeyCode())) {
+					me.kbdInputs.remove((Integer) e.getKeyCode());
 				}
 			}
 		});
@@ -65,17 +62,15 @@ public class GameInput extends GameComponent {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (!mseInputs.contains(e.getButton())) {
-					mseInputs.add(e.getButton());
-					System.out.println("Mouse Button Added: " + e.getButton());
+				if (!me.mseInputs.contains(e.getButton())) {
+					me.mseInputs.add(e.getButton());
 				}
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (mseInputs.contains(e.getButton())) {
-					mseInputs.remove((Integer) e.getButton());
-					System.out.println("Mouse Button Removed: " + e.getButton());
+				if (me.mseInputs.contains(e.getButton())) {
+					me.mseInputs.remove((Integer) e.getButton());
 				}
 			}
 		});
@@ -84,33 +79,41 @@ public class GameInput extends GameComponent {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);
+
 				me.mouseX = e.getX();
 				me.mouseY = e.getY();
-				System.out.println("Mouse Moved: (" + e.getX() + ", "
-						+ e.getY() + ")");
 			}
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				super.mouseDragged(e);
+
 				me.mouseX = e.getX();
 				me.mouseY = e.getY();
-				System.out.println("Mouse Dragged: (" + e.getX() + ", "
-						+ e.getY() + ")");
 			}
 		});
 	}
-	
+
+	/**
+	 * Set the default input mappings.
+	 */
 	public void setDefaultInputMappings() {
-		setMapping("A", KeyEvent.VK_A);
-		setMapping("B", KeyEvent.VK_B);
-		setMapping("X", KeyEvent.VK_X);
-		setMapping("Y", KeyEvent.VK_Y);
-		setMapping("start", KeyEvent.VK_ENTER);
-		setMapping("back", KeyEvent.VK_BACK_SPACE);
-		setMapping("guide", KeyEvent.VK_TAB);
+		this.setMapping("A", KeyEvent.VK_A);
+		this.setMapping("B", KeyEvent.VK_B);
+		this.setMapping("X", KeyEvent.VK_X);
+		this.setMapping("Y", KeyEvent.VK_Y);
+		this.setMapping("start", KeyEvent.VK_ENTER);
+		this.setMapping("back", KeyEvent.VK_BACK_SPACE);
+		this.setMapping("guide", KeyEvent.VK_TAB);
 	}
 
+	/**
+	 * Get the input mapping the for key.
+	 * 
+	 * @param key
+	 *            Name of the key to get mapping for.
+	 * @return Input mapping of the key.
+	 */
 	public Object getMapping(String key) {
 		if (this.inputMappings.containsKey(key)) {
 			return this.inputMappings.get(key);
@@ -118,6 +121,14 @@ public class GameInput extends GameComponent {
 		return new Object();
 	}
 
+	/**
+	 * Set the key to be mapped to a specific input.
+	 * 
+	 * @param key
+	 *            Name of key to map input to.
+	 * @param input
+	 *            Input object to map to key.
+	 */
 	public void setMapping(String key, Object input) {
 		this.inputMappings.put(key, input);
 	}
@@ -128,9 +139,9 @@ public class GameInput extends GameComponent {
 	 * @return key code.
 	 */
 	public Integer lastKeyPressed() {
-		if (lastKey.size() > 0) {
-			Integer key = lastKey.get(lastKey.size() - 1);
-			lastKey.clear();
+		if (this.lastKey.size() > 0) {
+			Integer key = this.lastKey.get(this.lastKey.size() - 1);
+			this.lastKey.clear();
 			return key;
 		} else {
 			return null;
@@ -140,11 +151,12 @@ public class GameInput extends GameComponent {
 	/**
 	 * Checks if a specified key is currently pressed down.
 	 * 
-	 * @param keyCode Key to check.
+	 * @param keyCode
+	 *            Key to check.
 	 * @return Whether or not the specified key is being pressed.
 	 */
 	public boolean isKeyDown(Integer keyCode) {
-		if (kbdInputs.contains(keyCode)) {
+		if (this.kbdInputs.contains(keyCode)) {
 			return true;
 		} else {
 			return false;
@@ -154,11 +166,12 @@ public class GameInput extends GameComponent {
 	/**
 	 * Checks if a specified mouse button is currently pressed down.
 	 * 
-	 * @param buttonCode Mouse button to check.
+	 * @param buttonCode
+	 *            Mouse button to check.
 	 * @return Whether or not the specified mouse button is being pressed.
 	 */
 	public boolean isMouseDown(Integer buttonCode) {
-		if (mseInputs.contains(buttonCode)) {
+		if (this.mseInputs.contains(buttonCode)) {
 			return true;
 		} else {
 			return false;
@@ -168,22 +181,22 @@ public class GameInput extends GameComponent {
 	/**
 	 * Remove a key from the list of keys currently being pressed.
 	 * 
-	 * @param keyCode Key to remove.
+	 * @param keyCode
+	 *            Key to remove.
 	 */
 	public void removeKeyDown(Integer keyCode) {
-		kbdInputs.remove(keyCode);
-		System.out.println("Keyboard Key Removed: " + keyCode);
+		this.kbdInputs.remove(keyCode);
 	}
 
 	/**
 	 * Remove a mouse button from the list of mouse buttons currently being
 	 * pressed.
 	 * 
-	 * @param keyCode Mouse button to remove.
+	 * @param keyCode
+	 *            Mouse button to remove.
 	 */
 	public void removeMouseDown(Integer keyCode) {
-		mseInputs.remove(keyCode);
-		System.out.println("Mouse Button Removed: " + keyCode);
+		this.mseInputs.remove(keyCode);
 	}
 
 	/**
@@ -192,7 +205,7 @@ public class GameInput extends GameComponent {
 	 * @return X coordinate of the mouse.
 	 */
 	public int getMouseX() {
-		return mouseX;
+		return this.mouseX;
 	}
 
 	/**
@@ -201,7 +214,7 @@ public class GameInput extends GameComponent {
 	 * @return Y coordinate of the mouse.
 	 */
 	public int getMouseY() {
-		return mouseY;
+		return this.mouseY;
 	}
 
 	/**
@@ -211,7 +224,7 @@ public class GameInput extends GameComponent {
 	 * @return The mouse's xy coordinates.
 	 */
 	public Point getMouseCoords() {
-		return new Point(mouseX, mouseY);
+		return new Point(this.mouseX, this.mouseY);
 	}
 
 }
