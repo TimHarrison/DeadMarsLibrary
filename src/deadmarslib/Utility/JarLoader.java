@@ -29,6 +29,7 @@ public class JarLoader {
      * @throws MalformedURLException
      * @throws ClassNotFoundException 
      */
+    // TODO: Fix resource leak with ClassLoader.
     public static void loadJar(File jar, String main) throws MalformedURLException, ClassNotFoundException {
         URL[] url = new URL[]{jar.toURI().toURL()};
         ClassLoader cl = new URLClassLoader(url);
