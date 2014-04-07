@@ -1,8 +1,9 @@
 package deadmarslib.Graphics.Animation;
 
-import deadmarslib.Game.GameTime;
+import deadmarslib.Core.GameTime;
 import deadmarslib.Graphics.SpriteSheet;
 import deadmarslib.Utility.MathUtility;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;

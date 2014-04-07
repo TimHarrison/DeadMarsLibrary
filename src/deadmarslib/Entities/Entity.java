@@ -1,6 +1,6 @@
 package deadmarslib.Entities;
 
-import deadmarslib.Game.GameTime;
+import deadmarslib.Core.GameTime;
 import deadmarslib.SeparatingAxisTheorem.SatShape;
 import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 

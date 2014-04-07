@@ -1,6 +1,7 @@
 package deadmarslib.Graphics.Animation;
 
-import deadmarslib.Game.GameTime;
+import deadmarslib.Core.GameTime;
+
 import java.awt.Graphics;
 import java.util.HashMap;
 
