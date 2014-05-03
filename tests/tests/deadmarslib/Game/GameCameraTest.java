@@ -9,15 +9,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import deadmarslib.Window.GameCamera;
+import deadmarslib.Utility.Camera;
 
 public class GameCameraTest {
 
-	private GameCamera cam;
+	private Camera cam;
 
 	@Before
 	public void setUp() {
-		cam = new GameCamera();
+		cam = new Camera();
 	}
 
 	@After

@@ -1,4 +1,4 @@
-package deadmarslib.Window;
+package deadmarslib.Utility;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,21 +8,7 @@ import java.awt.Rectangle;
  * 
  * @author Daniel Cecil
  */
-public class GameCamera {
-
-	private int X;
-	private int Y;
-	private int width;
-	private int height;
-
-	/**
-	 * Retrieve the X position of the camera.
-	 * 
-	 * @return X position.
-	 */
-	public int getX() {
-		return this.X;
-	}
+public class Camera extends Rectangle{
 
 	/**
 	 * Set the X position of camera.
@@ -31,16 +17,7 @@ public class GameCamera {
 	 *            new X position.
 	 */
 	public void setX(int x) {
-		this.X = x;
-	}
-
-	/**
-	 * Retrieve the Y position of the camera.
-	 * 
-	 * @return Y position.
-	 */
-	public int getY() {
-		return this.Y;
+		this.x = x;
 	}
 
 	/**
@@ -50,16 +27,7 @@ public class GameCamera {
 	 *            new Y position.
 	 */
 	public void setY(int y) {
-		this.Y = y;
-	}
-
-	/**
-	 * Retrieve the width of the camera.
-	 * 
-	 * @return width.
-	 */
-	public int getWidth() {
-		return this.width;
+		this.y = y;
 	}
 
 	/**
@@ -70,15 +38,6 @@ public class GameCamera {
 	 */
 	public void setWidth(int w) {
 		this.width = w;
-	}
-
-	/**
-	 * Retrieve the height of the camera.
-	 * 
-	 * @return height.
-	 */
-	public int getHeight() {
-		return this.height;
 	}
 
 	/**
@@ -97,7 +56,7 @@ public class GameCamera {
 	 * @return X and Y coordinates of the camera.
 	 */
 	public final Point getPosition() {
-		return new Point(this.X, this.Y);
+		return new Point(this.x, this.y);
 	}
 
 	/**
@@ -109,8 +68,8 @@ public class GameCamera {
 	 *            new Y Position.
 	 */
 	public final void setPosition(int x, int y) {
-		this.X = x;
-		this.Y = y;
+		this.x = x;
+		this.y = y;
 	}
 
 	/**
@@ -120,17 +79,8 @@ public class GameCamera {
 	 *            Coordinates to set position to.
 	 */
 	public final void setPosition(Point position) {
-		this.X = position.x;
-		this.Y = position.y;
-	}
-
-	/**
-	 * Retrieves the rectangular bounds of the camera.
-	 * 
-	 * @return {@link Rectangle} of camera bounds.
-	 */
-	public Rectangle getBounds() {
-		return new Rectangle(this.X, this.Y, this.width, this.height);
+		this.x = position.x;
+		this.y = position.y;
 	}
 
 	/**
@@ -143,7 +93,7 @@ public class GameCamera {
 	 * @return {@link Rectangle} of camera bounds from coefficients.
 	 */
 	public Rectangle getBounds(double pXCoef, double pYCoef) {
-		return new Rectangle((int) (this.X * pXCoef), (int) (this.Y * pYCoef),
+		return new Rectangle((int) (this.x * pXCoef), (int) (this.y * pYCoef),
 				this.width, this.height);
 	}
 
@@ -161,8 +111,8 @@ public class GameCamera {
 	 *            new Height.
 	 */
 	public final void setBounds(int x, int y, int w, int h) {
-		this.X = x;
-		this.Y = y;
+		this.x = x;
+		this.y = y;
 		this.width = w;
 		this.height = h;
 	}
@@ -174,8 +124,8 @@ public class GameCamera {
 	 *            Coordinates and Size to set position and dimensions to.
 	 */
 	public final void setBounds(Rectangle rect) {
-		this.X = rect.x;
-		this.Y = rect.y;
+		this.x = rect.x;
+		this.y = rect.y;
 		this.width = rect.width;
 		this.height = rect.height;
 	}
@@ -185,8 +135,8 @@ public class GameCamera {
 	 * <p>
 	 * Creates a size 0 camera at position (0, 0).
 	 */
-	public GameCamera() {
-		this.setBounds(0, 0, 0, 0);
+	public Camera() {
+		super(0, 0, 0, 0);
 	}
 
 	/**
@@ -199,8 +149,8 @@ public class GameCamera {
 	 * @param y
 	 *            Y position of created GameCamera.
 	 */
-	public GameCamera(int x, int y) {
-		this.setBounds(x, y, 0, 0);
+	public Camera(int x, int y) {
+		super(x, y, 0, 0);
 	}
 
 	/**
@@ -217,8 +167,8 @@ public class GameCamera {
 	 * @param h
 	 *            Height of created GameCamera.
 	 */
-	public GameCamera(int x, int y, int w, int h) {
-		this.setBounds(x, y, w, h);
+	public Camera(int x, int y, int w, int h) {
+		super(x, y, w, h);
 	}
 
 	/**
@@ -229,8 +179,8 @@ public class GameCamera {
 	 * @param rect
 	 *            Rectangle to create GameCamera from.
 	 */
-	public GameCamera(Rectangle rect) {
-		this.setBounds(rect);
+	public Camera(Rectangle rect) {
+		super(rect);
 	}
 
 	/**
@@ -240,11 +190,11 @@ public class GameCamera {
 	 *            area to lock camera into.
 	 */
 	public void lockTo(Rectangle rect) {
-		this.X = this.X < rect.x ? rect.x
-				: (this.X + this.width) > (rect.x + rect.width) ? rect.x
-						+ rect.width - this.width : this.X;
-		this.Y = this.Y < rect.y ? rect.y
-				: (this.Y + this.height) > (rect.y + rect.height) ? rect.y
-						+ rect.height - this.height : this.Y;
+		this.x = this.x < rect.x ? rect.x
+				: (this.x + this.width) > (rect.x + rect.width) ? rect.x
+						+ rect.width - this.width : this.x;
+		this.y = this.y < rect.y ? rect.y
+				: (this.y + this.height) > (rect.y + rect.height) ? rect.y
+						+ rect.height - this.height : this.y;
 	}
 }
