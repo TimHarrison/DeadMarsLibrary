@@ -1,9 +1,9 @@
 package deadmarslib.Graphics.Animation;
 
-import deadmarslib.Core.GameTime;
-
 import java.awt.Graphics;
 import java.util.HashMap;
+
+import deadmarslib.Core.GameTime;
 
 /**
  * DeadMarsLibrary AnimationManager Class

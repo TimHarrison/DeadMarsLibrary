@@ -1,14 +1,13 @@
 package deadmarslib.Screens.SystemScreens;
 
-import deadmarslib.Assets.AssetHelper;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+
 import deadmarslib.Assets.AssetManager;
 import deadmarslib.Core.GameTime;
 import deadmarslib.Screens.Screen;
 import deadmarslib.Utility.TimeSpan;
-
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.IOException;
 
 /**
  * DeadMarsLibrary BackgroundScreen Class

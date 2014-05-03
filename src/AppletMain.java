@@ -1,8 +1,8 @@
 import java.awt.Dimension;
 
 import javax.swing.JApplet;
-import deadmarslib.Window.GameWindowApplet;
 
+import deadmarslib.Window.GameWindowApplet;
 
 public class AppletMain extends JApplet {
 	

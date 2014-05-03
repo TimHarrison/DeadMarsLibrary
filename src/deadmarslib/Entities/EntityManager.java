@@ -1,12 +1,14 @@
 package deadmarslib.Entities;
 
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import deadmarslib.Core.GameTime;
 import deadmarslib.SpacialIndexing.QuadTree.QuadTree;
 import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * DeadMarsLib EntityManager Class

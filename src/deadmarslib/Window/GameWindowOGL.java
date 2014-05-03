@@ -1,19 +1,6 @@
 package deadmarslib.Window;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;

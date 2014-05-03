@@ -1,17 +1,17 @@
 package deadmarslib.Screens.SystemScreens;
 
-import deadmarslib.Core.GameTime;
-import deadmarslib.Input.GameInput;
-import deadmarslib.Screens.Screen;
-import deadmarslib.Utility.TimeSpan;
-import deadmarslib.Window.GameWindow;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+
+import deadmarslib.Core.GameTime;
+import deadmarslib.Input.GameInput;
+import deadmarslib.Screens.Screen;
+import deadmarslib.Utility.TimeSpan;
+import deadmarslib.Window.GameWindow;
 
 /**
  * DeadMarsLibrary MessageBoxScreen Class

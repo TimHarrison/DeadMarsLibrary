@@ -1,9 +1,14 @@
 package deadmarslib.SpacialIndexing.QuadTree;
 
-import deadmarslib.Utility.RectUtility;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import deadmarslib.Utility.RectUtility;
 
 /**
  * DeadMarsLibrary QuadTreeNode class
