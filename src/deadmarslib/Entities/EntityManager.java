@@ -204,10 +204,9 @@ public class EntityManager {
 	 * @param filterout {@link Class} array of classes to filter out of the render.
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
-	 * @param g Reference to the graphics context for drawing.
 	 */
 	public void renderEntities(Class filterout[], Rectangle renderViewArea,
-			GameTime gameTime, Graphics g) {
+			GameTime gameTime) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
 
@@ -221,7 +220,7 @@ public class EntityManager {
 				}
 			}
 
-			e.render(gameTime, g);
+			e.render(gameTime);
 		}
 	}
 
@@ -234,10 +233,9 @@ public class EntityManager {
 	 * @param filterout {@link Class} array of classes to filter out of the render.
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
-	 * @param g Reference to the graphics context for drawing.
 	 */
 	public void renderEntities(Class filterout[], Polygon renderViewArea,
-			GameTime gameTime, Graphics g) {
+			GameTime gameTime) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
 
@@ -251,7 +249,7 @@ public class EntityManager {
 				}
 			}
 
-			e.render(gameTime, g);
+			e.render(gameTime);
 		}
 	}
 
@@ -312,20 +310,6 @@ public class EntityManager {
 		}
 
 		return entList;
-	}
-
-	/**
-	 * Visually renders the {@link QuadTree} contained in this EntityManager.
-	 * <p>
-	 * Useful for debugging.
-	 * 
-	 * @param renderViewArea Area of the {@link QuadTree} to render.
-	 * @param treeColor Color to draw the tree in.
-	 * @param g Reference to the graphics context for drawing.
-	 */
-	public void renderTree(Rectangle renderViewArea, Color treeColor, Graphics g) {
-		entityTree.renderTree(renderViewArea, new Point(renderViewArea.x,
-				renderViewArea.y), treeColor, g);
 	}
 
 	/**

@@ -9,6 +9,7 @@ import deadmarslib.Screens.Screen;
 import deadmarslib.Screens.ScreenManager;
 import deadmarslib.Screens.ScreenState;
 import deadmarslib.Utility.TimeSpan;
+import deadmarslib.Window.GameWindow;
 
 /**
  * DeadMarsLibrary LoadingScreen Class
@@ -66,15 +67,15 @@ public class LoadingScreen extends Screen {
 
 			int posx, posy;
 
-			posx = this.getScreenManager().game.getResolution().width / 2;
-			posy = this.getScreenManager().game.getResolution().height / 2;
+			posx = ((GameWindow)this.getScreenManager().game).getResolution().width / 2;
+			posy = ((GameWindow)this.getScreenManager().game).getResolution().height / 2;
 
 			int textWidth = g.getFontMetrics().stringWidth("Loading...");
 
 			g.setColor(Color.black);
 			g.fillRect(0, 0,
-					this.getScreenManager().game.getResolution().width,
-					this.getScreenManager().game.getResolution().height);
+					((GameWindow)this.getScreenManager().game).getResolution().width,
+					((GameWindow)this.getScreenManager().game).getResolution().height);
 			g.setColor(Color.white);
 			g.drawString(message, posx - textWidth / 2, posy);
 		}

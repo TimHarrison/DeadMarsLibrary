@@ -4,6 +4,7 @@ import deadmarslib.Core.GameTime;
 import deadmarslib.Input.GameInput;
 import deadmarslib.Screens.Screen;
 import deadmarslib.Utility.TimeSpan;
+import deadmarslib.Window.GameWindow;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -74,8 +75,8 @@ public class MessageBoxScreen extends Screen {
 		int textWidth = g.getFontMetrics().stringWidth(message);
 		int textHeight = g.getFontMetrics().getHeight();
 
-		posx = this.getScreenManager().game.getResolution().width / 2;
-		posy = this.getScreenManager().game.getResolution().height / 2;
+		posx = ((GameWindow)this.getScreenManager().game).getResolution().width / 2;
+		posy = ((GameWindow)this.getScreenManager().game).getResolution().height / 2;
 
 		final int hPad = 32;
 		final int vPad = 16;

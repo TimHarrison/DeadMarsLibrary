@@ -1,14 +1,13 @@
 package deadmarslib.Entities;
 
-import deadmarslib.Core.GameTime;
-import deadmarslib.SeparatingAxisTheorem.SatShape;
-import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
-
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Arrays;
+
+import deadmarslib.Core.GameTime;
+import deadmarslib.SeparatingAxisTheorem.SatShape;
+import deadmarslib.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
 /**
  * DeadMarsLib Entity Class
@@ -627,9 +626,8 @@ public class Entity implements Comparable<Entity> {
 	 * Overridable. Used to render an Entity to the game screen.
 	 * 
 	 * @param gameTime reference to the current {@link GameTime}.
-	 * @param g reference to the graphics context for drawing.
 	 */
-	public void render(GameTime gameTime, Graphics g) {
+	public void render(GameTime gameTime) {
 	}
 
 	/**

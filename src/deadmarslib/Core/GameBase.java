@@ -1,12 +1,6 @@
 package deadmarslib.Core;
 
 import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -30,115 +24,36 @@ import java.util.ArrayList;
  * @author Daniel Cecil
  */
 public class GameBase extends Canvas implements Runnable {
-
-	private ArrayList<GameComponent> components = new ArrayList<>();
-
-	private boolean running = false;
+	
+	public static long SECOND = 1000000000L;
+	private static int NUM_FPS = 10;
+	
+	protected ArrayList<GameComponent> components = new ArrayList<>();
+	
+	private boolean isRunning = false;
 	private boolean isPaused = false;
-	private boolean gameOver = false;
-	private Dimension resolution = new Dimension();
-	private boolean resChange = false;
-	private Graphics dbg;
-	private BufferedImage dbImage;
-	private GameTime gameTime = new GameTime();
-	private long updates = 0;
-
-	private static final int NO_DELAYS_PER_YIELD = 16;
-	private static int MAX_FRAME_SKIPS = 5;
-	private long period;
+	protected GameTime gameTime = new GameTime();
+	
 	private long gameStartTime;
-	private long framesSkipped = 0L;
-
 	private long gelapsedbefore = System.nanoTime();
 	private long gelapsedafter = System.nanoTime();
-
-	private static long MAX_STATS_INTERVAL = 1000000000L;
-	private static int NUM_FPS = 10;
-	private long statsInterval = 0L;
-	private long prevStatsTime;
-	private long totalElapsedTime = 0L;
-	private int timeSpentInGame = 0;
+	
+	private double frameRate = 5000.0;
+	private long updates;
+	private long statsCount = 0;
 	private long frameCount = 0;
 	private double fpsStore[];
-	private long statsCount = 0;
 	private double averageFPS = 0.0;
-	private long totalFramesSkipped = 0L;
 	private double upsStore[];
 	private double averageUPS = 0.0;
-	private DecimalFormat df = new DecimalFormat("0.##");
-
-	/**
-	 * Set the size of the games viewport.
-	 * 
-	 * @param width
-	 *            Viewport width.
-	 * @param height
-	 *            Viewport height.
-	 */
-	public final void setViewport(int width, int height) {
-		super.setSize(width, height);
-
-		Dimension size = new Dimension(width, height);
-
-		this.setPreferredSize(size);
-		this.setMinimumSize(size);
-		this.setMaximumSize(size);
-	}
-
-	/**
-	 * Set the size of the games viewport.
-	 * 
-	 * @param size
-	 *            Viewport size.
-	 */
-	public final void setViewport(Dimension size) {
-		super.setSize(size);
-
-		this.setPreferredSize(size);
-		this.setMinimumSize(size);
-		this.setMaximumSize(size);
-	}
-
-	/**
-	 * Get the size of the game sviewport.
-	 * 
-	 * @return Dimension representation of the games viewport.
-	 */
-	public final Dimension getViewport() {
-		return new Dimension(this.getWidth(), this.getHeight());
-	}
-
-	/**
-	 * Set the viewport render resolution.
-	 * 
-	 * @param width
-	 *            Resolution width.
-	 * @param height
-	 *            Resolution height.
-	 */
-	public final void setResolution(int width, int height) {
-		this.resolution = new Dimension(width, height);
-		this.resChange = true;
-	}
-
-	/**
-	 * Set the viewport render resolution.
-	 * 
-	 * @param res
-	 *            Resolution of viewport.
-	 */
-	public final void setResolution(Dimension res) {
-		this.resolution = res;
-		this.resChange = true;
-	}
-
-	/**
-	 * Retrieves the dimensions of the draw surface.
-	 * 
-	 * @return Dimensions of window.
-	 */
-	public final Dimension getResolution() {
-		return this.resolution;
+	
+	public GameBase() {
+		this.fpsStore = new double[NUM_FPS];
+		this.upsStore = new double[NUM_FPS];
+		for (int i = 0; i < NUM_FPS; i++) {
+			this.fpsStore[i] = 0.0;
+			this.upsStore[i] = 0.0;
+		}
 	}
 
 	/**
@@ -151,7 +66,7 @@ public class GameBase extends Canvas implements Runnable {
 	public final boolean getIsActive() {
 		return !this.isPaused;
 	}
-
+	
 	/**
 	 * Retrieves the average frames per second this game is running at.
 	 * 
@@ -187,149 +102,40 @@ public class GameBase extends Canvas implements Runnable {
 	public final double getAverageUps() {
 		return this.averageUPS;
 	}
-
+	
 	/**
-	 * GameBase Constructor.
-	 * 
-	 * @param size
-	 *            Preferred game window size.
-	 * @param fps
-	 *            Preferred game update rate.
+	 * Start the game thread.
+	 * <p>
+	 * Returns immediately if the game thread is already started. No game thread
+	 * will be started.
 	 */
-	public GameBase(Dimension size, long fps) {
-		this._init(size, size, fps);
+	public synchronized void start() {
+		if(this.isRunning) {
+			return;
+		}
+		
+		this.isRunning = true;
+		new Thread(this).start();
 	}
-
+	
 	/**
-	 * GameBase Constructor.
-	 * 
-	 * @param size
-	 *            Preferred game window size.
-	 * @param res
-	 *            Preferred game resolution.
-	 * @param fps
-	 *            Preferred game update rate.
+	 * Stop the game thread.
+	 * <p>
+	 * Sets the games running flag to false. All logic will be executed and the
+	 * thread will break out of its loop and stop.
 	 */
-	public GameBase(Dimension size, Dimension res, long fps) {
-		this._init(size, res, fps);
-	}
-
-	private void _init(Dimension size, Dimension res, long fps) {
-		this.setSize(size);
-		this.setResolution(res);
-
-		this.setBackground(Color.white);
-
-		this.setFocusable(true);
-		this.requestFocus();
-
-		this.setPreferredFPS(fps);
-
-		this.fpsStore = new double[NUM_FPS];
-		this.upsStore = new double[NUM_FPS];
-		for (int i = 0; i < NUM_FPS; i++) {
-			this.fpsStore[i] = 0.0;
-			this.upsStore[i] = 0.0;
+	public synchronized void stop() {
+		if(!this.isRunning) {
+			return;
 		}
+		
+		this.isRunning = false;
 	}
-
-	@Override
-	public void run() {
-		long beforeTime, afterTime, timeDiff, sleepTime;
-		long overSleepTime = 0L;
-		int noDelays = 0;
-		long excess = 0L;
-
-		this.gameStartTime = System.nanoTime();
-		this.prevStatsTime = this.gameStartTime;
-		beforeTime = this.gameStartTime;
-
-		this.running = true;
-
-		while (this.running) {
-			this.update();
-			this.render();
-
-			afterTime = System.nanoTime();
-			timeDiff = afterTime - beforeTime;
-			sleepTime = (this.period - timeDiff) - overSleepTime;
-
-			if (sleepTime > 0) {
-				try {
-					Thread.sleep(sleepTime / 1000000L);
-				} catch (InterruptedException ex) {
-				}
-				overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-			} else {
-				excess -= sleepTime;
-				overSleepTime = 0L;
-
-				if (++noDelays >= NO_DELAYS_PER_YIELD) {
-					Thread.yield();
-					noDelays = 0;
-				}
-			}
-
-			beforeTime = System.nanoTime();
-
-			int skips = 0;
-			while ((excess > this.period) && (skips < MAX_FRAME_SKIPS)) {
-				excess -= this.period;
-				this.update();
-				skips++;
-			}
-			this.framesSkipped += skips;
-
-			this.storeStats();
-		}
+	
+	protected void render() {
 	}
-
-	private void storeStats() {
-		this.frameCount++;
-		this.statsInterval += this.period;
-
-		if (this.statsInterval >= MAX_STATS_INTERVAL) {
-			long timeNow = System.nanoTime();
-			this.timeSpentInGame = (int) ((timeNow - this.gameStartTime) / 1000000000L);
-
-			long realElapsedTime = timeNow - this.prevStatsTime;
-			this.totalElapsedTime += realElapsedTime;
-
-			this.totalFramesSkipped += this.framesSkipped;
-
-			double actualFPS = 0;
-			double actualUPS = 0;
-			if (this.totalElapsedTime > 0) {
-				actualFPS = (((double) this.frameCount / this.totalElapsedTime) * 1000000000L);
-				actualUPS = (((double) (this.frameCount + this.totalFramesSkipped) / this.totalElapsedTime) * 1000000000L);
-			}
-
-			this.fpsStore[(int) this.statsCount % NUM_FPS] = actualFPS;
-			this.upsStore[(int) this.statsCount % NUM_FPS] = actualUPS;
-			this.statsCount = this.statsCount + 1;
-
-			double totalFPS = 0.0;
-			double totalUPS = 0.0;
-			for (int i = 0; i < NUM_FPS; i++) {
-				totalFPS += this.fpsStore[i];
-				totalUPS += this.upsStore[i];
-			}
-
-			if (this.statsCount < NUM_FPS) {
-				this.averageFPS = totalFPS / this.statsCount;
-				this.averageUPS = totalUPS / this.statsCount;
-			} else {
-				this.averageFPS = totalFPS / NUM_FPS;
-				this.averageUPS = totalUPS / NUM_FPS;
-			}
-
-			this.framesSkipped = 0;
-			this.prevStatsTime = timeNow;
-			this.statsInterval = 0L;
-		}
-	}
-
-	private void update() {
+	
+	protected void update() {
 		this.gelapsedafter = System.nanoTime();
 
 		this.gameTime.elapsedGameTime.setSpan(this.gelapsedbefore,
@@ -344,69 +150,103 @@ public class GameBase extends Canvas implements Runnable {
 
 		this.gelapsedbefore = System.nanoTime();
 
-		if (this.running && !this.isPaused && !this.gameOver) {
+		if (this.isRunning && !this.isPaused) {
 			for (int i = 0; i < this.components.size(); i++) {
 				GameComponent gc = this.components.get(i);
 				gc.update(gameTime);
 			}
-			this.updates++;
+		}
+		
+		this.updates++;
+	}
+	
+	protected void initialize() {
+	}
+	
+	protected void cleanup() {
+	}
+	
+	@Override
+	public void run() {
+		this.gameStartTime = System.nanoTime();
+		
+		final double frameTime = 1.0 / this.frameRate;
+		
+		this.frameCount = 0;
+		long frameCounter = 0;
+		
+		long lastTime = System.nanoTime();
+		double unProcessedTime = 0.0;
+		
+		this.initialize();
+		
+		while(isRunning) {
+			boolean render = false;
+			long startTime = System.nanoTime();
+			long passedTime = startTime - lastTime;
+			lastTime = startTime;
+			
+			unProcessedTime += passedTime / (double)SECOND;
+			frameCounter += passedTime;
+			
+			while(unProcessedTime > frameTime) {
+				unProcessedTime -= frameTime;
+				
+				render = true;
+				
+				this.update();
+				
+				if(frameCounter >= SECOND) {
+					updateFPSStats();
+					frameCounter = 0;
+				}
+			}
+			
+			if(render) {
+				this.render();
+				this.frameCount++;
+			} else {
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		this.cleanup();
+		
+//		for(int x = 0; x < NUM_FPS; x++) {
+//			System.out.println(this.fpsStore[x]);
+//			System.out.println(this.upsStore[x]);
+//		}
+		System.out.println(this.averageFPS);
+		System.out.println(this.averageUPS);
+	}
+	
+	private void updateFPSStats() {	
+		this.fpsStore[(int) this.statsCount % NUM_FPS] = this.frameCount;
+		this.upsStore[(int) this.statsCount % NUM_FPS] = this.updates;
+		this.statsCount++;
+		this.frameCount = 0;
+		this.updates = 0;
+	
+		double totalFPS = 0.0;
+		double totalUPS = 0.0;
+		for (int i = 0; i < NUM_FPS; i++) {
+			totalFPS += this.fpsStore[i];
+			totalUPS += this.upsStore[i];
+		}
+
+		if (this.statsCount < NUM_FPS) {
+			this.averageFPS = totalFPS / this.statsCount;
+			this.averageUPS = totalUPS / this.statsCount;
+		} else {
+			this.averageFPS = totalFPS / NUM_FPS;
+			this.averageUPS = totalUPS / NUM_FPS;
 		}
 	}
-
-	private void render() {
-		BufferStrategy bs = getBufferStrategy();
-		if (bs == null) {
-			createBufferStrategy(3);
-			requestFocus();
-			return;
-		}
-
-		if (this.dbImage == null || this.resChange) {
-			this.resChange = false;
-			this.dbImage = new BufferedImage(this.resolution.width,
-					this.resolution.height, BufferedImage.TYPE_INT_RGB);
-		}
-
-		this.dbg = this.dbImage.getGraphics();
-		this.dbg.setColor(Color.black);
-		this.dbg.fillRect(0, 0, this.getResolution().width,
-				this.getResolution().height);
-
-		for (int i = 0; i < this.components.size(); i++) {
-			GameComponent gc = this.components.get(i);
-			gc.render(this.gameTime, this.dbg);
-		}
-
-		Graphics g = bs.getDrawGraphics();
-		g.drawImage(this.dbImage, 0, 0, this.getWidth(), this.getHeight(), null);
-		g.dispose();
-		bs.show();
-	}
-
-	/**
-	 * Start the game thread.
-	 * <p>
-	 * Returns immediately if the game thread is already started. No game thread
-	 * will be started.
-	 */
-	public synchronized void start() {
-		if (this.running) {
-			return;
-		}
-		this.running = true;
-		new Thread(this).start();
-	}
-
-	/**
-	 * Stop the game thread.
-	 * <p>
-	 * Sets the games running flag to false. All logic will be executed and the
-	 * thread will break out of its loop and stop.
-	 */
-	public synchronized void stop() {
-		this.running = false;
-	}
-
+	
 	/**
 	 * Sets the preferred frame rate of the game.
 	 * <p>
@@ -417,8 +257,8 @@ public class GameBase extends Canvas implements Runnable {
 	 * @param fps
 	 *            new preferred frame rate of the game.
 	 */
-	public final void setPreferredFPS(long fps) {
-		this.period = ((long) 1000.0 / fps) * 1000000L;
+	public final void setPreferredFPS(double fps) {
+		this.frameRate = fps;
 	}
 
 	/**
@@ -476,5 +316,4 @@ public class GameBase extends Canvas implements Runnable {
 	public final void togglePause() {
 		this.isPaused = !this.isPaused;
 	}
-
 }

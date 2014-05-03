@@ -122,14 +122,14 @@ public class ScreenManager extends GameComponent {
 	 * @param g Graphics context to render to.
 	 */
 	@Override
-	public void render(GameTime gameTime, Graphics g) {
+	public void render(GameTime gameTime) {//, Graphics g) {
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 
 			if (screen.getScreenState() == ScreenState.Hidden)
 				continue;
 
-			screen.render(gameTime, g);
+			screen.render(gameTime, this.game.getGraphics());//, g);
 		}
 	}
 

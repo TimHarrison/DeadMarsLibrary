@@ -1,7 +1,5 @@
 package deadmarslib.Core;
 
-import java.awt.Graphics;
-
 /**
  * DeadMarsLib GameComponent Class
  * 
@@ -61,7 +59,7 @@ public class GameComponent {
 	 * <p>
 	 * Called automatically during the game loop.
 	 */
-	public void render(GameTime gameTime, Graphics g) {
+	public void render(GameTime gameTime) {
 	}
 
 }

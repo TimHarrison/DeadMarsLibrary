@@ -17,18 +17,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import deadmarslib.Input.GameInput;
-import deadmarslib.Window.GameFrame;
+import deadmarslib.Window.GameWindowFrame;
 
 public class GameInputTest {
 	
 	Robot robot;
-	GameFrame game;
+	GameWindowFrame game;
 	GameInput input;
 
 	@Before
 	public void setUp() throws AWTException {
 		robot = new Robot();
-		game = new GameFrame("", new Dimension(320,240), 60L) {
+		game = new GameWindowFrame("", new Dimension(320,240), 60L) {
 		};
 		input = new GameInput(game);
 	}

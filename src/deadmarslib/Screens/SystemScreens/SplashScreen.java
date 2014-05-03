@@ -9,6 +9,7 @@ import deadmarslib.Core.GameTime;
 import deadmarslib.Input.GameInput;
 import deadmarslib.Screens.Screen;
 import deadmarslib.Utility.TimeSpan;
+import deadmarslib.Window.GameWindow;
 
 /**
  * DeadMarsLibrary SplashScreen Class
@@ -88,8 +89,8 @@ public class SplashScreen extends Screen {
     public void render(GameTime gameTime, Graphics g) {
         super.render(gameTime, g);
         
-        int resW = this.getScreenManager().game.getResolution().width;
-        int resH = this.getScreenManager().game.getResolution().height;
+        int resW = ((GameWindow)this.getScreenManager().game).getResolution().width;
+        int resH = ((GameWindow)this.getScreenManager().game).getResolution().height;
         
         Graphics2D g2 = (Graphics2D)g;
         
