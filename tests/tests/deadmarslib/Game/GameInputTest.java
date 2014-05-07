@@ -16,8 +16,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import deadmarslib.Input.GameInput;
-import deadmarslib.Window.GameWindowFrame;
+import com.cecilectomy.dmge.Core.GameInput;
+import com.cecilectomy.dmge.Window.GameWindowFrame;
 
 public class GameInputTest {
 	

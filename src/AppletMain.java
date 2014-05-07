@@ -2,7 +2,7 @@ import java.awt.Dimension;
 
 import javax.swing.JApplet;
 
-import deadmarslib.Window.GameWindowApplet;
+import com.cecilectomy.dmge.Window.GameWindowApplet;
 
 public class AppletMain extends JApplet {
 	

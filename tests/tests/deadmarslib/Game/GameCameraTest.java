@@ -1,6 +1,6 @@
 package tests.deadmarslib.Game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import deadmarslib.Utility.Camera;
+import com.cecilectomy.dmge.Utility.Camera;
 
 public class GameCameraTest {
 
