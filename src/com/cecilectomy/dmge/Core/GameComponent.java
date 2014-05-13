@@ -1,66 +1,27 @@
 package com.cecilectomy.dmge.Core;
 
+import com.cecilectomy.dmge.Rendering.GameRenderer;
+
 /**
  * DeadMarsLib GameComponent Class
  * 
  * @author Daniel Cecil
  */
-public class GameComponent {
-
-	/**
-	 * Reference to the {@link GameBase} this component is attached to.
-	 */
-	// TODO: Use getter and setter instead of direct access.
-	public GameBase game = null;
-
-	/**
-	 * GameComponent Constructor.
-	 * 
-	 * @param game
-	 *            {@link GameBase} to attach this component to.
-	 */
-	// TODO: maybe instead set the game when adding to the games components?
-	public GameComponent(GameBase game) {
-		this.game = game;
-		this.initialize();
-	}
-
-	/**
-	 * Overrideable method for initializing a component.
-	 */
+public abstract class GameComponent {
+	
 	public void initialize() {
 	}
-
-	/**
-	 * Overrideable method for loading content from a component.
-	 * <p>
-	 * Called automatically when a component is added to the game.
-	 */
-	public void loadContent() {
+	
+	public void cleanUp() {
 	}
-
-	/**
-	 * Overrideable method for unloading content from a component.
-	 * <p>
-	 * Called automatically when a component is removed from the game.
-	 */
-	public void unloadContent() {
+	
+	public void input(GameTime gameTime) {
 	}
-
-	/**
-	 * Overrideable method for updating a component.
-	 * <p>
-	 * Called automatically during the game loop.
-	 */
+	
 	public void update(GameTime gameTime) {
 	}
-
-	/**
-	 * Overrideable method for rendering a component.
-	 * <p>
-	 * Called automatically during the game loop.
-	 */
-	public void render(GameTime gameTime) {
+	
+	public void render(GameRenderer renderer) {
 	}
 
 }

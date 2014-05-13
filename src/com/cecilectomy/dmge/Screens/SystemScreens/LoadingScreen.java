@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Screens.ScreenManager;
 import com.cecilectomy.dmge.Screens.ScreenState;
@@ -50,16 +51,18 @@ public class LoadingScreen extends Screen {
 				}
 			}
 
-			this.getScreenManager().game.resetElapsedTime();
+			this.getScreenManager().getGame().resetElapsedTime();
 		}
 	}
 
 	@Override
-	public void render(GameTime gameTime, Graphics g) {
+	public void render(Java2DGameRenderer renderer) {
 		if ((this.getScreenState() == ScreenState.Active)
 				&& (this.getScreenManager().getScreens().length == 1)) {
 			otherScreensAreGone = true;
 		}
+		
+		Graphics g = renderer.getGraphics();
 
 		if (loadingIsSlow) {
 			final String message = "Loading...";
@@ -67,15 +70,15 @@ public class LoadingScreen extends Screen {
 
 			int posx, posy;
 
-			posx = ((GameWindow)this.getScreenManager().game).getResolution().width / 2;
-			posy = ((GameWindow)this.getScreenManager().game).getResolution().height / 2;
+			posx = renderer.getResolution().width / 2;
+			posy = renderer.getResolution().height / 2;
 
 			int textWidth = g.getFontMetrics().stringWidth("Loading...");
 
 			g.setColor(Color.black);
 			g.fillRect(0, 0,
-					((GameWindow)this.getScreenManager().game).getResolution().width,
-					((GameWindow)this.getScreenManager().game).getResolution().height);
+					renderer.getResolution().width,
+					renderer.getResolution().height);
 			g.setColor(Color.white);
 			g.drawString(message, posx - textWidth / 2, posy);
 		}

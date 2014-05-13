@@ -5,8 +5,6 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import com.cecilectomy.dmge.OpenGL.Math.Matrix4f;
-
 public class Util {
 	
 	public static FloatBuffer createFloatBuffer(int size) {

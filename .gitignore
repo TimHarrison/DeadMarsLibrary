@@ -16,8 +16,6 @@
 #!.gitignore
 #!README.md
 build
-lib
-res
 build.xml
 manifest.mf
 TODO.txt

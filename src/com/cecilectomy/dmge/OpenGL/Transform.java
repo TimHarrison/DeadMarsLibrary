@@ -1,7 +1,6 @@
 package com.cecilectomy.dmge.OpenGL;
 
-import com.cecilectomy.dmge.OpenGL.Math.Matrix4f;
-import com.cecilectomy.dmge.OpenGL.Math.Vector3f;
+
 
 public class Transform {
 	

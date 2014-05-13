@@ -9,9 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import com.cecilectomy.dmge.OpenGL.Math.Matrix4f;
-import com.cecilectomy.dmge.OpenGL.Math.Vector3f;
-
 public class Shader {
 
 	private int program;

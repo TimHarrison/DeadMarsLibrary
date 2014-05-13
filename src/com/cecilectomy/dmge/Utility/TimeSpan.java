@@ -22,8 +22,8 @@ public class TimeSpan {
          * @param s Nanoseconds to create TimeSpan from.
          * @return New TimeSpan Object.
          */
-        public static TimeSpan fromNanoseconds(double s) {
-            return new TimeSpan( (long) s);
+        public static TimeSpan fromNanoseconds(long s) {
+            return new TimeSpan(s);
         }
 
         /**
@@ -32,8 +32,8 @@ public class TimeSpan {
          * @param s Milliseconds to create TimeSpan from.
          * @return New TimeSpan Object.
          */
-        public static TimeSpan fromMilliseconds(double s) {
-            return new TimeSpan( (long) (s * 1000000L));
+        public static TimeSpan fromMilliseconds(long s) {
+            return new TimeSpan(s * 1000000L);
         }
 
         /**
@@ -115,8 +115,8 @@ public class TimeSpan {
          * 
          * @return Length of TimeSpan in milliseconds.
          */
-        public long getMilliseconds() {
-            return this.span / 1000000L;
+        public double getMilliseconds() {
+            return this.span / 1000000D;
         }
         
         /**
@@ -124,8 +124,8 @@ public class TimeSpan {
          * 
          * @return Length of TimeSpan in Seconds.
          */
-        public long getSeconds() {
-            return this.span / 1000000000L;
+        public double getSeconds() {
+            return this.span / 1000000000D;
         }
         
         /**

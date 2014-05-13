@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 import com.cecilectomy.dmge.Window.GameWindow;
@@ -66,7 +67,9 @@ public class MessageBoxScreen extends Screen {
 	}
 
 	@Override
-	public void render(GameTime gameTime, Graphics g) {
+	public void render(Java2DGameRenderer renderer) {
+		Graphics g = renderer.getGraphics();
+		
 		g.setFont(mbFont);
 		this.getScreenManager().fadeBackBufferToBlack(g,
 				this.getTransitionAlpha() * 2 / 3);
@@ -75,8 +78,8 @@ public class MessageBoxScreen extends Screen {
 		int textWidth = g.getFontMetrics().stringWidth(message);
 		int textHeight = g.getFontMetrics().getHeight();
 
-		posx = ((GameWindow)this.getScreenManager().game).getResolution().width / 2;
-		posy = ((GameWindow)this.getScreenManager().game).getResolution().height / 2;
+		posx = renderer.getResolution().width / 2;
+		posy = renderer.getResolution().height / 2;
 
 		final int hPad = 32;
 		final int vPad = 16;

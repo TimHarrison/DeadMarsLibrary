@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
 import com.cecilectomy.dmge.SeparatingAxisTheorem.SatShape;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -627,7 +629,7 @@ public class Entity implements Comparable<Entity> {
 	 * 
 	 * @param gameTime reference to the current {@link GameTime}.
 	 */
-	public void render(GameTime gameTime) {
+	public void render(GameRenderer renderer) {
 	}
 
 	/**

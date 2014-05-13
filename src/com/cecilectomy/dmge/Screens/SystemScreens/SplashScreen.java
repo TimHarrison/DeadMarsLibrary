@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 import com.cecilectomy.dmge.Window.GameWindow;
@@ -86,11 +87,13 @@ public class SplashScreen extends Screen {
     }
 
     @Override
-    public void render(GameTime gameTime, Graphics g) {
-        super.render(gameTime, g);
+    public void render(Java2DGameRenderer renderer) {
+        super.render(renderer);
         
-        int resW = ((GameWindow)this.getScreenManager().game).getResolution().width;
-        int resH = ((GameWindow)this.getScreenManager().game).getResolution().height;
+        Graphics g = renderer.getGraphics();
+        
+        int resW = renderer.getResolution().width;
+        int resH = renderer.getResolution().height;
         
         Graphics2D g2 = (Graphics2D)g;
         

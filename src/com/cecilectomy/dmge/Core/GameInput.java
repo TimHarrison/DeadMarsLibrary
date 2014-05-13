@@ -1,5 +1,6 @@
 package com.cecilectomy.dmge.Core;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -15,7 +16,7 @@ import java.util.HashMap;
  * @author Daniel Cecil
  */
 // TODO: Refactor GameInput API
-public class GameInput extends GameComponent {
+public class GameInput extends GameObject {
 
 	ArrayList<Integer> kbdInputs = new ArrayList<>();
 	ArrayList<Integer> mseInputs = new ArrayList<>();
@@ -29,17 +30,14 @@ public class GameInput extends GameComponent {
 
 	/**
 	 * Constructor
-	 * 
-	 * @param game
-	 *            Game to attach this input component to.
 	 */
-	public GameInput(GameBase game) {
+	public GameInput(GameBase game, Component component) {
 		super(game);
 
-		final GameBase thisGame = game;
+		final Component thisGame = component;
 		final GameInput me = this;
 
-		game.addKeyListener(new KeyAdapter() {
+		component.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (!me.kbdInputs.contains(e.getKeyCode())) {
@@ -57,7 +55,7 @@ public class GameInput extends GameComponent {
 			}
 		});
 
-		game.addMouseListener(new MouseAdapter() {
+		component.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				thisGame.setFocusable(true);
@@ -79,7 +77,7 @@ public class GameInput extends GameComponent {
 			}
 		});
 
-		game.addMouseMotionListener(new MouseMotionAdapter() {
+		component.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);

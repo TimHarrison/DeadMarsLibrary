@@ -2,6 +2,7 @@ package com.cecilectomy.dmge.Screens;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameBase;
-import com.cecilectomy.dmge.Core.GameComponent;
 import com.cecilectomy.dmge.Core.GameInput;
+import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
 
 /**
  * DeadMarsLibrary ScreenManager Class
@@ -26,7 +29,7 @@ import com.cecilectomy.dmge.Core.GameTime;
  * 
  * @author Daniel Cecil
  */
-public class ScreenManager extends GameComponent {
+public class ScreenManager extends GameObject {
 
 	private ArrayList<Screen> screens = new ArrayList<>();
 	private ArrayList<Screen> screensToUpdate = new ArrayList<>();
@@ -41,25 +44,18 @@ public class ScreenManager extends GameComponent {
 	 * 
 	 * @param game reference to GameBase.
 	 */
-	public ScreenManager(GameBase game) {
+	public ScreenManager(GameBase game, Component component) {
 		super(game);
 
-		input = new GameInput(game);
-	}
-
-	/**
-	 * Not sure?
-	 */
-	@Override
-	public void initialize() {
-		isInitialized = true;
+		input = new GameInput(game, component);
 	}
 
 	/**
 	 * Performs the loading of content for Screens in this ScreenManager.
 	 */
 	@Override
-	public void loadContent() {
+	public void initialize() {
+		isInitialized = true;
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 			screen.loadContent();
@@ -70,7 +66,7 @@ public class ScreenManager extends GameComponent {
 	 * Performs the unloading of content for Screens in this ScreenManager.
 	 */
 	@Override
-	public void unloadContent() {
+	public void cleanUp() {
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 			screen.unloadContent();
@@ -91,7 +87,7 @@ public class ScreenManager extends GameComponent {
 			screensToUpdate.add(screen);
 		}
 
-		boolean otherScreenHasFocus = !game.getIsActive();
+		boolean otherScreenHasFocus = !getGame().getIsActive();
 		boolean coveredByOtherScreen = false;
 
 		while (screensToUpdate.size() > 0) {
@@ -122,14 +118,14 @@ public class ScreenManager extends GameComponent {
 	 * @param g Graphics context to render to.
 	 */
 	@Override
-	public void render(GameTime gameTime) {//, Graphics g) {
+	public void render(GameRenderer renderer) {
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 
 			if (screen.getScreenState() == ScreenState.Hidden)
 				continue;
 
-			screen.render(gameTime, this.game.getGraphics());//, g);
+			screen.render((Java2DGameRenderer)renderer);
 		}
 	}
 
@@ -191,7 +187,7 @@ public class ScreenManager extends GameComponent {
 				AlphaComposite.SRC_OVER, fadeAlpha);
 		g2d.setComposite(composite);
 		g2d.setColor(Color.black);
-		g2d.fillRect(0, 0, this.game.getWidth(), this.game.getHeight());
+		g2d.fillRect(0, 0, this.getGame().getGameRenderer().getResolution().width, this.getGame().getGameRenderer().getResolution().height);
 		g2d.setComposite(ogComposite);
 	}
 
@@ -204,7 +200,7 @@ public class ScreenManager extends GameComponent {
 				AlphaComposite.SRC_OVER, fadeAlpha);
 		g2d.setComposite(composite);
 		g2d.setColor(c);
-		g2d.fillRect(0, 0, this.game.getWidth(), this.game.getHeight());
+		g2d.fillRect(0, 0, this.getGame().getGameRenderer().getResolution().width, this.getGame().getGameRenderer().getResolution().height);
 		g2d.setComposite(ogComposite);
 	}
 
