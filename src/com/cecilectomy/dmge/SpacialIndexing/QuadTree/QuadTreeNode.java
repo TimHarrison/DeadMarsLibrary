@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.cecilectomy.dmge.Utility.RectUtility;
+import com.cecilectomy.dmge.Utility.RectangleEx;
 
 /**
  * DeadMarsLibrary QuadTreeNode class
@@ -510,16 +510,17 @@ public class QuadTreeNode {
 				} else if (resize != null
 						&& !this.getRect().contains(i.getBoundingBox())) {
 					int newX = Math.min(
-							RectUtility.getLeft(i.getBoundingBox()),
-							RectUtility.getLeft(this.getRect()));
-					int newY = Math.min(RectUtility.getTop(i.getBoundingBox()),
-							RectUtility.getTop(this.getRect()));
+							RectangleEx.getLeft(i.getBoundingBox()),
+							RectangleEx.getLeft(this.getRect()));
+					int newY = Math.min(
+							RectangleEx.getTop(i.getBoundingBox()),
+							RectangleEx.getTop(this.getRect()));
 					int newWidth = Math.max(
-							RectUtility.getRight(i.getBoundingBox()),
-							RectUtility.getRight(this.getRect())) - newX;
+							RectangleEx.getRight(i.getBoundingBox()),
+							RectangleEx.getRight(this.getRect())) - newX;
 					int newHeight = Math.max(
-							RectUtility.getBottom(i.getBoundingBox()),
-							RectUtility.getBottom(this.getRect())) - newY;
+							RectangleEx.getBottom(i.getBoundingBox()),
+							RectangleEx.getBottom(this.getRect())) - newY;
 
 					resize.resize(new Rectangle(newX, newY, newWidth, newHeight));
 				}

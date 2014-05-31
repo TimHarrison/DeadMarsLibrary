@@ -1,5 +1,7 @@
 package com.cecilectomy.dmge.OpenGL;
 
+import com.cecilectomy.dmge.Math.Vector3f;
+
 
 
 public class Vertex {

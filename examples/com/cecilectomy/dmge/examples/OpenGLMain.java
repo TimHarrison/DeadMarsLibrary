@@ -3,14 +3,18 @@ package com.cecilectomy.dmge.examples;
 import java.awt.Dimension;
 
 import org.lwjgl.opengl.Display;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL32.*;
 
 import com.cecilectomy.dmge.Core.GameBase;
 import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Math.Transform;
+import com.cecilectomy.dmge.Math.Vector3f;
 import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
-import com.cecilectomy.dmge.OpenGL.Transform;
-import com.cecilectomy.dmge.OpenGL.Vector3f;
 import com.cecilectomy.dmge.OpenGL.Vertex;
 import com.cecilectomy.dmge.Rendering.GameRenderer;
 import com.cecilectomy.dmge.Rendering.Renderers.OpenGLGameRenderer;
@@ -73,25 +77,12 @@ class PyramidMesh extends GameObject {
 	public void initialize() {
 		super.initialize();
 		
-		mesh = new Mesh();
+		Transform.setProjection(70, 640, 480, 0.1f, 1000);
+		
+		mesh = Mesh.load("monkey.obj");
 		shader = new Shader();
 		transform = new Transform();
 		
-		Vertex[] verts = new Vertex[]{
-				new Vertex(new Vector3f(-1,-1,0)),
-				new Vertex(new Vector3f(0,1,0)),
-				new Vertex(new Vector3f(1,-1,0)),
-				new Vertex(new Vector3f(0,0,1))
-		};
-		
-		int[] inds = new int[]{
-				0,1,3,
-				3,1,2,
-				2,1,0,
-				0,3,2
-		};
-		
-		mesh.addVertices(verts, inds);
 		shader.addVertexShader(Shader.load("basicVertex.vs"));
 		shader.addFragmentShader(Shader.load("basicFragment.fs"));
 		shader.compileProgram();
@@ -107,17 +98,18 @@ class PyramidMesh extends GameObject {
 		float sinTemp = (float)Math.sin(temp);
 		float cosTemp = (float)Math.cos(temp);
 		
-		transform.setTranslation(sinTemp*0.5f, cosTemp*0.5f, 0);
-		transform.setRotation(0, sinTemp*180, 0);
-		transform.setScale(sinTemp, sinTemp, sinTemp);
+		transform.setTranslation(sinTemp, cosTemp, 3)
+		.setRotation(0, sinTemp*180, 0)
+		.setScale(	((float)Math.abs(sinTemp) + 0.5f) * 0.5f,
+					((float)Math.abs(sinTemp) + 0.5f) * 0.5f,
+					((float)Math.abs(sinTemp) + 0.5f) * 0.5f);
 	}
 	
 	@Override
 	public void render(GameRenderer renderer) {
 		super.render(renderer);
-		
 		shader.bind();
-		shader.setUniform("transform", transform.getTransformation());
+		shader.setUniform("transform", transform.getProjectedTransformation());
 		mesh.draw();
 	}
 	

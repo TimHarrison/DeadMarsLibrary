@@ -9,6 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.cecilectomy.dmge.Math.Matrix4f;
+import com.cecilectomy.dmge.Math.Vector3f;
+
 public class Shader {
 
 	private int program;
@@ -19,7 +22,7 @@ public class Shader {
 		this.program = glCreateProgram();
 		
 		if(this.program == 0) {
-			System.out.println("could not create program memory location");
+			System.out.println("Could not construct program memory location.");
 			System.exit(1);
 		}
 	}
@@ -71,7 +74,7 @@ public class Shader {
 		glLinkProgram(this.program);
 		
 		if(glGetProgram(this.program, GL_LINK_STATUS) == 0) {
-			System.out.println("could not link program");
+			System.out.println("Could not link program.");
 			System.out.println(glGetProgramInfoLog(this.program, 1024));
 			System.exit(1);
 		}
@@ -79,7 +82,7 @@ public class Shader {
 		glValidateProgram(this.program);
 		
 		if(glGetProgram(this.program, GL_VALIDATE_STATUS) == 0) {
-			System.out.println("could not validate program");
+			System.out.println("Could not validate program.");
 			System.out.println(glGetProgramInfoLog(this.program, 1024));
 			System.exit(1);
 		}
@@ -89,7 +92,7 @@ public class Shader {
 		int shader = glCreateShader(type);
 		
 		if(shader == 0) {
-			System.out.println("could not create shader memory location");
+			System.out.println("Could not create shader memory location.");
 			System.out.println(glGetShaderInfoLog(shader, 1024));
 			System.exit(1);
 		}
@@ -98,7 +101,7 @@ public class Shader {
 		glCompileShader(shader);
 		
 		if(glGetShader(shader, GL_COMPILE_STATUS) == 0) {
-			System.out.println("could not compile shader");
+			System.out.println("Could not compile shader.");
 			System.out.println(glGetShaderInfoLog(shader, 1024));
 			System.exit(1);
 		}
@@ -110,7 +113,7 @@ public class Shader {
 		int uniformLocation = glGetUniformLocation(this.program, uniformName);
 		
 		if(uniformLocation == 0xFFFFFFFF) {
-			System.out.println("could not get uniform memory location");
+			System.out.println("Could not get uniform memory location.");
 			System.exit(1);
 		}
 		

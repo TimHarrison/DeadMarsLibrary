@@ -1,4 +1,4 @@
-package com.cecilectomy.dmge.OpenGL;
+package com.cecilectomy.dmge.Math;
 
 public class Matrix4f {
 	
@@ -8,7 +8,7 @@ public class Matrix4f {
 		this.m = new float[4][4];
 	}
 	
-	public Matrix4f initIdentity() {
+	public Matrix4f setIdentity() {
 		this.m[0][0] = 1; this.m[0][1] = 0; this.m[0][2] = 0; this.m[0][3] = 0;
 		this.m[1][0] = 0; this.m[1][1] = 1; this.m[1][2] = 0; this.m[1][3] = 0;
 		this.m[2][0] = 0; this.m[2][1] = 0; this.m[2][2] = 1; this.m[2][3] = 0;
@@ -17,7 +17,7 @@ public class Matrix4f {
 		return this;
 	}
 	
-	public Matrix4f initTranslation(float x, float y, float z) {
+	public Matrix4f setTranslation(float x, float y, float z) {
 		this.m[0][0] = 1; this.m[0][1] = 0; this.m[0][2] = 0; this.m[0][3] = x;
 		this.m[1][0] = 0; this.m[1][1] = 1; this.m[1][2] = 0; this.m[1][3] = y;
 		this.m[2][0] = 0; this.m[2][1] = 0; this.m[2][2] = 1; this.m[2][3] = z;
@@ -26,7 +26,7 @@ public class Matrix4f {
 		return this;
 	}
 	
-	public Matrix4f initRotation(float x, float y, float z) {
+	public Matrix4f setRotation(float x, float y, float z) {
 		Matrix4f rx = new Matrix4f();
 		Matrix4f ry = new Matrix4f();
 		Matrix4f rz = new Matrix4f();
@@ -42,31 +42,44 @@ public class Matrix4f {
 		float cosZ = (float)Math.cos(z);
 		float sinZ = (float)Math.sin(z);
 		
-		rz.m[0][0] = cosZ;	rz.m[0][1] = -sinZ;	rz.m[0][2] = 0; rz.m[0][3] = 0;
-		rz.m[1][0] = sinZ;	rz.m[1][1] =  cosZ;	rz.m[1][2] = 0; rz.m[1][3] = 0;
-		rz.m[2][0] = 0;		rz.m[2][1] = 0; 	rz.m[2][2] = 1; rz.m[2][3] = 0;
-		rz.m[3][0] = 0;		rz.m[3][1] = 0; 	rz.m[3][2] = 0; rz.m[3][3] = 1;
+		rz.m[0][0] = cosZ;	rz.m[0][1] = -sinZ;	rz.m[0][2] = 0; 	rz.m[0][3] = 0;
+		rz.m[1][0] = sinZ;	rz.m[1][1] =  cosZ;	rz.m[1][2] = 0; 	rz.m[1][3] = 0;
+		rz.m[2][0] = 0;		rz.m[2][1] = 0; 	rz.m[2][2] = 1; 	rz.m[2][3] = 0;
+		rz.m[3][0] = 0;		rz.m[3][1] = 0; 	rz.m[3][2] = 0; 	rz.m[3][3] = 1;
 		
-		rx.m[0][0] = 1; rx.m[0][1] = 0;		rx.m[0][2] = 0;		rx.m[0][3] = 0;
-		rx.m[1][0] = 0; rx.m[1][1] = cosX;	rx.m[1][2] = -sinX;	rx.m[1][3] = 0;
-		rx.m[2][0] = 0; rx.m[2][1] = sinX;	rx.m[2][2] =  cosX;	rx.m[2][3] = 0;
-		rx.m[3][0] = 0; rx.m[3][1] = 0;		rx.m[3][2] = 0;		rx.m[3][3] = 1;
+		rx.m[0][0] = 1; 	rx.m[0][1] = 0;		rx.m[0][2] = 0;		rx.m[0][3] = 0;
+		rx.m[1][0] = 0; 	rx.m[1][1] = cosX;	rx.m[1][2] = -sinX;	rx.m[1][3] = 0;
+		rx.m[2][0] = 0; 	rx.m[2][1] = sinX;	rx.m[2][2] =  cosX;	rx.m[2][3] = 0;
+		rx.m[3][0] = 0; 	rx.m[3][1] = 0;		rx.m[3][2] = 0;		rx.m[3][3] = 1;
 		
-		ry.m[0][0] = cosY;	ry.m[0][1] = 0; ry.m[0][2] = -sinY;	ry.m[0][3] = 0;
-		ry.m[1][0] = 0;		ry.m[1][1] = 1; ry.m[1][2] = 0;		ry.m[1][3] = 0;
-		ry.m[2][0] = sinY;	ry.m[2][1] = 0; ry.m[2][2] =  cosY;	ry.m[2][3] = 0;
-		ry.m[3][0] = 0;		ry.m[3][1] = 0; ry.m[3][2] = 0;		ry.m[3][3] = 1;
+		ry.m[0][0] = cosY;	ry.m[0][1] = 0; 	ry.m[0][2] = -sinY;	ry.m[0][3] = 0;
+		ry.m[1][0] = 0;		ry.m[1][1] = 1; 	ry.m[1][2] = 0;		ry.m[1][3] = 0;
+		ry.m[2][0] = sinY;	ry.m[2][1] = 0; 	ry.m[2][2] =  cosY;	ry.m[2][3] = 0;
+		ry.m[3][0] = 0;		ry.m[3][1] = 0; 	ry.m[3][2] = 0;		ry.m[3][3] = 1;
 		
 		m = rz.mul(ry.mul(rx)).getM();
 		
 		return this;
 	}
 	
-	public Matrix4f initScale(float x, float y, float z) {
+	public Matrix4f setScale(float x, float y, float z) {
 		this.m[0][0] = x; this.m[0][1] = 0; this.m[0][2] = 0; this.m[0][3] = 0;
 		this.m[1][0] = 0; this.m[1][1] = y; this.m[1][2] = 0; this.m[1][3] = 0;
 		this.m[2][0] = 0; this.m[2][1] = 0; this.m[2][2] = z; this.m[2][3] = 0;
 		this.m[3][0] = 0; this.m[3][1] = 0; this.m[3][2] = 0; this.m[3][3] = 1;
+		
+		return this;
+	}
+	
+	public Matrix4f setProjection(float fov, float width, float height, float zNear, float zFar) {
+		float ar = width/height;
+		float tanHalfFOV = (float)Math.tan(Math.toRadians(fov/2));
+		float zRange = zNear - zFar;
+		
+		this.m[0][0] = 1.0f / (tanHalfFOV * ar); 	this.m[0][1] = 0; 					this.m[0][2] = 0; 							this.m[0][3] = 0;
+		this.m[1][0] = 0; 							this.m[1][1] = 1.0f / tanHalfFOV; 	this.m[1][2] = 0; 							this.m[1][3] = 0;
+		this.m[2][0] = 0; 							this.m[2][1] = 0; 					this.m[2][2] = (-zNear - zFar) / zRange; 	this.m[2][3] = 2 * zFar * zNear / zRange;
+		this.m[3][0] = 0; 							this.m[3][1] = 0; 					this.m[3][2] = 1; 							this.m[3][3] = 0;
 		
 		return this;
 	}
@@ -106,8 +119,8 @@ public class Matrix4f {
 		this.m = m;
 	}
 	
-	public void setMAt(int x, int y, float v) {
-		this.m[x][y] = v;
+	public void setMAt(int x, int y, float val) {
+		this.m[x][y] = val;
 	}
 
 }

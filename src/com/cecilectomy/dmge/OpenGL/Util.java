@@ -2,8 +2,11 @@ package com.cecilectomy.dmge.OpenGL;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
+
+import com.cecilectomy.dmge.Math.Matrix4f;
 
 public class Util {
 	
@@ -48,6 +51,31 @@ public class Util {
 		
 		buffer.flip();
 		return buffer;
+	}
+	
+	public static String[] cleanTokens(String[] tokens) {
+		ArrayList<String> tokenList = new ArrayList<>();
+		
+		for(int i = 0; i < tokens.length; i++) {
+			if(!tokens[i].equals(" ")) {
+				tokenList.add(tokens[i]);
+			}
+		}
+		
+		String[] res = new String[tokenList.size()];
+		tokenList.toArray(res);
+		
+		return res;
+	}
+	
+	public static int[] toIntArray(Integer[] data) {
+		int[] intArray = new int[data.length];
+		
+		for(int i = 0; i < data.length; i++) {
+			intArray[i] = data[i];
+		}
+		
+		return intArray;
 	}
 
 }

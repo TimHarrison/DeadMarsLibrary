@@ -1,4 +1,4 @@
-package com.cecilectomy.dmge.OpenGL;
+package com.cecilectomy.dmge.Math;
 
 public class Quaternion {
 	private float x, y, z, w;
@@ -10,23 +10,8 @@ public class Quaternion {
 		this.w = w;
 	}
 	
-	public float length() {
-		return (float)Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
-	}
-	
-	public Quaternion normalize() {
-		float length = this.length();
-		
-		x /= length;
-		y /= length;
-		z /= length;
-		w /= length;
-		
-		return this;
-	}
-	
-	public Quaternion conjugate() {
-		return new Quaternion(-this.x, -this.y, -this.z, this.w);
+	public Quaternion mul(float scalar) {
+		return new Quaternion(this.x * scalar, this.y * scalar, this.z * scalar, this.w * scalar);
 	}
 	
 	public Quaternion mul(Quaternion q) {
@@ -45,6 +30,31 @@ public class Quaternion {
 		float _z =  this.w * v.z + this.x * v.y - this.y * v.x;
 		
 		return new Quaternion(_x, _y, _z, _w);
+	}
+	
+	public float length() {
+		return (float)Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
+	}
+	
+	public float lengthSquared() {
+		return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
+	}
+	
+	public Quaternion unit() {
+		float _x = this.x / this.length();
+		float _y = this.y / this.length();
+		float _z = this.z / this.length();
+		float _w = this.w / this.length();
+		
+		return new Quaternion(_x, _y, _z, _w);
+	}
+	
+	public Quaternion normalized() {
+		return this.unit();
+	}
+	
+	public Quaternion conjugate() {
+		return new Quaternion(-this.x, -this.y, -this.z, this.w);
 	}
 	
 	public float getX() {
