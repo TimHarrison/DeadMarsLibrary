@@ -3,19 +3,13 @@ package com.cecilectomy.dmge.examples;
 import java.awt.Dimension;
 
 import org.lwjgl.opengl.Display;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL32.*;
 
 import com.cecilectomy.dmge.Core.GameBase;
 import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Math.Transform;
-import com.cecilectomy.dmge.Math.Vector3f;
 import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
-import com.cecilectomy.dmge.OpenGL.Vertex;
 import com.cecilectomy.dmge.Rendering.GameRenderer;
 import com.cecilectomy.dmge.Rendering.Renderers.OpenGLGameRenderer;
 import com.cecilectomy.dmge.Window.GameWindowOGLFrame;
