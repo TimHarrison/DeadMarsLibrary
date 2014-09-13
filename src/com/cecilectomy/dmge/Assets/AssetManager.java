@@ -16,6 +16,25 @@ import javax.imageio.ImageIO;
 public class AssetManager {
 
 	protected static HashMap<String, Object> assets = new HashMap<>();
+	protected static String baseAssetPath = "";
+
+	/**
+	 * Get the base asset path.
+	 * 
+	 * @return
+	 */
+	public static String getBaseAssetPath() {
+		return baseAssetPath;
+	}
+
+	/**
+	 * Set the base asset path.
+	 * 
+	 * @param baseAssetPath
+	 */
+	public static void setBaseAssetPath(String baseAssetPath) {
+		AssetManager.baseAssetPath = baseAssetPath;
+	}
 
 	/**
 	 * Retrieve the asset with given name.
@@ -85,10 +104,10 @@ public class AssetManager {
 	 */
 	public static <T> Object loadAsset(Class<T> type, String path) throws IOException {
 		if(type.equals(BufferedImage.class)) {
-	        BufferedImage img = ImageIO.read(AssetManager.class.getResource(path));
+	        BufferedImage img = ImageIO.read(AssetManager.class.getResource(baseAssetPath+path));
 	        return img;
 		} else if(type.equals(AudioClip.class)) {
-	        AudioClip sound = Applet.newAudioClip(AssetHelper.class.getResource(path));
+	        AudioClip sound = Applet.newAudioClip(AssetHelper.class.getResource(baseAssetPath+path));
 	        return sound;
 		} else {
 			throw new IOException();
