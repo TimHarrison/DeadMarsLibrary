@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import com.cecilectomy.dmge.Assets.AssetManager;
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
@@ -43,7 +43,7 @@ public class BackgroundScreen extends Screen {
 	}
 
 	@Override
-	public void render(Java2DGameRenderer renderer) {
+	public void render(Java2DRenderer renderer) {
 		Graphics g = renderer.getGraphics();
 		g.drawImage(backgroundImage, 0, 0, null);
 	}

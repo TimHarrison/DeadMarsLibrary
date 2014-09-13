@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import com.cecilectomy.dmge.Core.GameObject;
 
-public class GameRenderer {
+public class Renderer {
 	
 	private Dimension resolution = new Dimension(800,600);
 	private boolean resChanged = false;

@@ -1,6 +1,6 @@
 package com.cecilectomy.dmge.Core;
 
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
 /**
  * DeadMarsLib GameComponent Class
@@ -21,7 +21,7 @@ public abstract class GameComponent {
 	public void update(GameTime gameTime) {
 	}
 	
-	public void render(GameRenderer renderer) {
+	public void render(Renderer renderer) {
 	}
 
 }

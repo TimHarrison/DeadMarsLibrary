@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import com.cecilectomy.dmge.Core.GameBase;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.Window.GameWindowFrame;
 
 public class FrameMain extends GameWindowFrame {
@@ -16,7 +16,7 @@ public class FrameMain extends GameWindowFrame {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
-		(new GameBase(new GameRenderer()){
+		(new GameBase(new Renderer()){
 			FrameMain frame;
 			
 			@Override

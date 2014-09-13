@@ -2,7 +2,7 @@ package com.cecilectomy.dmge.Core;
 
 import java.util.ArrayList;
 
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
 public class GameObject {
 	
@@ -56,7 +56,7 @@ public class GameObject {
 
 	}
 	
-	public void render(GameRenderer renderer) {
+	public void render(Renderer renderer) {
 		for(GameComponent component : components) {
 			component.render(renderer);
 		}

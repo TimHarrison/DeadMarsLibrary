@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTree;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -210,7 +210,7 @@ public class EntityManager {
 	 * @param gameTime Reference to the GameTime.
 	 */
 	public void renderEntities(Class filterout[], Rectangle renderViewArea,
-			GameRenderer renderer) {
+			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
 
@@ -239,7 +239,7 @@ public class EntityManager {
 	 * @param gameTime Reference to the GameTime.
 	 */
 	public void renderEntities(Class filterout[], Polygon renderViewArea,
-			GameRenderer renderer) {
+			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
 

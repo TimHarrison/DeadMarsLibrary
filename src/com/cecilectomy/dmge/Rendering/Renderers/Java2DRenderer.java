@@ -7,14 +7,14 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import com.cecilectomy.dmge.Core.GameObject;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
-public class Java2DGameRenderer extends GameRenderer {
+public class Java2DRenderer extends Renderer {
 	
 	private Canvas canvas;
 	private BufferedImage dbImage;
 	
-	public Java2DGameRenderer(Canvas canvas) {
+	public Java2DRenderer(Canvas canvas) {
 		this.canvas = canvas;
 	}
 	

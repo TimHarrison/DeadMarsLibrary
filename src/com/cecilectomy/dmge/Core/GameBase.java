@@ -2,7 +2,7 @@ package com.cecilectomy.dmge.Core;
 
 import java.util.ArrayList;
 
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
 public class GameBase implements Runnable {
 	
@@ -14,7 +14,7 @@ public class GameBase implements Runnable {
 	protected ArrayList<GameObject> gameObjects = new ArrayList<>();
 	private ArrayList<GameObject> gameObjectsToAdd = new ArrayList<>();
 	
-	private GameRenderer renderer;
+	private Renderer renderer;
 	
 	private boolean isRunning = false;
 	private boolean isPaused = false;
@@ -41,7 +41,7 @@ public class GameBase implements Runnable {
 		}
 	}
 	
-	public GameBase(GameRenderer renderer) {
+	public GameBase(Renderer renderer) {
 		this();
 		this.renderer = renderer;
 	}
@@ -228,7 +228,7 @@ public class GameBase implements Runnable {
 		this.frameRate = fps;
 	}
 	
-	public final GameRenderer getGameRenderer() {
+	public final Renderer getGameRenderer() {
 		return this.renderer;
 	}
 

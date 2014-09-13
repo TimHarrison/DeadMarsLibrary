@@ -10,8 +10,8 @@ import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Math.Transform;
 import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
-import com.cecilectomy.dmge.Rendering.Renderers.OpenGLGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.Renderers.OpenGLRenderer;
 import com.cecilectomy.dmge.Window.GameWindowOGLFrame;
 
 public class OpenGLMain extends GameWindowOGLFrame {
@@ -21,7 +21,7 @@ public class OpenGLMain extends GameWindowOGLFrame {
 	}
 	
 	public static void main(String[] args) {
-		(new GameBase(new OpenGLGameRenderer()){
+		(new GameBase(new OpenGLRenderer()){
 			OpenGLMain frame;
 
 			@Override
@@ -100,7 +100,7 @@ class PyramidMesh extends GameObject {
 	}
 	
 	@Override
-	public void render(GameRenderer renderer) {
+	public void render(Renderer renderer) {
 		super.render(renderer);
 		shader.bind();
 		shader.setUniform("transform", transform.getProjectedTransformation());

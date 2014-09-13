@@ -13,8 +13,8 @@ import com.cecilectomy.dmge.Core.GameBase;
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 
 /**
  * DeadMarsLibrary ScreenManager Class
@@ -118,14 +118,14 @@ public class ScreenManager extends GameObject {
 	 * @param g Graphics context to render to.
 	 */
 	@Override
-	public void render(GameRenderer renderer) {
+	public void render(Renderer renderer) {
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 
 			if (screen.getScreenState() == ScreenState.Hidden)
 				continue;
 
-			screen.render((Java2DGameRenderer)renderer);
+			screen.render((Java2DRenderer)renderer);
 		}
 	}
 

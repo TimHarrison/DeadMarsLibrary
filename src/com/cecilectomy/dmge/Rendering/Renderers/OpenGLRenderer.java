@@ -4,9 +4,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
 import com.cecilectomy.dmge.Core.GameObject;
-import com.cecilectomy.dmge.Rendering.GameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
-public class OpenGLGameRenderer extends GameRenderer {
+public class OpenGLRenderer extends Renderer {
 	
 	@Override
 	public void initialize() {

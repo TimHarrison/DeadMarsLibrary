@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Screens.ScreenManager;
 import com.cecilectomy.dmge.Screens.ScreenState;
@@ -56,7 +56,7 @@ public class LoadingScreen extends Screen {
 	}
 
 	@Override
-	public void render(Java2DGameRenderer renderer) {
+	public void render(Java2DRenderer renderer) {
 		if ((this.getScreenState() == ScreenState.Active)
 				&& (this.getScreenManager().getScreens().length == 1)) {
 			otherScreensAreGone = true;

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DGameRenderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 import com.cecilectomy.dmge.Window.GameWindow;
@@ -67,7 +67,7 @@ public class MessageBoxScreen extends Screen {
 	}
 
 	@Override
-	public void render(Java2DGameRenderer renderer) {
+	public void render(Java2DRenderer renderer) {
 		Graphics g = renderer.getGraphics();
 		
 		g.setFont(mbFont);
