@@ -1,7 +1,5 @@
 package com.cecilectomy.dmge.Screens;
 
-import java.awt.Graphics;
-
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Math.MathEx;

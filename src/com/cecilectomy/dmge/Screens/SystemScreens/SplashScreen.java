@@ -10,7 +10,6 @@ import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
-import com.cecilectomy.dmge.Window.GameWindow;
 
 /**
  * DeadMarsLibrary SplashScreen Class

@@ -278,14 +278,14 @@ public class QuadTreeNode {
 		}
 	}
 
-	public void getItems(Point p, Class filters[],
+	public void getItems(Point p, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> list) {
 		if (this.getRect().contains(p)) {
 			QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(),
 					itemList.toArray().length, QuadTreeNodeItem[].class);
 			for (QuadTreeNodeItem item : items) {
 				if (filters != null) {
-					for (Class filter : filters) {
+					for (Class<?> filter : filters) {
 						if (item.parent.getClass() == filter) {
 							if (item.getBoundingBox().contains(p)) {
 								list.add(item);
@@ -327,14 +327,14 @@ public class QuadTreeNode {
 		}
 	}
 
-	public void getItems(Rectangle r, Class filters[],
+	public void getItems(Rectangle r, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> list) {
 		if (this.getRect().intersects(r)) {
 			QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(),
 					itemList.toArray().length, QuadTreeNodeItem[].class);
 			for (QuadTreeNodeItem item : items) {
 				if (filters != null) {
-					for (Class filter : filters) {
+					for (Class<?> filter : filters) {
 						if (item.parent.getClass() == filter) {
 							if (item.getBoundingBox().intersects(r)) {
 								list.add(item);
@@ -376,14 +376,14 @@ public class QuadTreeNode {
 		}
 	}
 
-	public void getItems(Polygon p, Class filters[],
+	public void getItems(Polygon p, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> list) {
 		if (p.intersects(this.getRect())) {
 			QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(),
 					itemList.toArray().length, QuadTreeNodeItem[].class);
 			for (QuadTreeNodeItem item : items) {
 				if (filters != null) {
-					for (Class filter : filters) {
+					for (Class<?> filter : filters) {
 						if (item.parent.getClass() == filter) {
 							if (p.intersects(item.getBoundingBox())) {
 								list.add(item);
@@ -417,12 +417,12 @@ public class QuadTreeNode {
 		}
 	}
 
-	public void getAllItems(Class filters[], ArrayList<QuadTreeNodeItem> list) {
+	public void getAllItems(Class<?> filters[], ArrayList<QuadTreeNodeItem> list) {
 		QuadTreeNodeItem[] items = Arrays.copyOf(itemList.toArray(),
 				itemList.toArray().length, QuadTreeNodeItem[].class);
 		for (QuadTreeNodeItem item : items) {
 			if (filters != null) {
-				for (Class filter : filters) {
+				for (Class<?> filter : filters) {
 					if (item.getClass() == filter)
 						list.add(item);
 				}

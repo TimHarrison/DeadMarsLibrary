@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * DeadMarsLib SecurityUtility Class
+ * Cryptography Class
  * 
  * @author Daniel Cecil
  */

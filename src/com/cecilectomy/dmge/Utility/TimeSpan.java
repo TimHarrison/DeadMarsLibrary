@@ -1,15 +1,15 @@
 package com.cecilectomy.dmge.Utility;
 
 /**
- * DeadMarsLib TimeSpan Class
+ * TimeSpan Class
  * 
  * @author Daniel Cecil
  */
 public class TimeSpan {
         
-        long span;
-        long start;
-        long end;
+        private long span;
+        private long start;
+        private long end;
 
         /**
          * A TimeSpan of zero length.

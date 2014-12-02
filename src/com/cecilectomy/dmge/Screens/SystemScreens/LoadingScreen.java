@@ -10,7 +10,6 @@ import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Screens.ScreenManager;
 import com.cecilectomy.dmge.Screens.ScreenState;
 import com.cecilectomy.dmge.Utility.TimeSpan;
-import com.cecilectomy.dmge.Window.GameWindow;
 
 /**
  * DeadMarsLibrary LoadingScreen Class

@@ -117,7 +117,7 @@ public class QuadTree {
 		}
 	}
 
-	public void getItems(Point point, Class filters[],
+	public void getItems(Point point, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> itemList) {
 		if (itemList != null) {
 			rootNode.getItems(point, filters, itemList);
@@ -130,7 +130,7 @@ public class QuadTree {
 		}
 	}
 
-	public void getItems(Rectangle rect, Class filters[],
+	public void getItems(Rectangle rect, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> itemList) {
 		if (itemList != null) {
 			rootNode.getItems(rect, filters, itemList);
@@ -143,7 +143,7 @@ public class QuadTree {
 		}
 	}
 
-	public void getItems(Polygon pol, Class filters[],
+	public void getItems(Polygon pol, Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> itemList) {
 		if (itemList != null) {
 			rootNode.getItems(pol, filters, itemList);
@@ -156,7 +156,7 @@ public class QuadTree {
 		}
 	}
 
-	public void getAllItems(Class filters[],
+	public void getAllItems(Class<?> filters[],
 			ArrayList<QuadTreeNodeItem> itemList) {
 		if (itemList != null) {
 			rootNode.getAllItems(filters, itemList);

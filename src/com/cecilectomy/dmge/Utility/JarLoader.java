@@ -7,7 +7,7 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 
 /**
- * DeadMarsLibrary JarLoader Class
+ * JarLoader Class
  * 
  * @author Daniel Cecil
  */
@@ -16,7 +16,7 @@ public class JarLoader {
     /**
      * {@link HashMap} of loaded Jar Classes.
      */
-    public static HashMap<String, Class> loadedJars = new HashMap<>();
+    public static HashMap<String, Class<?>> loadedJars = new HashMap<>();
     
     /**
      * Load a class from a jar.

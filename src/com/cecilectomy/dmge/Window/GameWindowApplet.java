@@ -2,8 +2,6 @@ package com.cecilectomy.dmge.Window;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JApplet;
 

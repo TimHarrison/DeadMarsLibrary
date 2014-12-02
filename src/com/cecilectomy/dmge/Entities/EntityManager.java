@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTree;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -209,7 +208,7 @@ public class EntityManager {
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
 	 */
-	public void renderEntities(Class filterout[], Rectangle renderViewArea,
+	public void renderEntities(Class<?> filterout[], Rectangle renderViewArea,
 			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
@@ -218,7 +217,7 @@ public class EntityManager {
 			Entity e = (Entity) renderList.get(x).parent;
 
 			if (filterout != null) {
-				for (Class fo : filterout) {
+				for (Class<?> fo : filterout) {
 					if (e.getClass() == fo)
 						continue renderEntLoop;
 				}
@@ -238,7 +237,7 @@ public class EntityManager {
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
 	 */
-	public void renderEntities(Class filterout[], Polygon renderViewArea,
+	public void renderEntities(Class<?> filterout[], Polygon renderViewArea,
 			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		entityTree.getItems(renderViewArea, renderList);
@@ -247,7 +246,7 @@ public class EntityManager {
 			Entity e = (Entity) renderList.get(x).parent;
 
 			if (filterout != null) {
-				for (Class fo : filterout) {
+				for (Class<?> fo : filterout) {
 					if (e.getClass() == fo)
 						continue renderEntLoop;
 				}
@@ -265,7 +264,7 @@ public class EntityManager {
 	 * @param viewArea Area to retrieve entities from.
 	 * @return {@link ArrayList} of entities.
 	 */
-	public ArrayList<Entity> getEntities(Class filterout[], Rectangle viewArea) {
+	public ArrayList<Entity> getEntities(Class<?> filterout[], Rectangle viewArea) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		ArrayList<Entity> entList = new ArrayList<>();
 		entityTree.getItems(viewArea, renderList);
@@ -274,7 +273,7 @@ public class EntityManager {
 			Entity e = (Entity) renderList.get(x).parent;
 
 			if (filterout != null) {
-				for (Class fo : filterout) {
+				for (Class<?> fo : filterout) {
 					if (e.getClass() == fo)
 						continue copyEntLoop;
 				}
@@ -294,7 +293,7 @@ public class EntityManager {
 	 * @param renderViewArea Area to retrieve entities from.
 	 * @return {@link ArrayList} of entities.
 	 */
-	public ArrayList<Entity> getEntities(Class filterout[],
+	public ArrayList<Entity> getEntities(Class<?> filterout[],
 			Polygon renderViewArea) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		ArrayList<Entity> entList = new ArrayList<>();
@@ -304,7 +303,7 @@ public class EntityManager {
 			Entity e = (Entity) renderList.get(x).parent;
 
 			if (filterout != null) {
-				for (Class fo : filterout) {
+				for (Class<?> fo : filterout) {
 					if (e.getClass() == fo)
 						continue copyEntLoop;
 				}
@@ -326,7 +325,7 @@ public class EntityManager {
 	 * @param classFilters Classes to test collisions for.
 	 * @param collisionDefinitions Collision definitions in the event a collisions occurs for specified classes.
 	 */
-	public void externalCollision(Point p, Class[] classFilters,
+	public void externalCollision(Point p, Class<?>[] classFilters,
 			EntityCollision[] collisionDefinitions) {
 		if (classFilters != null && collisionDefinitions != null
 				&& classFilters.length == collisionDefinitions.length) {
@@ -338,7 +337,7 @@ public class EntityManager {
 				if (((Entity) item.parent).isCollidable()) {
 					int onColIndex = 0;
 
-					for (Class clazz : classFilters) {
+					for (Class<?> clazz : classFilters) {
 						if (((Entity) item.parent).getClass() == clazz) {
 							collisionDefinitions[onColIndex].onCollision(null,
 									((Entity) item.parent));
@@ -361,7 +360,7 @@ public class EntityManager {
 	 * @param classFilters Classes to test collisions for.
 	 * @param collisionDefinitions Collision definitions in the event a collisions occurs for specified classes.
 	 */
-	public void externalCollision(Rectangle r, Class[] classFilters,
+	public void externalCollision(Rectangle r, Class<?>[] classFilters,
 			EntityCollision[] collisionDefinitions) {
 		if (classFilters != null && collisionDefinitions != null
 				&& classFilters.length == collisionDefinitions.length) {
@@ -373,7 +372,7 @@ public class EntityManager {
 				if (((Entity) item.parent).isCollidable()) {
 					int onColIndex = 0;
 
-					for (Class clazz : classFilters) {
+					for (Class<?> clazz : classFilters) {
 						if (((Entity) item.parent).getClass() == clazz) {
 							collisionDefinitions[onColIndex].onCollision(null,
 									((Entity) item.parent));
