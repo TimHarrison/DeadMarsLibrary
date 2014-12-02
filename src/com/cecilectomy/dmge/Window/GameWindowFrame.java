@@ -1,40 +1,52 @@
 package com.cecilectomy.dmge.Window;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+
 import javax.swing.JFrame;
 
 public class GameWindowFrame extends Canvas implements GameWindow {
 
 	private JFrame window;
 	
-	public GameWindowFrame(String title, Dimension size) {
-		this.initialize(title, size.width, size.height);
+	public GameWindowFrame() {
+		this.initialize("New Game Window Frame", 640, 480);
+	}
+	
+	public GameWindowFrame(String title, int width, int height) {
+		this.initialize(title, width, height);
 	}
 
 	@Override
 	public void initialize(String title, int width, int height) {
+		this.cleanUp();
+		
 		Dimension size = new Dimension(width, height);
 		
 		this.setSize(size);
 		this.setPreferredSize(size);
-		this.setBackground(Color.white);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 		this.setFocusable(true);
 		this.requestFocus();
 		
-		window = new JFrame(title);
-		window.getContentPane().add(this);
-		window.setResizable(false);
+		window = new JFrame();
+		window.add(this);
 		window.pack();
-		window.setVisible(true);
+		window.setResizable(false);
 		window.setLocationRelativeTo(null);
+		window.setTitle(title);
+		window.setVisible(true);
 	}
 
 	@Override
 	public void cleanUp() {
+		if(window != null) {
+			window.setVisible(false);
+			window.dispose();
+		}
 	}
 
 	@Override
@@ -52,6 +64,8 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 		Dimension size = new Dimension(width, height);
 		this.setSize(size);
 		this.setPreferredSize(size);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 
 		window.pack();
 		window.setLocationRelativeTo(null);
@@ -61,6 +75,8 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 	public void setViewport(Dimension size) {
 		this.setSize(size);
 		this.setPreferredSize(size);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 
 		window.pack();
 		window.setLocationRelativeTo(null);

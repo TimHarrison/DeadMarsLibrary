@@ -11,7 +11,7 @@ import com.cecilectomy.dmge.Window.GameWindowFrame;
 public class FrameMain extends GameWindowFrame {
 
 	public FrameMain() {
-		super("GameWindowFrame",new Dimension(640,480));
+		super("GameWindowFrame", 640, 480);
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
