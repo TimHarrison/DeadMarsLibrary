@@ -8,13 +8,12 @@ public class GameBase implements Runnable {
 	
 	private static long SECOND = 1000000000L;
 	private static int NUM_FPS = 10;
-
-	protected GameTime gameTime = new GameTime();
 	
-	protected ArrayList<GameObject> gameObjects = new ArrayList<>();
+	private ArrayList<GameObject> gameObjects = new ArrayList<>();
 	private ArrayList<GameObject> gameObjectsToAdd = new ArrayList<>();
 	
 	private Renderer renderer;
+	private GameTime gameTime = new GameTime();
 	
 	private boolean isRunning = false;
 	private boolean isPaused = false;
@@ -32,7 +31,7 @@ public class GameBase implements Runnable {
 	private double upsStore[];
 	private double averageUPS = 0.0;
 
-	public GameBase() {
+	private GameBase() {
 		this.fpsStore = new double[NUM_FPS];
 		this.upsStore = new double[NUM_FPS];
 		for (int i = 0; i < NUM_FPS; i++) {
@@ -46,6 +45,18 @@ public class GameBase implements Runnable {
 		this.renderer = renderer;
 	}
 
+	public final void unPause() {
+		this.isPaused = false;
+	}
+
+	public final void pause() {
+		this.isPaused = true;
+	}
+
+	public final void togglePause() {
+		this.isPaused = !this.isPaused;
+	}
+
 	public final boolean getIsActive() {
 		return !this.isPaused;
 	}
@@ -54,16 +65,28 @@ public class GameBase implements Runnable {
 		return this.fpsStore[(int) this.statsCount % NUM_FPS];
 	}
 
-	public final double getCurrentUps() {
-		return this.upsStore[(int) this.statsCount % NUM_FPS];
-	}
-
 	public final double getAverageFps() {
 		return this.averageFPS;
 	}
 
+	public final double getCurrentUps() {
+		return this.upsStore[(int) this.statsCount % NUM_FPS];
+	}
+
 	public final double getAverageUps() {
 		return this.averageUPS;
+	}
+
+	public final void setPreferredFPS(double fps) {
+		this.frameRate = fps;
+	}
+	
+	public final GameTime getGameTime() {
+		return this.gameTime;
+	}
+	
+	public final Renderer getRenderer() {
+		return this.renderer;
 	}
 
 	public synchronized void startThreaded() {
@@ -89,7 +112,7 @@ public class GameBase implements Runnable {
 		}
 		
 		this.isRunning = true;
-		this.run();//new Thread(this).start();
+		this.run();
 	}
 
 	public void stop() {
@@ -224,14 +247,6 @@ public class GameBase implements Runnable {
 		}
 	}
 
-	public final void setPreferredFPS(double fps) {
-		this.frameRate = fps;
-	}
-	
-	public final Renderer getGameRenderer() {
-		return this.renderer;
-	}
-
 	public final void resetElapsedTime() {
 		this.gameTime.elapsedGameTime.setSpan(0);
 		this.gameTime.elapsedRealTime.setSpan(0);
@@ -250,17 +265,5 @@ public class GameBase implements Runnable {
 	public final void removeGameObject(GameObject go) {
 		go.cleanUp();
 		this.gameObjects.remove(go);
-	}
-
-	public final void unPause() {
-		this.isPaused = false;
-	}
-
-	public final void pause() {
-		this.isPaused = true;
-	}
-
-	public final void togglePause() {
-		this.isPaused = !this.isPaused;
 	}
 }

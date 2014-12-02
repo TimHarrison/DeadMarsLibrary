@@ -187,7 +187,7 @@ public class ScreenManager extends GameObject {
 				AlphaComposite.SRC_OVER, fadeAlpha);
 		g2d.setComposite(composite);
 		g2d.setColor(Color.black);
-		g2d.fillRect(0, 0, this.getGame().getGameRenderer().getResolution().width, this.getGame().getGameRenderer().getResolution().height);
+		g2d.fillRect(0, 0, this.getGame().getRenderer().getResolution().width, this.getGame().getRenderer().getResolution().height);
 		g2d.setComposite(ogComposite);
 	}
 
@@ -200,7 +200,7 @@ public class ScreenManager extends GameObject {
 				AlphaComposite.SRC_OVER, fadeAlpha);
 		g2d.setComposite(composite);
 		g2d.setColor(c);
-		g2d.fillRect(0, 0, this.getGame().getGameRenderer().getResolution().width, this.getGame().getGameRenderer().getResolution().height);
+		g2d.fillRect(0, 0, this.getGame().getRenderer().getResolution().width, this.getGame().getRenderer().getResolution().height);
 		g2d.setComposite(ogComposite);
 	}
 
