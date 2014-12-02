@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.SeparatingAxisTheorem.SatShape;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -25,7 +24,7 @@ public class Entity implements Comparable<Entity> {
 
 	QuadTreeNodeItem entQTItemAssociate = null;
 
-	Class[] collisionClassFilters;
+	Class<?>[] collisionClassFilters;
 	EntityCollision[] collisionDefinitions;
 
 	boolean entDestroyed = false;
@@ -60,7 +59,7 @@ public class Entity implements Comparable<Entity> {
 	 * @param filters Array of classes this entity can collide with. (Must inherently be a list subclasses of {@link Entity}.
 	 * @param definitions Array of {@link EntityCollision} interfaces. Defines what to do in the event of a collision.
 	 */
-	public void setCollisions(Class[] filters, EntityCollision[] definitions) {
+	public void setCollisions(Class<?>[] filters, EntityCollision[] definitions) {
 		// Untested FindBugs bug-fix.
 		// Assigns copies of filters and definitions arrays.
 		collisionClassFilters = Arrays.copyOf(filters, filters.length,
@@ -194,6 +193,8 @@ public class Entity implements Comparable<Entity> {
 				getQuadTreeNodeItemAssociate().setPosition(
 						new Point((int) entX, (int) entY));
 			}
+		} else {
+			entX = x;
 		}
 	}
 
@@ -219,6 +220,8 @@ public class Entity implements Comparable<Entity> {
 				getQuadTreeNodeItemAssociate().setPosition(
 						new Point((int) entX, (int) entY));
 			}
+		} else {
+			entY = y;
 		}
 	}
 
@@ -246,6 +249,9 @@ public class Entity implements Comparable<Entity> {
 				getQuadTreeNodeItemAssociate().setPosition(
 						new Point((int) entX, (int) entY));
 			}
+		} else {
+			entX = x;
+			entY = y;
 		}
 	}
 
@@ -263,6 +269,9 @@ public class Entity implements Comparable<Entity> {
 				getQuadTreeNodeItemAssociate().setPosition(
 						new Point((int) entX, (int) entY));
 			}
+		} else {
+			entX = pos.x;
+			entY = pos.y;
 		}
 	}
 
@@ -646,7 +655,7 @@ public class Entity implements Comparable<Entity> {
 		if (collisionClassFilters != null && collisionDefinitions != null
 				&& collisionClassFilters.length == collisionDefinitions.length) {
 
-			for (Class clazz : collisionClassFilters) {
+			for (Class<?> clazz : collisionClassFilters) {
 				if (ent.getClass() == clazz) {
 					collisionDefinitions[onColIndex].onCollision(this, ent);
 					return;
