@@ -1,55 +1,58 @@
 package com.cecilectomy.dmge.examples;
+
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
 
 import com.cecilectomy.dmge.Core.GameBase;
+import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Window.GameWindowFrame;
 
 public class FrameMain extends GameWindowFrame {
 
+	private static final long serialVersionUID = 1L;
+	
+	public static final String title = "GameWindowFrame";
+	public static final long frameRate = 60L;
+	public static final int WIDTH = 640;
+	public static final int HEIGHT = 480;
+	
 	public FrameMain() {
-		super("GameWindowFrame", 640, 480);
+		super(title, WIDTH, HEIGHT);
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
+		final FrameMain frame = new FrameMain();
+		frame.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		(new GameBase(new Renderer()){
-			FrameMain frame;
+		Java2DRenderer renderer = new Java2DRenderer(frame);
+		renderer.setResolution(WIDTH, HEIGHT);
+		
+		GameBase gameBase = new GameBase(renderer);
+		gameBase.setPreferredFPS(frameRate);
+		
+		gameBase.addGameObject(new GameObject(gameBase){
+			
+			String message = "Hello, World!";
 			
 			@Override
-			protected void initialize() {
-				super.initialize();
+			public void render(Renderer renderer) {
+				super.render(renderer);
 				
-				final GameBase thisGame = this;
+				Graphics g = ((Java2DRenderer)renderer).getGraphics();
 				
-				frame = new FrameMain();
-				frame.getFrame().addWindowListener(new WindowListener(){
-					@Override
-					public void windowActivated(WindowEvent e) {}
-					@Override
-					public void windowClosed(WindowEvent e) {}
-					@Override
-					public void windowClosing(WindowEvent e) {
-						thisGame.stopThreaded();
-					}
-					@Override
-					public void windowDeactivated(WindowEvent e) {}
-					@Override
-					public void windowDeiconified(WindowEvent e) {}
-					@Override
-					public void windowIconified(WindowEvent e) {}
-					@Override
-					public void windowOpened(WindowEvent e) {}
-				});
+				int mHalfWidth = g.getFontMetrics().stringWidth(message) / 2;
+				int mHalfHeight = g.getFontMetrics().getHeight() / 2;
 				
-				frame.setTitle("Foobar");
-				frame.setViewport(new Dimension(800,600));
-				frame.getGraphics().setColor(Color.BLACK);
-				frame.getGraphics().drawString("Hello, World! ", 700, 10);
+				g.setColor(Color.orange);
+				g.drawString(message, WIDTH/2 - mHalfWidth, HEIGHT/2 - mHalfHeight);
 			}
-		}).startThreaded();
+			
+		});
+		
+		gameBase.startThreaded();
 	}
 }
