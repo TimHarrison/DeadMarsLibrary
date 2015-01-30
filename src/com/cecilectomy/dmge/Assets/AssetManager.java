@@ -3,6 +3,9 @@ package com.cecilectomy.dmge.Assets;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -109,6 +112,20 @@ public class AssetManager {
 		} else if(type.equals(AudioClip.class)) {
 	        AudioClip sound = Applet.newAudioClip(AssetHelper.class.getResource(baseAssetPath+path));
 	        return sound;
+		} else if(type.equals(String.class)) {
+			File file = new File(AssetManager.class.getResource(baseAssetPath+path).getFile());
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+			
+			while(line != null) {
+				sb.append(line + "\n");
+				line = br.readLine();
+			}
+
+			br.close();
+			
+			return sb.toString();
 		} else {
 			throw new IOException();
 		}
