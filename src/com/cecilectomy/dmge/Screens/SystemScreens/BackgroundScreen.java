@@ -31,7 +31,7 @@ public class BackgroundScreen extends Screen {
 		try {
 			backgroundImage = (Image)AssetManager.loadAsset(Image.class, imagePath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO (Daniel): How do we want to handle missing assets? Handle this in AssetManager?
 			e.printStackTrace();
 		}
 	}

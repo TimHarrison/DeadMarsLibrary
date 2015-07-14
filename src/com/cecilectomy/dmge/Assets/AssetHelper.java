@@ -11,6 +11,8 @@ import javax.sound.sampled.Clip;
  */
 public class AssetHelper {
 
+	// TODO (Daniel): We need to move this out into
+	// some sort of audio engine.
     /**
      * Plays a specified sound {@link Clip}.
      * 

@@ -8,6 +8,7 @@ import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Window.GameWindowApplet;
 
+// TODO (Daniel): Learn about serializable classes and if these warnings should be addressed.
 public class AppletMain extends JApplet {
 	
 	GameBase gameBase;

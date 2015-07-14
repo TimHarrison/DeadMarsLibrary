@@ -25,6 +25,7 @@ public class GameCameraTest {
 		cam = null;
 	}
 
+	// TODO (Daniel): Learn about junit and what these deprecated assertions should be replaced with.
 	@Test
 	public void testSetX() {
 		int x = 5;

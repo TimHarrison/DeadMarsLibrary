@@ -15,7 +15,9 @@ import java.util.HashMap;
  * 
  * @author Daniel Cecil
  */
-// TODO: Refactor GameInput API
+// TODO (Daniel): Refactor GameInput API
+// Better mouse and keyboard support.
+// Multiple controller support.
 public class GameInput extends GameObject {
 
 	ArrayList<Integer> kbdInputs = new ArrayList<>();

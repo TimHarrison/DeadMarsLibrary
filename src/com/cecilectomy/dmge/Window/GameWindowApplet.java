@@ -54,32 +54,23 @@ public class GameWindowApplet extends Canvas implements GameWindow {
 
 	@Override
 	public void initialize(String title, int width, int height) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void cleanUp() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setTitle(String title) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void setFullScreen(boolean fullscreen) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

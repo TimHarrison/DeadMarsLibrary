@@ -70,6 +70,7 @@ public class Shader {
 		addProgram(text, GL_FRAGMENT_SHADER);
 	}
 	
+	// TODO (Daniel): Look back in to OpenGL programming to address the deprecation here.
 	public void compileProgram() {
 		glLinkProgram(this.program);
 		
@@ -87,7 +88,8 @@ public class Shader {
 			System.exit(1);
 		}
 	}
-	
+
+	// TODO (Daniel): Look back in to OpenGL programming to address the deprecation here.
 	private void addProgram(String text, int type) {
 		int shader = glCreateShader(type);
 		
