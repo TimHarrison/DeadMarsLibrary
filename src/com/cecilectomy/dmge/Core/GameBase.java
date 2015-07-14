@@ -135,14 +135,14 @@ public class GameBase implements Runnable {
 	protected void update() {
 		this.gelapsedafter = System.nanoTime();
 
-		this.gameTime.elapsedGameTime.setSpan(this.gelapsedbefore,
+		this.gameTime.getElapsedGameTime().setSpan(this.gelapsedbefore,
 				this.gelapsedafter);
-		this.gameTime.elapsedRealTime.setSpan(this.gelapsedbefore,
+		this.gameTime.getElapsedRealTime().setSpan(this.gelapsedbefore,
 				this.gelapsedafter);
 
-		this.gameTime.totalGameTime.setSpan(this.gameStartTime,
+		this.gameTime.getTotalGameTime().setSpan(this.gameStartTime,
 				this.gelapsedafter);
-		this.gameTime.totalRealTime.setSpan(this.gameStartTime,
+		this.gameTime.getTotalRealTime().setSpan(this.gameStartTime,
 				this.gelapsedafter);
 
 		this.gelapsedbefore = System.nanoTime();
@@ -248,8 +248,8 @@ public class GameBase implements Runnable {
 	}
 
 	public final void resetElapsedTime() {
-		this.gameTime.elapsedGameTime.setSpan(0);
-		this.gameTime.elapsedRealTime.setSpan(0);
+		this.gameTime.getElapsedGameTime().setSpan(0);
+		this.gameTime.getElapsedRealTime().setSpan(0);
 	}
 
 	public final void addGameObject(GameObject go) {

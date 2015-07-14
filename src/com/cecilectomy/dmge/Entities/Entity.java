@@ -630,7 +630,7 @@ public class Entity implements Comparable<Entity> {
 	 * @param gameTime reference to the current {@link GameTime}.
 	 */
 	public void update(GameTime gameTime) {
-		entElapsedTime += gameTime.elapsedGameTime.getMilliseconds();
+		entElapsedTime += gameTime.getElapsedGameTime().getMilliseconds();
 	}
 
 	/**

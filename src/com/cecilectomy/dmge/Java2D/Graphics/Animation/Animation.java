@@ -187,7 +187,7 @@ public class Animation {
 	 */
 	public void update(GameTime gameTime) {
 		if (aIsAnimating) {
-			aElapsed += (float) (gameTime.elapsedGameTime.getMilliseconds() / 1000.0);
+			aElapsed += (float) (gameTime.getElapsedGameTime().getMilliseconds() / 1000.0);
 
 			if (aElapsed > aFrameRate) {
 				aCurrentFrame = (aCurrentFrame + 1) % aFrameCount;

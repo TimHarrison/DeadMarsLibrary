@@ -76,7 +76,7 @@ public class SplashScreen extends Screen {
 
     @Override
     public void update(GameTime gameTime, boolean otherScreenHasFocus, boolean coveredByOtherScreen) {
-        screenTime += (float)(gameTime.elapsedGameTime.getMilliseconds() / 1000.0f);
+        screenTime += (float)(gameTime.getElapsedGameTime().getMilliseconds() / 1000.0f);
         if (screenTime >= screenDuration)
         {
             LoadingScreen.load(this.getScreenManager(), false, screenArr);

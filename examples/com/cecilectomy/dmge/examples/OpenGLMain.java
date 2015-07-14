@@ -87,7 +87,7 @@ class PyramidMesh extends GameObject {
 	public void update(GameTime gameTime) {
 		super.update(gameTime);
 		
-		temp += (float)gameTime.elapsedGameTime.getNanoseconds() / 1000000000f; 
+		temp += (float)gameTime.getElapsedGameTime().getNanoseconds() / 1000000000f; 
 		
 		float sinTemp = (float)Math.sin(temp);
 		float cosTemp = (float)Math.cos(temp);

@@ -181,7 +181,7 @@ public class Screen {
 		if (time == TimeSpan.Zero) {
 			transitionDelta = 1;
 		} else {
-			transitionDelta = (float) ((double) gameTime.elapsedGameTime
+			transitionDelta = (float) ((double) gameTime.getElapsedGameTime()
 					.getMilliseconds() / (double) time.getMilliseconds());
 		}
 
