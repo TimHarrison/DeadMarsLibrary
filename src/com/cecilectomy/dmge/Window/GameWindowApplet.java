@@ -10,6 +10,7 @@ import javax.swing.JApplet;
  * 
  * @author Daniel Cecil
  */
+@SuppressWarnings("serial")
 public class GameWindowApplet extends Canvas implements GameWindow {
 	
 	/**

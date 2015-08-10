@@ -8,6 +8,7 @@ import java.awt.Rectangle;
  *
  * @author Cecil
  */
+@SuppressWarnings("serial")
 public class RectangleEx extends Rectangle {
 
     /**

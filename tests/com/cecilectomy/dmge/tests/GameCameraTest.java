@@ -1,6 +1,6 @@
 package com.cecilectomy.dmge.tests;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -25,14 +25,13 @@ public class GameCameraTest {
 		cam = null;
 	}
 
-	// TODO (Daniel): Learn about junit and what these deprecated assertions should be replaced with.
 	@Test
 	public void testSetX() {
 		int x = 5;
 
 		cam.setX(x);
 
-		assertEquals(x, cam.getX());
+		Assert.assertEquals(x, cam.getX(), 0);
 	}
 
 	@Test
@@ -41,7 +40,7 @@ public class GameCameraTest {
 
 		cam.setY(y);
 
-		assertEquals(y, cam.getY());
+		Assert.assertEquals(y, cam.getY(), 0);
 	}
 
 	@Test
@@ -50,7 +49,7 @@ public class GameCameraTest {
 
 		cam.setWidth(w);
 
-		assertEquals(w, cam.getWidth());
+		Assert.assertEquals(w, cam.getWidth(), 0);
 	}
 
 	@Test
@@ -59,7 +58,7 @@ public class GameCameraTest {
 
 		cam.setHeight(h);
 
-		assertEquals(h, cam.getHeight());
+		Assert.assertEquals(h, cam.getHeight(), 0);
 	}
 
 	@Test
@@ -68,8 +67,8 @@ public class GameCameraTest {
 
 		cam.setPosition(x, y);
 
-		assertEquals(x, cam.getPosition().x);
-		assertEquals(y, cam.getPosition().y);
+		Assert.assertEquals(x, cam.getPosition().x);
+		Assert.assertEquals(y, cam.getPosition().y);
 	}
 
 	@Test
@@ -78,8 +77,8 @@ public class GameCameraTest {
 
 		cam.setPosition(new Point(x, y));
 
-		assertEquals(x, cam.getPosition().x);
-		assertEquals(y, cam.getPosition().y);
+		Assert.assertEquals(x, cam.getPosition().x);
+		Assert.assertEquals(y, cam.getPosition().y);
 	}
 
 	@Test
@@ -88,10 +87,10 @@ public class GameCameraTest {
 
 		cam.setBounds(x, y, w, h);
 
-		assertEquals(x, cam.getBounds().x);
-		assertEquals(y, cam.getBounds().y);
-		assertEquals(w, cam.getBounds().width);
-		assertEquals(h, cam.getBounds().height);
+		Assert.assertEquals(x, cam.getBounds().x);
+		Assert.assertEquals(y, cam.getBounds().y);
+		Assert.assertEquals(w, cam.getBounds().width);
+		Assert.assertEquals(h, cam.getBounds().height);
 	}
 
 	@Test
@@ -100,10 +99,10 @@ public class GameCameraTest {
 
 		cam.setBounds(new Rectangle(x, y, w, h));
 
-		assertEquals(x, cam.getBounds().x);
-		assertEquals(y, cam.getBounds().y);
-		assertEquals(w, cam.getBounds().width);
-		assertEquals(h, cam.getBounds().height);
+		Assert.assertEquals(x, cam.getBounds().x);
+		Assert.assertEquals(y, cam.getBounds().y);
+		Assert.assertEquals(w, cam.getBounds().width);
+		Assert.assertEquals(h, cam.getBounds().height);
 	}
 
 	@Test
@@ -115,8 +114,8 @@ public class GameCameraTest {
 
 		cam.setBounds(rect);
 
-		assertEquals(x * xCoef, cam.getBounds(xCoef, yCoef).x, delta);
-		assertEquals(y * yCoef, cam.getBounds(xCoef, yCoef).y, delta);
+		Assert.assertEquals(x * xCoef, cam.getBounds(xCoef, yCoef).x, delta);
+		Assert.assertEquals(y * yCoef, cam.getBounds(xCoef, yCoef).y, delta);
 	}
 
 	@Test
@@ -131,14 +130,14 @@ public class GameCameraTest {
 		cam.setPosition(-10000, -10000);
 		cam.lockTo(lockTo);
 
-		assertEquals(-1000, cam.getPosition().x);
-		assertEquals(-1000, cam.getPosition().y);
+		Assert.assertEquals(-1000, cam.getPosition().x);
+		Assert.assertEquals(-1000, cam.getPosition().y);
 		
 		cam.setPosition(10000, 10000);
 		cam.lockTo(lockTo);
 
-		assertEquals(1000, cam.getPosition().x + cam.getWidth());
-		assertEquals(1000, cam.getPosition().y + cam.getHeight());
+		Assert.assertEquals(1000, cam.getPosition().x + cam.getWidth(), 0);
+		Assert.assertEquals(1000, cam.getPosition().y + cam.getHeight(), 0);
 	}
 
 }

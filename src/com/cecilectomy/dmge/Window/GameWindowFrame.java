@@ -7,6 +7,7 @@ import java.awt.GraphicsEnvironment;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class GameWindowFrame extends Canvas implements GameWindow {
 
 	private JFrame window;

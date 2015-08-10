@@ -8,6 +8,7 @@ import java.awt.Rectangle;
  * 
  * @author Daniel Cecil
  */
+@SuppressWarnings("serial")
 public class Camera extends Rectangle{
 
 	/**
