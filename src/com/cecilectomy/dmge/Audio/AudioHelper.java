@@ -1,4 +1,4 @@
-package com.cecilectomy.dmge.Assets;
+package com.cecilectomy.dmge.Audio;
 
 import java.applet.AudioClip;
 
@@ -9,10 +9,8 @@ import javax.sound.sampled.Clip;
  * 
  * @author Daniel Cecil
  */
-public class AssetHelper {
+public class AudioHelper {
 
-	// TODO (Daniel): We need to move this out into
-	// some sort of audio engine.
     /**
      * Plays a specified sound {@link Clip}.
      * 
