@@ -8,6 +8,7 @@ import com.cecilectomy.dmge.Assets.AssetManager;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Screens.Screen;
+import com.cecilectomy.dmge.Utility.ErrorDialog;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
 /**
@@ -29,10 +30,9 @@ public class BackgroundScreen extends Screen {
 	@Override
 	public void loadContent() {
 		try {
-			backgroundImage = (Image)AssetManager.loadAsset(Image.class, imagePath);
+			backgroundImage = (Image)AssetManager.getInstance().loadAsset(Image.class, imagePath);
 		} catch (IOException e) {
-			// TODO (Daniel): How do we want to handle missing assets? Handle this in AssetManager?
-			e.printStackTrace();
+			ErrorDialog.show(e.getLocalizedMessage());
 		}
 	}
 

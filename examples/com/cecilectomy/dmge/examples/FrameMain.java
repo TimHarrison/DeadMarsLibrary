@@ -2,9 +2,12 @@ package com.cecilectomy.dmge.examples;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import com.cecilectomy.dmge.Assets.AssetManager;
 import com.cecilectomy.dmge.Core.GameBase;
 import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Rendering.Renderer;
@@ -24,7 +27,7 @@ public class FrameMain extends GameWindowFrame {
 		super(title, WIDTH, HEIGHT);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		final FrameMain frame = new FrameMain();
 		frame.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

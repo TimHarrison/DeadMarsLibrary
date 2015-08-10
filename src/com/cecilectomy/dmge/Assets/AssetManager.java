@@ -7,9 +7,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+
+import com.cecilectomy.dmge.Assets.Loaders.AssetLoader;
+import com.cecilectomy.dmge.Audio.AudioHelper;
 
 /**
  * DeadMarsLibrary AssetManager Class
@@ -18,25 +23,47 @@ import javax.imageio.ImageIO;
  */
 public class AssetManager {
 
-	protected static HashMap<String, Object> assets = new HashMap<>();
-	protected static String baseAssetPath = "";
+	private HashMap<String, Object> assets = new HashMap<>();
+	private String baseAssetPath = "";
+	private static AssetManager globalInstance = null;
+	private static String AssetLoaderPackage = "com.cecilectomy.dmge.Assets.Loaders";
+	
+	public AssetManager() {
+		this("");
+	}
+	
+	public AssetManager(String assetPath) {
+		this.baseAssetPath = assetPath;
+	}
+	
+	/**
+	 * Get global {@link AssetManager} instance.
+	 * 
+	 * @return Global {@link AssetManager} instance
+	 */
+	public static AssetManager getInstance() {
+		if(globalInstance == null) {
+			globalInstance = new AssetManager();
+		}
+		return globalInstance;
+	}
 
 	/**
 	 * Get the base asset path.
 	 * 
-	 * @return
+	 * @return baseAssetPath.
 	 */
-	public static String getBaseAssetPath() {
+	public String getBaseAssetPath() {
 		return baseAssetPath;
 	}
 
 	/**
 	 * Set the base asset path.
 	 * 
-	 * @param baseAssetPath
+	 * @param baseAssetPath.
 	 */
-	public static void setBaseAssetPath(String baseAssetPath) {
-		AssetManager.baseAssetPath = baseAssetPath;
+	public void setBaseAssetPath(String baseAssetPath) {
+		this.baseAssetPath = baseAssetPath;
 	}
 
 	/**
@@ -45,9 +72,9 @@ public class AssetManager {
 	 * @param name Name of asset to retrieve
 	 * @return Asset object. Must be cast to correct type.
 	 */
-	public static Object getAsset(String name) {
-		if (assets.containsKey(name)) {
-			return assets.get(name);
+	public Object getAsset(String name) {
+		if (this.assets.containsKey(name)) {
+			return this.assets.get(name);
 		}
 		return null;
 	}
@@ -58,8 +85,8 @@ public class AssetManager {
 	 * @param name Name of asset to remove.
 	 * @return Removed asset object.
 	 */
-	public static Object removeAsset(String name) {
-		return assets.remove(name);
+	public Object removeAsset(String name) {
+		return this.assets.remove(name);
 	}
 
 	/**
@@ -69,12 +96,12 @@ public class AssetManager {
 	 * @param asset Object of asset to add.
 	 * @return Returns true if asset added successfully. Returns false if asset already exists.
 	 */
-	public static boolean addAsset(String name, Object asset) {
-		if(assets.containsKey(name)) {
+	public boolean addAsset(String name, Object asset) {
+		if(this.assets.containsKey(name)) {
 			return false;
 		}
 
-		assets.put(name, asset);
+		this.assets.put(name, asset);
 		return true;
 	}
 	
@@ -87,12 +114,12 @@ public class AssetManager {
 	 * @return Returns true if asset loaded/added successfully. Returns false if asset already exists.
 	 * @throws IOException
 	 */
-	public static <T> boolean addAsset(Class<T> type, String name, String path) throws IOException {
-		if(assets.containsKey(name)) {
+	public <T> boolean addAsset(Class<T> type, String name, String path) throws IOException {
+		if(this.assets.containsKey(name)) {
 			return false;
 		}
 
-	    assets.put(name, AssetManager.loadAsset(type, path));
+		this.assets.put(name, this.loadAsset(type, path));
 		
 		return true;
 	}
@@ -105,29 +132,16 @@ public class AssetManager {
 	 * @return Returns true if asset successfully loaded. Returns false if asset could not be loaded.
 	 * @throws IOException Asset not found or error loading asset.
 	 */
-	public static <T> Object loadAsset(Class<T> type, String path) throws IOException {
-		if(type.equals(BufferedImage.class)) {
-	        BufferedImage img = ImageIO.read(AssetManager.class.getResource(baseAssetPath+path));
-	        return img;
-		} else if(type.equals(AudioClip.class)) {
-	        AudioClip sound = Applet.newAudioClip(AssetHelper.class.getResource(baseAssetPath+path));
-	        return sound;
-		} else if(type.equals(String.class)) {
-			File file = new File(AssetManager.class.getResource(baseAssetPath+path).getFile());
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-			
-			while(line != null) {
-				sb.append(line + "\n");
-				line = br.readLine();
-			}
+	public <T> Object loadAsset(Class<T> type, String path) throws IOException {
 
-			br.close();
-			
-			return sb.toString();
-		} else {
-			throw new IOException();
+		try {
+			Class<?> clazz = Class.forName(AssetLoaderPackage + "." + type.getSimpleName() + "AssetLoader");
+			Constructor<?> ctor = clazz.getConstructor();
+			AssetLoader obj = (AssetLoader) ctor.newInstance();
+			Object asset = obj.load(this.baseAssetPath + path);
+			return asset;
+		} catch (Exception e) {
+			throw new IOException("Unable to load " + this.baseAssetPath + path);
 		}
 	}
 
