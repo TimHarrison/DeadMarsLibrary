@@ -21,7 +21,7 @@ public class OpenGLMain extends GameWindowOGLFrame {
 	}
 	
 	public static void main(String[] args) {
-		(new GameBase(new OpenGLRenderer()){
+		GameBase game = (new GameBase(new OpenGLRenderer()){
 			OpenGLMain frame;
 
 			@Override
@@ -35,13 +35,11 @@ public class OpenGLMain extends GameWindowOGLFrame {
 			
 			@Override
 			protected void render() {
-				super.render();
-
 				if(Display.isCloseRequested()) {
 					this.stopThreaded();
 				}
 				
-				Display.update();
+				super.render();
 			}
 			
 			@Override
@@ -50,7 +48,9 @@ public class OpenGLMain extends GameWindowOGLFrame {
 				
 				frame.cleanUp();
 			}
-		}).startThreaded();
+		});
+		game.setPreferredFPS(60L);
+		game.startThreaded();
 		
 	}
 	

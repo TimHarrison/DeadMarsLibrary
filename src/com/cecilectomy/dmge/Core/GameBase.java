@@ -129,6 +129,8 @@ public class GameBase implements Runnable {
 				GameObject gc = this.gameObjects.get(i);
 				this.renderer.render(gc);
 			}
+			
+			this.renderer.update();
 		}
 	}
 	

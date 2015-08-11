@@ -4,41 +4,16 @@ import java.awt.Dimension;
 
 import com.cecilectomy.dmge.Core.GameObject;
 
-public class Renderer {
-	
-	private Dimension resolution = new Dimension(800,600);
-	private boolean resChanged = false;
-	
-	public Dimension getResolution() {
-		return resolution;
-	}
+public interface Renderer {
 
-	public void setResolution(Dimension resolution) {
-		this.resolution = resolution;
-		this.setResChanged(true);
-	}
-
-	public void setResolution(int width, int height) {
-		this.resolution = new Dimension(width, height);
-		this.setResChanged(true);
-	}
-
-	public boolean isResChanged() {
-		return resChanged;
-	}
-
-	public void setResChanged(boolean resChanged) {
-		this.resChanged = resChanged;
-	}
-
-	public void render(GameObject gameObject) {
-		gameObject.render(this);
-	}
-	
-	public void initialize(){
-	}
-	
-	public void cleanUp() {
-	}
+	public Dimension getResolution();
+	public void setResolution(Dimension res);
+	public void setResolution(int width, int height);
+	public void setResolutionChanged(boolean flag);
+	public boolean resolutionChanged();
+	public void render(GameObject gameObject);
+	public void update();
+	public void initialize();
+	public void cleanUp();
 	
 }
