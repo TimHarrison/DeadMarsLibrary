@@ -1,13 +1,10 @@
 package com.cecilectomy.dmge.Assets.Loaders;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import com.cecilectomy.dmge.Assets.AssetManager;
-import com.cecilectomy.dmge.Audio.AudioHelper;
 
 public class StringAssetLoader implements AssetLoader {
 	

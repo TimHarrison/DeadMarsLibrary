@@ -1,17 +1,17 @@
 package com.cecilectomy.dmge.examples;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
-import com.cecilectomy.dmge.Assets.AssetManager;
 import com.cecilectomy.dmge.Core.GameBase;
-import com.cecilectomy.dmge.Core.GameObject;
-import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
+import com.cecilectomy.dmge.Core.GameComponent;
+import com.cecilectomy.dmge.Rendering.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Window.GameWindowFrame;
 
 public class FrameMain extends GameWindowFrame {
@@ -37,22 +37,34 @@ public class FrameMain extends GameWindowFrame {
 		GameBase gameBase = new GameBase(renderer);
 		gameBase.setPreferredFPS(frameRate);
 		
-		gameBase.addGameObject(new GameObject(gameBase){
+		gameBase.addGameComponent(new GameComponent(gameBase){
 			
 			String message = "Hello, World!";
 			
 			@Override
-			public void render(Renderer renderer) {
-				super.render(renderer);
-				
-				Graphics g = ((Java2DRenderer)renderer).getGraphics();
-				
-				int mHalfWidth = g.getFontMetrics().stringWidth(message) / 2;
-				int mHalfHeight = g.getFontMetrics().getHeight() / 2;
-				
-				g.setColor(Color.orange);
-				g.drawString(message, WIDTH/2 - mHalfWidth, HEIGHT/2 - mHalfHeight);
+			public List<RenderDetails> getRenderDetails() {
+				ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
+				RenderDetails detail = new RenderDetails();
+				detail.details.put("type", "Rectangle");
+				detail.details.put("color", Color.white);
+				detail.details.put("style", "fill");
+				detail.details.put("rect", new Rectangle(100,100,100,100));
+				details.add(detail);
+				return details;
 			}
+			
+//			@Override
+//			public void render(Renderer renderer) {
+//				super.render(renderer);
+//				
+//				Graphics g = ((Java2DRenderer)renderer).getGraphics();
+//				
+//				int mHalfWidth = g.getFontMetrics().stringWidth(message) / 2;
+//				int mHalfHeight = g.getFontMetrics().getHeight() / 2;
+//				
+//				g.setColor(Color.orange);
+//				g.drawString(message, WIDTH/2 - mHalfWidth, HEIGHT/2 - mHalfHeight);
+//			}
 			
 		});
 		

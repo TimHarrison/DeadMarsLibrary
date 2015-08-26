@@ -4,9 +4,10 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Arrays;
+import java.util.List;
 
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.SeparatingAxisTheorem.SatShape;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -37,12 +38,7 @@ public class Entity implements Comparable<Entity> {
 
 	double entX = 0.0;
 	double entY = 0.0;
-	// double entWidth = 0.0;
-	// double entHeight = 0.0;
-	// double entOriginX = 0.0;
-	// double entOriginY = 0.0;
 	double entDirection = 0.0;
-	// double entScale = 1.0;
 	double entSpeed = 0.0;
 	double entElapsedTime = 0.0;
 	double entLifespan = 0.0;
@@ -280,146 +276,27 @@ public class Entity implements Comparable<Entity> {
 	 * 
 	 * @return Width.
 	 */
-	// public double getWidth() {
-	// return entWidth;
-	// }
-
 	public double getWidth() {
 		return shape.getBounds().width;
 	}
-
-	// /**
-	// * Sets the width of this entity.
-	// *
-	// * @param w New width.
-	// */
-	// public void setWidth(double w) {
-	// if(w != entWidth) {
-	// entWidth = w;
-	// if(getQuadTreeNodeItemAssociate() != null) {
-	// getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth,
-	// (int)entHeight));
-	// }
-	// }
-	// }
 
 	/**
 	 * Gets the height of this entity.
 	 * 
 	 * @return Height
 	 */
-	// public double getHeight() {
-	// return entHeight;
-	// }
-
 	public double getHeight() {
 		return shape.getBounds().height;
 	}
-
-	// /**
-	// * Sets the Height of this entity.
-	// *
-	// * @param h New height.
-	// */
-	// public void setHeight(double h) {
-	// if(h != entHeight) {
-	// entHeight = h;
-	// if(getQuadTreeNodeItemAssociate() != null) {
-	// getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth,
-	// (int)entHeight));
-	// }
-	// }
-	// }
 
 	/**
 	 * Gets the dimensions of this entity.
 	 * 
 	 * @return Dimensions.
 	 */
-	// public Dimension getSize() {
-	// return new Dimension((int)entWidth, (int)entHeight);
-	// }
-
 	public Dimension getSize() {
 		return new Dimension(shape.getBounds().width, shape.getBounds().height);
 	}
-
-	// /**
-	// * Sets the dimensions of this entity.
-	// *
-	// * @param w New width.
-	// * @param h New height.
-	// */
-	// public void setSize(double w, double h) {
-	// if(w != entWidth || h != entHeight) {
-	// entWidth = w;
-	// entHeight = h;
-	// if(getQuadTreeNodeItemAssociate() != null) {
-	// getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth,
-	// (int)entHeight));
-	// }
-	// }
-	// }
-
-	// /**
-	// * Sets the dimensions of this entity.
-	// *
-	// * @param size New dimensions.
-	// */
-	// public void setSize(Dimension size) {
-	// if(size.width != entWidth || size.height != entHeight) {
-	// entWidth = size.width;
-	// entHeight = size.height;
-	// if(getQuadTreeNodeItemAssociate() != null) {
-	// getQuadTreeNodeItemAssociate().setSize(new Dimension((int)entWidth,
-	// (int)entHeight));
-	// }
-	// }
-	// }
-
-	// /**
-	// * Gets the origin X coordinate of this entity.
-	// * <p>
-	// * Origin is relative to the entity, not world space.
-	// *
-	// * @return Origin X.
-	// */
-	// public double getOriginX() {
-	// return entOriginX;
-	// }
-
-	// private void setOriginX(double ox) {
-	// entOriginX = ox;
-	// }
-
-	// /**
-	// * Gets the origin Y coordinate of this entity.
-	// * <p>
-	// * Origin is relative to the entity, not world space.
-	// *
-	// * @return Origin Y.
-	// */
-	// public double getOriginY() {
-	// return entOriginY;
-	// }
-	//
-	// private void setOriginY(double oy) {
-	// entOriginY = oy;
-	// }
-	//
-	// public Point getOriginPosition() {
-	// return new Point((int)entOriginX, (int)entOriginY);
-	// }
-	//
-	// private void setOriginPosition(double ox, double oy) {
-	// entOriginX = ox;
-	// entOriginY = oy;
-	// }
-	//
-	// private void setOriginPosition(Point opos) {
-	// entOriginX = opos.x;
-	// entOriginY = opos.y;
-	// }
 
 	/**
 	 * Gets the direction of this entity.
@@ -438,19 +315,6 @@ public class Entity implements Comparable<Entity> {
 	public void setDirection(double d) {
 		entDirection = d;
 	}
-
-	// /**
-	// * Gets the scale of this entity.
-	// *
-	// * @return Scale.
-	// */
-	// public double getScale() {
-	// return entScale;
-	// }
-	//
-	// private void setScale(double s) {
-	// entScale = s;
-	// }
 
 	/**
 	 * Gets the speed of this entity.
@@ -519,16 +383,6 @@ public class Entity implements Comparable<Entity> {
 	 * 
 	 * @return this entity's bounding rectangle.
 	 */
-	// public Rectangle getBoundingBox() {
-	// double scale = this.getScale();
-	// int scaledOX = (int) (this.getOriginX() * scale);
-	// int scaledOY = (int) (this.getOriginY() * scale);
-	// int scaledWidth = (int) (this.getWidth() * scale);
-	// int scaledHeight = (int) (this.getHeight() * scale);
-	// return new Rectangle((int)(this.getX() - scaledOX), (int)(this.getY() -
-	// scaledOY), scaledWidth, scaledHeight);
-	// }
-
 	public Rectangle getBoundingBox() {
 		return shape.getBounds();
 	}
@@ -542,10 +396,6 @@ public class Entity implements Comparable<Entity> {
 	public Entity(Rectangle rect, EntityType type) {
 		entX = rect.x;
 		entY = rect.y;
-		// entWidth = rect.width;
-		// entHeight = rect.height;
-		// entOriginX = entWidth / 2f;
-		// entOriginY = entHeight / 2f;
 		shape = new SatShape(rect);
 
 		entType = type;
@@ -564,33 +414,6 @@ public class Entity implements Comparable<Entity> {
 			break;
 		}
 	}
-
-	// public Entity(Rectangle rect, Point point, EntityType type) {
-	// entX = rect.x;
-	// entY = rect.y;
-	// entWidth = rect.width;
-	// entHeight = rect.height;
-	// entOriginX = point.getX();
-	// entOriginY = point.getY();
-	//
-	// entType = type;
-	//
-	// switch(type) {
-	// case Actor:
-	// this.entCollidable = true;
-	// break;
-	// case Prop:
-	// this.entCollidable = true;
-	// break;
-	// case Background:
-	// this.entCollidable = false;
-	// break;
-	// default:
-	// this.entCollidable = false;
-	// this.entType = EntityType.Actor;
-	// break;
-	// }
-	// }
 
 	/**
 	 * Used to initialize an Entity when it is added to an {@link EntityManager}
@@ -632,13 +455,9 @@ public class Entity implements Comparable<Entity> {
 	public void update(GameTime gameTime) {
 		entElapsedTime += gameTime.getElapsedGameTime().getMilliseconds();
 	}
-
-	/**
-	 * Overridable. Used to render an Entity to the game screen.
-	 * 
-	 * @param gameTime reference to the current {@link GameTime}.
-	 */
-	public void render(Renderer renderer) {
+	
+	public List<RenderDetails> getRenderDetails() {
+		return null;
 	}
 
 	/**

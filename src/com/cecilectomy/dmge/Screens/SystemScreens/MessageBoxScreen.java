@@ -8,7 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import com.cecilectomy.dmge.Core.GameInput;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
@@ -64,36 +65,38 @@ public class MessageBoxScreen extends Screen {
 		}
 	}
 
-	@Override
-	public void render(Java2DRenderer renderer) {
-		Graphics g = renderer.getGraphics();
-		
-		g.setFont(mbFont);
-		this.getScreenManager().fadeBackBufferToBlack(g,
-				this.getTransitionAlpha() * 2 / 3);
-
-		int posx, posy;
-		int textWidth = g.getFontMetrics().stringWidth(message);
-		int textHeight = g.getFontMetrics().getHeight();
-
-		posx = renderer.getResolution().width / 2;
-		posy = renderer.getResolution().height / 2;
-
-		final int hPad = 32;
-		final int vPad = 16;
-
-		Rectangle br = new Rectangle((int) posx - textWidth / 2 - hPad,
-				(int) posy - textHeight - vPad, (int) posx + textWidth / 2
-						+ hPad, (int) posy + textHeight * 2 + textHeight / 2
-						+ vPad);
-
-		g.setColor(Color.white);
-		g.drawImage(gradientTexture, br.x, br.y, br.width, br.height, 0, 0,
-				gradientTexture.getWidth(null),
-				gradientTexture.getHeight(null), null);
-		g.drawString(message, posx - textWidth / 2, posy);
-		g.drawString(optionOK, posx - textWidth / 2, posy + textHeight);
-		g.drawString(optionCancel, posx - textWidth / 2, posy + textHeight * 2);
-	}
+	// TODO (Daniel): Implement getRenderDetails method for MessageBoxScreen.
+//	@Override
+//	public void render(Renderer renderer) {
+//		// TODO (Daniel): Use renderer with render details
+//		Graphics g = ((Java2DRenderer)renderer).getGraphics();
+//		
+//		g.setFont(mbFont);
+//		this.getScreenManager().fadeBackBufferToBlack(g,
+//				this.getTransitionAlpha() * 2 / 3);
+//
+//		int posx, posy;
+//		int textWidth = g.getFontMetrics().stringWidth(message);
+//		int textHeight = g.getFontMetrics().getHeight();
+//
+//		posx = renderer.getResolution().width / 2;
+//		posy = renderer.getResolution().height / 2;
+//
+//		final int hPad = 32;
+//		final int vPad = 16;
+//
+//		Rectangle br = new Rectangle((int) posx - textWidth / 2 - hPad,
+//				(int) posy - textHeight - vPad, (int) posx + textWidth / 2
+//						+ hPad, (int) posy + textHeight * 2 + textHeight / 2
+//						+ vPad);
+//
+//		g.setColor(Color.white);
+//		g.drawImage(gradientTexture, br.x, br.y, br.width, br.height, 0, 0,
+//				gradientTexture.getWidth(null),
+//				gradientTexture.getHeight(null), null);
+//		g.drawString(message, posx - textWidth / 2, posy);
+//		g.drawString(optionOK, posx - textWidth / 2, posy + textHeight);
+//		g.drawString(optionCancel, posx - textWidth / 2, posy + textHeight * 2);
+//	}
 
 }

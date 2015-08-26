@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import org.lwjgl.opengl.Display;
 
 import com.cecilectomy.dmge.Core.GameBase;
-import com.cecilectomy.dmge.Core.GameObject;
+import com.cecilectomy.dmge.Core.GameComponent;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Math.Transform;
 import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
+import com.cecilectomy.dmge.Rendering.OpenGLRenderer;
 import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.OpenGLRenderer;
 import com.cecilectomy.dmge.Window.GameWindowOGLFrame;
 
 public class OpenGLMain extends GameWindowOGLFrame {
@@ -30,7 +30,7 @@ public class OpenGLMain extends GameWindowOGLFrame {
 				
 				frame = new OpenGLMain();
 				
-				this.addGameObject(new PyramidMesh(this));
+				this.addGameComponent(new PyramidMesh(this));
 			}
 			
 			@Override
@@ -56,7 +56,7 @@ public class OpenGLMain extends GameWindowOGLFrame {
 	
 }
 
-class PyramidMesh extends GameObject {
+class PyramidMesh extends GameComponent {
 	
 	Mesh mesh;
 	Shader shader;
@@ -99,12 +99,12 @@ class PyramidMesh extends GameObject {
 					((float)Math.abs(sinTemp) + 0.5f) * 0.5f);
 	}
 	
-	@Override
-	public void render(Renderer renderer) {
-		super.render(renderer);
-		shader.bind();
-		shader.setUniform("transform", transform.getProjectedTransformation());
-		mesh.draw();
-	}
+//	@Override
+//	public void render(Renderer renderer) {
+//		super.render(renderer);
+//		shader.bind();
+//		shader.setUniform("transform", transform.getProjectedTransformation());
+//		mesh.draw();
+//	}
 	
 }

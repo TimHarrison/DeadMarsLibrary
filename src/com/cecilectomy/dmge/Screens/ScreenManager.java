@@ -8,13 +8,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.cecilectomy.dmge.Core.GameBase;
+import com.cecilectomy.dmge.Core.GameComponent;
 import com.cecilectomy.dmge.Core.GameInput;
-import com.cecilectomy.dmge.Core.GameObject;
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 
 /**
  * DeadMarsLibrary ScreenManager Class
@@ -29,7 +29,7 @@ import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
  * 
  * @author Daniel Cecil
  */
-public class ScreenManager extends GameObject {
+public class ScreenManager extends GameComponent {
 
 	private ArrayList<Screen> screens = new ArrayList<>();
 	private ArrayList<Screen> screensToUpdate = new ArrayList<>();
@@ -110,23 +110,22 @@ public class ScreenManager extends GameObject {
 			}
 		}
 	}
-
-	/**
-	 * Renders all visible screens in this ScreenManager.
-	 * 
-	 * @param gameTime GameTime object to render with.
-	 * @param g Graphics context to render to.
-	 */
+	
 	@Override
-	public void render(Renderer renderer) {
+	public List<RenderDetails> getRenderDetails() {
+		ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
 		for (int x = 0; x < screens.size(); x++) {
 			Screen screen = screens.get(x);
 
 			if (screen.getScreenState() == ScreenState.Hidden)
 				continue;
-
-			screen.render((Java2DRenderer)renderer);
+			
+			List<RenderDetails> ds = screen.getRenderDetails();
+			if(ds != null) {
+				details.addAll(ds);
+			}
 		}
+		return details;
 	}
 
 	/**
@@ -178,6 +177,7 @@ public class ScreenManager extends GameObject {
 		return input;
 	}
 
+	// TODO (Daniel): This should be done by renderer
 	public void fadeBackBufferToBlack(Graphics g, int alpha) {
 		float fadeAlpha = (float) (alpha / 255.0);
 		fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);
@@ -190,7 +190,8 @@ public class ScreenManager extends GameObject {
 		g2d.fillRect(0, 0, this.getGame().getRenderer().getResolution().width, this.getGame().getRenderer().getResolution().height);
 		g2d.setComposite(ogComposite);
 	}
-
+	
+	// TODO (Daniel): This should be done by renderer
 	public void fadeBackBufferToColor(Graphics g, Color c, int alpha) {
 		float fadeAlpha = (float) (alpha / 255.0);
 		fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);

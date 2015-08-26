@@ -1,4 +1,4 @@
-package com.cecilectomy.dmge.Rendering.Renderers;
+package com.cecilectomy.dmge.Rendering;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -7,16 +7,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import com.cecilectomy.dmge.Core.GameObject;
-import com.cecilectomy.dmge.Rendering.Renderer;
-
-public class Java2DRenderer implements Renderer {
+public class Java2DRenderer extends Renderer {
 	
 	private Canvas canvas;
 	private BufferedImage dbImage;
 	
 	public Java2DRenderer(Canvas canvas) {
 		this.canvas = canvas;
+		this.name = "Java2D";
 	}
 	
 	protected BufferStrategy getBufferStrategy() {
@@ -37,16 +35,14 @@ public class Java2DRenderer implements Renderer {
 		}
 		return dbImage.getGraphics();
 	}
-
+	
 	@Override
-	public void render(GameObject gameObject) {
+	public void clear() {
 		Graphics graphics = this.getGraphics();
 		
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, this.getResolution().width,
 				this.getResolution().height);
-		
-		gameObject.render(this);
 	}
 	
 	@Override

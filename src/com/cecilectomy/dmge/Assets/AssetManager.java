@@ -1,20 +1,10 @@
 package com.cecilectomy.dmge.Assets;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-
 import com.cecilectomy.dmge.Assets.Loaders.AssetLoader;
-import com.cecilectomy.dmge.Audio.AudioHelper;
 
 /**
  * DeadMarsLibrary AssetManager Class

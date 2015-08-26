@@ -2,10 +2,12 @@ package com.cecilectomy.dmge.Screens.SystemScreens;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Screens.ScreenManager;
 import com.cecilectomy.dmge.Screens.ScreenState;
@@ -36,6 +38,11 @@ public class LoadingScreen extends Screen {
 	public void update(GameTime gameTime, boolean otherScreenHasFocus,
 			boolean coveredByOtherScreen) {
 		super.update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+		
+		if ((this.getScreenState() == ScreenState.Active)
+				&& (this.getScreenManager().getScreens().length == 1)) {
+			otherScreensAreGone = true;
+		}
 
 		if (otherScreensAreGone) {
 			this.getScreenManager().removeScreen(this);
@@ -53,34 +60,39 @@ public class LoadingScreen extends Screen {
 			this.getScreenManager().getGame().resetElapsedTime();
 		}
 	}
-
+	
 	@Override
-	public void render(Java2DRenderer renderer) {
-		if ((this.getScreenState() == ScreenState.Active)
-				&& (this.getScreenManager().getScreens().length == 1)) {
-			otherScreensAreGone = true;
+	public List<RenderDetails> getRenderDetails() {
+		ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
+		
+		if (loadingIsSlow) {
+
+			RenderDetails detail = new RenderDetails();
+			detail.details.put("type", "Rectangle");
+			detail.details.put("rect", new Rectangle(0,0,
+					this.getScreenManager().getGame().getRenderer().getResolution().width,
+					this.getScreenManager().getGame().getRenderer().getResolution().height));
+			detail.details.put("style", "fill");
+			detail.details.put("color", Color.black);
+			details.add(detail);
+
+			final String message = "Loading...";
+			int posx, posy;
+			posx = this.getScreenManager().getGame().getRenderer().getResolution().width / 2;
+			posy = this.getScreenManager().getGame().getRenderer().getResolution().height / 2;
+			
+			detail = new RenderDetails();
+			detail.details.put("type", "Text");
+			detail.details.put("justification", "center");
+			detail.details.put("text", message);
+			detail.details.put("color", Color.white);
+			detail.details.put("font", new Font("Arial", Font.BOLD, 12));
+			detail.details.put("x", posx);
+			detail.details.put("y", posy);
+			details.add(detail);
 		}
 		
-		Graphics g = renderer.getGraphics();
-
-		if (loadingIsSlow) {
-			final String message = "Loading...";
-			g.setFont(new Font("Arial", Font.BOLD, 12));
-
-			int posx, posy;
-
-			posx = renderer.getResolution().width / 2;
-			posy = renderer.getResolution().height / 2;
-
-			int textWidth = g.getFontMetrics().stringWidth("Loading...");
-
-			g.setColor(Color.black);
-			g.fillRect(0, 0,
-					renderer.getResolution().width,
-					renderer.getResolution().height);
-			g.setColor(Color.white);
-			g.drawString(message, posx - textWidth / 2, posy);
-		}
+		return details;
 	}
 
 	public static void load(ScreenManager screenManager, boolean loadingIsSlow,

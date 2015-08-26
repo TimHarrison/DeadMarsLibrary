@@ -9,8 +9,8 @@ public class GameBase implements Runnable {
 	private static long SECOND = 1000000000L;
 	private static int NUM_FPS = 10;
 	
-	private ArrayList<GameObject> gameObjects = new ArrayList<>();
-	private ArrayList<GameObject> gameObjectsToAdd = new ArrayList<>();
+	private ArrayList<GameComponent> gameComponents = new ArrayList<>();
+	private ArrayList<GameComponent> gameComponentsToAdd = new ArrayList<>();
 	
 	private Renderer renderer;
 	private GameTime gameTime = new GameTime();
@@ -125,9 +125,12 @@ public class GameBase implements Runnable {
 	
 	protected void render() {
 		if (this.isRunning && !this.isPaused) {
-			for (int i = 0; i < this.gameObjects.size(); i++) {
-				GameObject gc = this.gameObjects.get(i);
-				this.renderer.render(gc);
+			this.renderer.clear();
+			
+			for (int i = 0; i < this.gameComponents.size(); i++) {
+				GameComponent gc = this.gameComponents.get(i);
+				//gc.render(this.renderer);
+				this.renderer.render(gc.getRenderDetails());
 			}
 			
 			this.renderer.update();
@@ -149,13 +152,13 @@ public class GameBase implements Runnable {
 
 		this.gelapsedbefore = System.nanoTime();
 		
-		while(this.gameObjectsToAdd.size() > 0) {
-			this._addGameObject(this.gameObjectsToAdd.get(this.gameObjectsToAdd.size()-1));
+		while(this.gameComponentsToAdd.size() > 0) {
+			this._addGameComponent(this.gameComponentsToAdd.get(this.gameComponentsToAdd.size()-1));
 		}
 
 		if (this.isRunning && !this.isPaused) {
-			for (int i = 0; i < this.gameObjects.size(); i++) {
-				GameObject gc = this.gameObjects.get(i);
+			for (int i = 0; i < this.gameComponents.size(); i++) {
+				GameComponent gc = this.gameComponents.get(i);
 				gc.update(gameTime);
 			}
 		}
@@ -254,18 +257,18 @@ public class GameBase implements Runnable {
 		this.gameTime.getElapsedRealTime().setSpan(0);
 	}
 
-	public final void addGameObject(GameObject go) {
-		this.gameObjectsToAdd.add(go);
+	public final void addGameComponent(GameComponent go) {
+		this.gameComponentsToAdd.add(go);
 	}
 	
-	private final void _addGameObject(GameObject go) {
+	private final void _addGameComponent(GameComponent go) {
 		go.initialize();
-		this.gameObjectsToAdd.remove(go);
-		this.gameObjects.add(go);
+		this.gameComponentsToAdd.remove(go);
+		this.gameComponents.add(go);
 	}
 
-	public final void removeGameObject(GameObject go) {
+	public final void removeGameComponent(GameComponent go) {
 		go.cleanUp();
-		this.gameObjects.remove(go);
+		this.gameComponents.remove(go);
 	}
 }

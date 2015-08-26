@@ -5,6 +5,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class SatShape extends Polygon {
 
 	int x, y;

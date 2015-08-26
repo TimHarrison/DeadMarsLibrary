@@ -1,16 +1,20 @@
-package com.cecilectomy.dmge.Rendering.Renderers;
+package com.cecilectomy.dmge.Rendering;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL11.GL_BACK;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_CW;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glFrontFace;
+import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_SRGB;
 
 import java.awt.Dimension;
 
 import org.lwjgl.opengl.Display;
 
-import com.cecilectomy.dmge.Core.GameObject;
-import com.cecilectomy.dmge.Rendering.Renderer;
-
-public class OpenGLRenderer implements Renderer {
+public class OpenGLRenderer extends Renderer {
 	
 	@Override
 	public void initialize() {
@@ -22,13 +26,13 @@ public class OpenGLRenderer implements Renderer {
 		glEnable(GL_FRAMEBUFFER_SRGB);
 	}
 
-	@Override
-	public void render(GameObject gameObject) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		//super.render(gameObject);
-		gameObject.render(this);
-	}
+//	@Override
+//	public void render(List<RenderDetails> renderDetails) {
+//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//		
+//		//super.render(gameComponent);
+//		//gameComponent.render(this);
+//	}
 
 	@Override
 	public void cleanUp() {
@@ -65,6 +69,12 @@ public class OpenGLRenderer implements Renderer {
 	@Override
 	public void update() {
 		Display.update();
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

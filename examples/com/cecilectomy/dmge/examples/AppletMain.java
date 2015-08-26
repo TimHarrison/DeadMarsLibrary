@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 
 import com.cecilectomy.dmge.Core.GameBase;
+import com.cecilectomy.dmge.Rendering.Java2DRenderer;
 import com.cecilectomy.dmge.Rendering.Renderer;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
 import com.cecilectomy.dmge.Window.GameWindowApplet;
 
 @SuppressWarnings("serial")

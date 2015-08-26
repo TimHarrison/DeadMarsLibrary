@@ -1,12 +1,15 @@
 package com.cecilectomy.dmge.Screens.SystemScreens;
 
-import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cecilectomy.dmge.Assets.AssetManager;
 import com.cecilectomy.dmge.Core.GameTime;
-import com.cecilectomy.dmge.Rendering.Renderers.Java2DRenderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.ErrorDialog;
 import com.cecilectomy.dmge.Utility.TimeSpan;
@@ -30,7 +33,7 @@ public class BackgroundScreen extends Screen {
 	@Override
 	public void loadContent() {
 		try {
-			backgroundImage = (Image)AssetManager.getInstance().loadAsset(Image.class, imagePath);
+			backgroundImage = (Image)AssetManager.getInstance().loadAsset(BufferedImage.class, imagePath);
 		} catch (IOException e) {
 			ErrorDialog.show(e.getLocalizedMessage());
 		}
@@ -41,11 +44,20 @@ public class BackgroundScreen extends Screen {
 			boolean coveredByOtherScreen) {
 		super.update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 	}
-
+	
 	@Override
-	public void render(Java2DRenderer renderer) {
-		Graphics g = renderer.getGraphics();
-		g.drawImage(backgroundImage, 0, 0, null);
+	public List<RenderDetails> getRenderDetails() {
+		ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
+		RenderDetails detail = new RenderDetails();
+		detail.details.put("type", "Image");
+		detail.details.put("alpha", 255);
+		detail.details.put("dest", new Rectangle(0,0,
+				this.getScreenManager().getGame().getRenderer().getResolution().width,
+				this.getScreenManager().getGame().getRenderer().getResolution().height));
+		detail.details.put("src", new Rectangle(0,0,((BufferedImage)backgroundImage).getWidth(), ((BufferedImage)backgroundImage).getHeight()));
+		detail.details.put("image", backgroundImage);
+		details.add(detail);
+		return details;
 	}
 
 }
