@@ -1,6 +1,11 @@
 package com.cecilectomy.dmge.examples;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+
 import java.awt.Dimension;
+import java.util.List;
 
 import org.lwjgl.opengl.Display;
 
@@ -11,7 +16,7 @@ import com.cecilectomy.dmge.Math.Transform;
 import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
 import com.cecilectomy.dmge.Rendering.OpenGLRenderer;
-import com.cecilectomy.dmge.Rendering.Renderer;
+import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Window.GameWindowOGLFrame;
 
 public class OpenGLMain extends GameWindowOGLFrame {
@@ -99,12 +104,14 @@ class PyramidMesh extends GameComponent {
 					((float)Math.abs(sinTemp) + 0.5f) * 0.5f);
 	}
 	
-//	@Override
-//	public void render(Renderer renderer) {
-//		super.render(renderer);
-//		shader.bind();
-//		shader.setUniform("transform", transform.getProjectedTransformation());
-//		mesh.draw();
-//	}
+	@Override
+	public List<RenderDetails> getRenderDetails() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader.bind();
+		shader.setUniform("transform", transform.getProjectedTransformation());
+		mesh.draw();
+		
+		return super.getRenderDetails();
+	}
 	
 }

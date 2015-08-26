@@ -1,6 +1,7 @@
 package com.cecilectomy.dmge.examples;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,28 +45,30 @@ public class FrameMain extends GameWindowFrame {
 			@Override
 			public List<RenderDetails> getRenderDetails() {
 				ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
-				RenderDetails detail = new RenderDetails();
-				detail.details.put("type", "Rectangle");
-				detail.details.put("color", Color.white);
-				detail.details.put("style", "fill");
-				detail.details.put("rect", new Rectangle(100,100,100,100));
-				details.add(detail);
+				
+				{
+					RenderDetails detail = new RenderDetails();
+					detail.details.put("type", "Rectangle");
+					detail.details.put("color", Color.white);
+					detail.details.put("style", "fill");
+					detail.details.put("rect", new Rectangle(100,100,100,100));
+					details.add(detail);
+				}
+				
+				{
+					RenderDetails detail = new RenderDetails();
+					detail.details.put("type", "Text");
+					detail.details.put("justification", "center");
+					detail.details.put("text", message);
+					detail.details.put("color", Color.white);
+					detail.details.put("font", new Font("Arial", Font.BOLD, 12));					
+					detail.details.put("x", WIDTH/2);
+					detail.details.put("y", HEIGHT/2);
+					details.add(detail);
+				}
+				
 				return details;
-			}
-			
-//			@Override
-//			public void render(Renderer renderer) {
-//				super.render(renderer);
-//				
-//				Graphics g = ((Java2DRenderer)renderer).getGraphics();
-//				
-//				int mHalfWidth = g.getFontMetrics().stringWidth(message) / 2;
-//				int mHalfHeight = g.getFontMetrics().getHeight() / 2;
-//				
-//				g.setColor(Color.orange);
-//				g.drawString(message, WIDTH/2 - mHalfWidth, HEIGHT/2 - mHalfHeight);
-//			}
-			
+			}			
 		});
 		
 		gameBase.startThreaded();
