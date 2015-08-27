@@ -1,11 +1,6 @@
 package com.cecilectomy.dmge.Screens;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -176,33 +171,5 @@ public class ScreenManager extends GameComponent {
 	public GameInput getInput() {
 		return input;
 	}
-
-	// TODO (Daniel): This should be done by renderer
-	public void fadeBackBufferToBlack(Graphics g, int alpha) {
-		float fadeAlpha = (float) (alpha / 255.0);
-		fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);
-		Graphics2D g2d = (Graphics2D) g;
-		Composite ogComposite = g2d.getComposite();
-		AlphaComposite composite = AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, fadeAlpha);
-		g2d.setComposite(composite);
-		g2d.setColor(Color.black);
-		g2d.fillRect(0, 0, this.getGame().getRenderer().getResolution().width, this.getGame().getRenderer().getResolution().height);
-		g2d.setComposite(ogComposite);
-	}
 	
-	// TODO (Daniel): This should be done by renderer
-	public void fadeBackBufferToColor(Graphics g, Color c, int alpha) {
-		float fadeAlpha = (float) (alpha / 255.0);
-		fadeAlpha = fadeAlpha < 0 ? 0 : (fadeAlpha > 1 ? 1 : fadeAlpha);
-		Graphics2D g2d = (Graphics2D) g;
-		Composite ogComposite = g2d.getComposite();
-		AlphaComposite composite = AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, fadeAlpha);
-		g2d.setComposite(composite);
-		g2d.setColor(c);
-		g2d.fillRect(0, 0, this.getGame().getRenderer().getResolution().width, this.getGame().getRenderer().getResolution().height);
-		g2d.setComposite(ogComposite);
-	}
-
 }
