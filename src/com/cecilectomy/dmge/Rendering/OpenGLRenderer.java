@@ -36,33 +36,27 @@ public class OpenGLRenderer extends Renderer {
 
 	@Override
 	public void cleanUp() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public Dimension getResolution() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setResolution(Dimension res) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void setResolution(int width, int height) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void setResolutionChanged(boolean flag) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public boolean resolutionChanged() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -73,8 +67,6 @@ public class OpenGLRenderer extends Renderer {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

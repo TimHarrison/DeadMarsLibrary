@@ -1,7 +1,9 @@
 package com.cecilectomy.dmge.Screens.SystemScreens;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,16 +79,24 @@ public class LoadingScreen extends Screen {
 			details.add(detail);
 
 			final String message = "Loading...";
+			
 			int posx, posy;
 			posx = this.getScreenManager().getGame().getRenderer().getResolution().width / 2;
 			posy = this.getScreenManager().getGame().getRenderer().getResolution().height / 2;
+			
+			Font theFont = new Font("Arial", Font.BOLD, 12);
+			
+			Canvas c = new Canvas();
+			FontMetrics fm = c.getFontMetrics(theFont);
+			
+			posx = posx - fm.stringWidth(message) / 2;
 			
 			detail = new RenderDetails();
 			detail.details.put("type", "Text");
 			detail.details.put("justification", "center");
 			detail.details.put("text", message);
 			detail.details.put("color", Color.white);
-			detail.details.put("font", new Font("Arial", Font.BOLD, 12));
+			detail.details.put("font", theFont);
 			detail.details.put("x", posx);
 			detail.details.put("y", posy);
 			details.add(detail);

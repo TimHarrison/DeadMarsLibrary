@@ -88,6 +88,7 @@ public class SplashScreen extends Screen {
     @Override
     public List<RenderDetails> getRenderDetails() {
 		ArrayList<RenderDetails> details = new ArrayList<RenderDetails>();
+		
 		RenderDetails detail = new RenderDetails();
 		detail.details.put("type", "Image");
 		detail.details.put("alpha", this.getTransitionAlpha());
@@ -97,6 +98,7 @@ public class SplashScreen extends Screen {
 		detail.details.put("src", new Rectangle(0,0,((BufferedImage)this.getSplashImage()).getWidth(), ((BufferedImage)this.getSplashImage()).getHeight()));
 		detail.details.put("image", this.getSplashImage());
 		details.add(detail);
+		
 		return details;
     }
 

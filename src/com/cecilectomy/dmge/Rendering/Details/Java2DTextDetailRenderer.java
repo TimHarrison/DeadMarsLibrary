@@ -12,7 +12,11 @@ public class Java2DTextDetailRenderer implements DetailRenderer {
 	
 	@Override
 	public void render(Renderer renderer, RenderDetails renderDetails) {
-		//String justification = (String)renderDetails.details.get("justification");
+		// TODO (Daniel): Add text justification.
+		// TODO (Daniel): Add multiline text rendering.
+		// TODO (Daniel): Add text scaling around center of all text.
+		// TODO (Daniel): Add text rotation around center of all text.
+		
 		String text = (String)renderDetails.details.get("text");
 		Color color = (Color)renderDetails.details.get("color");
 		Font font = (Font)renderDetails.details.get("font");
@@ -24,9 +28,7 @@ public class Java2DTextDetailRenderer implements DetailRenderer {
 		g.setFont(font);
 		g.setColor(color);
 
-		int textWidth = g.getFontMetrics().stringWidth(text);
-
-		g.drawString(text, x - textWidth / 2, y);
+		g.drawString(text, x, y);
 	}
 
 }
