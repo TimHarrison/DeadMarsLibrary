@@ -2,6 +2,7 @@ package com.cecilectomy.dmge.Rendering;
 
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
 
 import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
@@ -9,6 +10,8 @@ import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
 public abstract class Renderer {
 
 	protected String name = "";
+	
+	HashMap<String, DetailRenderer> detailRenderers = new HashMap<String, DetailRenderer>();
 	
 	public Dimension getResolution(){
 		return null;
@@ -42,10 +45,15 @@ public abstract class Renderer {
 		for(RenderDetails detail : renderDetails) {
 			try {
 				String type = (String)detail.details.get("type");
-				Class<?> clazz = Class.forName("com.cecilectomy.dmge.Rendering.Details." + this.getRendererName() + type + "DetailRenderer");
-				Constructor<?> ctor = clazz.getConstructor();
-				DetailRenderer ren = (DetailRenderer) ctor.newInstance();
-				ren.render(this, detail);
+				String detailRendererName = "com.cecilectomy.dmge.Rendering.Details." + this.getRendererName() + type + "DetailRenderer";
+				if(!detailRenderers.containsKey(detailRendererName)) {
+					Class<?> clazz = Class.forName(detailRendererName);
+					Constructor<?> ctor = clazz.getConstructor();
+					DetailRenderer ren = (DetailRenderer) ctor.newInstance();
+					detailRenderers.put(detailRendererName, ren);
+				}
+				
+				detailRenderers.get(detailRendererName).render(this, detail);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
 import com.cecilectomy.dmge.Assets.Loaders.AssetLoader;
+import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
 
 /**
  * DeadMarsLibrary AssetManager Class
@@ -14,6 +15,7 @@ import com.cecilectomy.dmge.Assets.Loaders.AssetLoader;
 public class AssetManager {
 
 	private HashMap<String, Object> assets = new HashMap<>();
+	HashMap<String, AssetLoader> assetLoaders = new HashMap<String, AssetLoader>();
 	private String baseAssetPath = "";
 	private static AssetManager globalInstance = null;
 	private static String AssetLoaderPackage = "com.cecilectomy.dmge.Assets.Loaders";
@@ -125,10 +127,15 @@ public class AssetManager {
 	public <T> Object loadAsset(Class<T> type, String path) throws IOException {
 
 		try {
-			Class<?> clazz = Class.forName(AssetLoaderPackage + "." + type.getSimpleName() + "AssetLoader");
-			Constructor<?> ctor = clazz.getConstructor();
-			AssetLoader obj = (AssetLoader) ctor.newInstance();
-			Object asset = obj.load(this.baseAssetPath + path);
+			String assetLoaderName = AssetLoaderPackage + "." + type.getSimpleName() + "AssetLoader";
+			if(!assetLoaders.containsKey(assetLoaderName)) {
+				Class<?> clazz = Class.forName(assetLoaderName);
+				Constructor<?> ctor = clazz.getConstructor();
+				AssetLoader obj = (AssetLoader) ctor.newInstance();
+				assetLoaders.put(assetLoaderName, obj);
+			}
+			
+			Object asset = assetLoaders.get(assetLoaderName).load(this.baseAssetPath + path);
 			return asset;
 		} catch (Exception e) {
 			throw new IOException("Unable to load " + this.baseAssetPath + path);
