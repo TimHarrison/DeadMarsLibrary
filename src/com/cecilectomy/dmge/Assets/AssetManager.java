@@ -5,7 +5,6 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
 import com.cecilectomy.dmge.Assets.Loaders.AssetLoader;
-import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
 
 /**
  * DeadMarsLibrary AssetManager Class
@@ -15,7 +14,7 @@ import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
 public class AssetManager {
 
 	private HashMap<String, Object> assets = new HashMap<>();
-	HashMap<String, AssetLoader> assetLoaders = new HashMap<String, AssetLoader>();
+	private HashMap<String, AssetLoader> assetLoaders = new HashMap<String, AssetLoader>();
 	private String baseAssetPath = "";
 	private static AssetManager globalInstance = null;
 	private static String AssetLoaderPackage = "com.cecilectomy.dmge.Assets.Loaders";

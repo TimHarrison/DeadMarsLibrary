@@ -10,8 +10,7 @@ import com.cecilectomy.dmge.Rendering.Details.DetailRenderer;
 public abstract class Renderer {
 
 	protected String name = "";
-	
-	HashMap<String, DetailRenderer> detailRenderers = new HashMap<String, DetailRenderer>();
+	private HashMap<String, DetailRenderer> detailRenderers = new HashMap<String, DetailRenderer>();
 	
 	public Dimension getResolution(){
 		return null;
