@@ -128,6 +128,13 @@ public class RectangleEx extends Rectangle {
                 && 	r1.getRight() 	>= r2.getLeft() 	+ (r2.getWidth() / 5)
                 && 	r1.getLeft() 	<= r2.getRight() 	- (r2.getWidth() / 5));
     }
+    
+    public static boolean touchingTop(Rectangle r1, Rectangle r2) {
+        return (	getBottom(r1) 	>= getTop(r2)
+                && 	getBottom(r1) 	<= getTop(r2) 		+ (r2.getHeight() / 2)
+                && 	getRight(r1) 	>= getLeft(r2) 		+ (r2.getWidth() / 5)
+                && 	getLeft(r1) 	<= getRight(r2) 	- (r2.getWidth() / 5));
+    }
 
     public boolean touchingBottom(RectangleEx target) {
         return (	this.getTop() 		<= target.getBottom()
@@ -141,6 +148,13 @@ public class RectangleEx extends Rectangle {
                 && 	r1.getTop() 	>= r2.getBottom() 	- (r2.getHeight() / 2)
                 && 	r1.getRight() 	>= r2.getLeft() 	+ (r2.getWidth() / 5)
                 && 	r1.getLeft() 	<= r2.getRight() 	- (r2.getWidth() / 5));
+    }
+    
+    public static boolean touchingBottom(Rectangle r1, Rectangle r2) {
+        return (	getTop(r1) 		<= getBottom(r2)
+                && 	getTop(r1) 		>= getBottom(r2) 	- (r2.getHeight() / 2)
+                && 	getRight(r1) 	>= getLeft(r2) 		+ (r2.getWidth() / 5)
+                && 	getLeft(r1) 	<= getRight(r2) 	- (r2.getWidth() / 5));
     }
 
     public boolean touchingLeft(RectangleEx target) {
@@ -156,6 +170,13 @@ public class RectangleEx extends Rectangle {
                 && 	r1.getTop() 	<= r2.getBottom() 	- (r2.getHeight() / 5)
                 && 	r1.getBottom() 	>= r2.getTop() 		+ (r2.getHeight() / 5));
     }
+    
+    public static boolean touchingLeft(Rectangle r1, Rectangle r2) {
+        return (	getRight(r1) 	<= getRight(r2)
+                && 	getRight(r1) 	>= getLeft(r2) 	- (r2.getWidth() / 5)
+                && 	getTop(r1) 		<= getBottom(r2) 	- (r2.getHeight() / 5)
+                && 	getBottom(r1) 	>= getTop(r2) 		+ (r2.getHeight() / 5));
+    }
 
     public boolean touchingRight(RectangleEx target) {
         return (	this.getLeft() 		>= target.getLeft()
@@ -169,5 +190,12 @@ public class RectangleEx extends Rectangle {
                 && 	r1.getLeft() 	<= r2.getRight() 	+ (r2.getWidth() / 5)
                 && 	r1.getTop() 	<= r2.getBottom() 	- (r2.getHeight() / 5)
                 && 	r1.getBottom() 	>= r2.getTop() 		+ (r2.getHeight() / 5));
+    }
+    
+    public static boolean touchingRight(Rectangle r1, Rectangle r2) {
+        return (	getLeft(r1) 	>= getLeft(r2)
+                && 	getLeft(r1) 	<= getRight(r2) 	+ (r2.getWidth() / 5)
+                && 	getTop(r1) 		<= getBottom(r2) 	- (r2.getHeight() / 5)
+                && 	getBottom(r1) 	>= getTop(r2) 		+ (r2.getHeight() / 5));
     }
 }
