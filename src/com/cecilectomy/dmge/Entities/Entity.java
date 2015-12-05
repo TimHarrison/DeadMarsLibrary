@@ -1,6 +1,7 @@
 package com.cecilectomy.dmge.Entities;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.RenderDetails;
+import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.SeparatingAxisTheorem.SatShape;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -454,6 +456,10 @@ public class Entity implements Comparable<Entity> {
 	 */
 	public void update(GameTime gameTime) {
 		entElapsedTime += gameTime.getElapsedGameTime().getMilliseconds();
+	}
+	
+	public void render(Renderer renderer) {
+		
 	}
 	
 	public List<RenderDetails> getRenderDetails() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cecilectomy.dmge.Rendering.RenderDetails;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
 public class GameComponent {
 	
@@ -41,11 +42,11 @@ public class GameComponent {
 
 	}
 	
-//	public void render(Renderer renderer) {
-//		for(GameComponent child : children) {
-//			child.render(renderer);
-//		}
-//	}
+	public void render(Renderer renderer) {
+		for(GameComponent child : children) {
+			child.render(renderer);
+		}
+	}
 	
 	public List<RenderDetails> getRenderDetails() {
 		ArrayList<RenderDetails> renderDetails = new ArrayList<RenderDetails>();

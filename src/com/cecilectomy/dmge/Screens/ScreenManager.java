@@ -10,6 +10,7 @@ import com.cecilectomy.dmge.Core.GameComponent;
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Rendering.RenderDetails;
+import com.cecilectomy.dmge.Rendering.Renderer;
 
 /**
  * DeadMarsLibrary ScreenManager Class
@@ -121,6 +122,18 @@ public class ScreenManager extends GameComponent {
 			}
 		}
 		return details;
+	}
+	
+	@Override
+	public void render(Renderer renderer) {
+		for (int x = 0; x < screens.size(); x++) {
+			Screen screen = screens.get(x);
+
+			if (screen.getScreenState() == ScreenState.Hidden)
+				continue;
+			
+			screen.render(renderer);
+		}
 	}
 
 	/**

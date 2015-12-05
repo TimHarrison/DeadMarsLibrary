@@ -62,6 +62,10 @@ public class Java2DRenderer extends Renderer {
 	public void cleanUp() {
 	}
 	
+	public Dimension getSize() {
+		return this.canvas.getSize();
+	}
+	
 	private Dimension resolution = new Dimension(800, 600);
 	
 	public Dimension getResolution() {

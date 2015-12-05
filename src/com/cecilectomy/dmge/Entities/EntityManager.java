@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.cecilectomy.dmge.Core.GameTime;
+import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTree;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
@@ -207,24 +208,24 @@ public class EntityManager {
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
 	 */
-//	public void renderEntities(Class<?> filterout[], Rectangle renderViewArea,
-//			Renderer renderer) {
-//		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
-//		entityTree.getItems(renderViewArea, renderList);
-//
-//		renderEntLoop: for (int x = 0; x < renderList.size(); x++) {
-//			Entity e = (Entity) renderList.get(x).parent;
-//
-//			if (filterout != null) {
-//				for (Class<?> fo : filterout) {
-//					if (e.getClass() == fo)
-//						continue renderEntLoop;
-//				}
-//			}
-//
-//			e.render(renderer);
-//		}
-//	}
+	public void renderEntities(Class<?> filterout[], Rectangle renderViewArea,
+			Renderer renderer) {
+		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
+		entityTree.getItems(renderViewArea, renderList);
+
+		renderEntLoop: for (int x = 0; x < renderList.size(); x++) {
+			Entity e = (Entity) renderList.get(x).parent;
+
+			if (filterout != null) {
+				for (Class<?> fo : filterout) {
+					if (e.getClass() == fo)
+						continue renderEntLoop;
+				}
+			}
+
+			e.render(renderer);
+		}
+	}
 
 	/**
 	 * Renders all entities contained inside the specified polygonal view area.
@@ -236,24 +237,24 @@ public class EntityManager {
 	 * @param renderViewArea View area to render entities from.
 	 * @param gameTime Reference to the GameTime.
 	 */
-//	public void renderEntities(Class<?> filterout[], Polygon renderViewArea,
-//			Renderer renderer) {
-//		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
-//		entityTree.getItems(renderViewArea, renderList);
-//
-//		renderEntLoop: for (int x = 0; x < renderList.size(); x++) {
-//			Entity e = (Entity) renderList.get(x).parent;
-//
-//			if (filterout != null) {
-//				for (Class<?> fo : filterout) {
-//					if (e.getClass() == fo)
-//						continue renderEntLoop;
-//				}
-//			}
-//
-//			e.render(renderer);
-//		}
-//	}
+	public void renderEntities(Class<?> filterout[], Polygon renderViewArea,
+			Renderer renderer) {
+		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
+		entityTree.getItems(renderViewArea, renderList);
+
+		renderEntLoop: for (int x = 0; x < renderList.size(); x++) {
+			Entity e = (Entity) renderList.get(x).parent;
+
+			if (filterout != null) {
+				for (Class<?> fo : filterout) {
+					if (e.getClass() == fo)
+						continue renderEntLoop;
+				}
+			}
+
+			e.render(renderer);
+		}
+	}
 
 	/**
 	 * Retrieve an {@link ArrayList} of entities contained within the specified

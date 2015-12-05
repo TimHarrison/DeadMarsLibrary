@@ -129,7 +129,7 @@ public class GameBase implements Runnable {
 			
 			for (int i = 0; i < this.gameComponents.size(); i++) {
 				GameComponent gc = this.gameComponents.get(i);
-				//gc.render(this.renderer);
+				gc.render(this.renderer);
 				this.renderer.render(gc.getRenderDetails());
 			}
 			

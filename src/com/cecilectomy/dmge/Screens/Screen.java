@@ -1,11 +1,13 @@
 package com.cecilectomy.dmge.Screens;
 
+import java.awt.Graphics;
 import java.util.List;
 
 import com.cecilectomy.dmge.Core.GameInput;
 import com.cecilectomy.dmge.Core.GameTime;
 import com.cecilectomy.dmge.Math.MathEx;
 import com.cecilectomy.dmge.Rendering.RenderDetails;
+import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
 /**
@@ -174,6 +176,10 @@ public class Screen {
 				setScreenState(ScreenState.Active);
 			}
 		}
+	}
+	
+	public void render(Renderer renderer) {
+		
 	}
 
 	protected boolean updateTransition(GameTime gameTime, TimeSpan time,
