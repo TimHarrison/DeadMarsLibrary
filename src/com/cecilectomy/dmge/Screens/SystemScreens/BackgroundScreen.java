@@ -14,11 +14,6 @@ import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.ErrorDialog;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
-/**
- * DeadMarsLibrary BackgroundScreen Class
- * 
- * @author Daniel Cecil
- */
 public class BackgroundScreen extends Screen {
 
 	private Image backgroundImage;

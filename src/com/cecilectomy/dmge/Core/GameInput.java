@@ -10,11 +10,6 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * DeadMarsLib GameInput Class
- * 
- * @author Daniel Cecil
- */
 // TODO (Daniel): Refactor GameInput API
 // Better mouse and keyboard support.
 // Multiple controller support.
@@ -29,10 +24,7 @@ public class GameInput extends GameComponent {
 
 	int mouseX;
 	int mouseY;
-
-	/**
-	 * Constructor
-	 */
+	
 	public GameInput(GameBase game, Component component) {
 		super(game);
 
@@ -97,10 +89,7 @@ public class GameInput extends GameComponent {
 			}
 		});
 	}
-
-	/**
-	 * Set the default input mappings.
-	 */
+	
 	public void setDefaultInputMappings() {
 		this.setMapping("A", KeyEvent.VK_A);
 		this.setMapping("B", KeyEvent.VK_B);
@@ -110,38 +99,18 @@ public class GameInput extends GameComponent {
 		this.setMapping("back", KeyEvent.VK_BACK_SPACE);
 		this.setMapping("guide", KeyEvent.VK_TAB);
 	}
-
-	/**
-	 * Get the input mapping the for key.
-	 * 
-	 * @param key
-	 *            Name of the key to get mapping for.
-	 * @return Input mapping of the key.
-	 */
+	
 	public Object getMapping(String key) {
 		if (this.inputMappings.containsKey(key)) {
 			return this.inputMappings.get(key);
 		}
 		return new Object();
 	}
-
-	/**
-	 * Set the key to be mapped to a specific input.
-	 * 
-	 * @param key
-	 *            Name of key to map input to.
-	 * @param input
-	 *            Input object to map to key.
-	 */
+	
 	public void setMapping(String key, Object input) {
 		this.inputMappings.put(key, input);
 	}
-
-	/**
-	 * Retrieves the {@link Integer} code of the last key that was pressed.
-	 * 
-	 * @return key code.
-	 */
+	
 	public Integer lastKeyPressed() {
 		if (this.lastKey.size() > 0) {
 			Integer key = this.lastKey.get(this.lastKey.size() - 1);
@@ -151,14 +120,7 @@ public class GameInput extends GameComponent {
 			return null;
 		}
 	}
-
-	/**
-	 * Checks if a specified key is currently pressed down.
-	 * 
-	 * @param keyCode
-	 *            Key to check.
-	 * @return Whether or not the specified key is being pressed.
-	 */
+	
 	public boolean isKeyDown(Integer keyCode) {
 		if (this.kbdInputs.contains(keyCode)) {
 			return true;
@@ -166,14 +128,7 @@ public class GameInput extends GameComponent {
 			return false;
 		}
 	}
-
-	/**
-	 * Checks if a specified mouse button is currently pressed down.
-	 * 
-	 * @param buttonCode
-	 *            Mouse button to check.
-	 * @return Whether or not the specified mouse button is being pressed.
-	 */
+	
 	public boolean isMouseDown(Integer buttonCode) {
 		if (this.mseInputs.contains(buttonCode)) {
 			return true;
@@ -181,52 +136,23 @@ public class GameInput extends GameComponent {
 			return false;
 		}
 	}
-
-	/**
-	 * Remove a key from the list of keys currently being pressed.
-	 * 
-	 * @param keyCode
-	 *            Key to remove.
-	 */
+	
 	public void removeKeyDown(Integer keyCode) {
 		this.kbdInputs.remove(keyCode);
 	}
-
-	/**
-	 * Remove a mouse button from the list of mouse buttons currently being
-	 * pressed.
-	 * 
-	 * @param keyCode
-	 *            Mouse button to remove.
-	 */
+	
 	public void removeMouseDown(Integer keyCode) {
 		this.mseInputs.remove(keyCode);
 	}
-
-	/**
-	 * Retrieves the mouse's x coordinate within the window.
-	 * 
-	 * @return X coordinate of the mouse.
-	 */
+	
 	public int getMouseX() {
 		return this.mouseX;
 	}
-
-	/**
-	 * Retrieves the mouse's y coordinate within the window.
-	 * 
-	 * @return Y coordinate of the mouse.
-	 */
+	
 	public int getMouseY() {
 		return this.mouseY;
 	}
-
-	/**
-	 * Retrieves a {@link Point} that represents the mouse's coordinates within
-	 * the window.
-	 * 
-	 * @return The mouse's xy coordinates.
-	 */
+	
 	public Point getMouseCoords() {
 		return new Point(this.mouseX, this.mouseY);
 	}

@@ -10,74 +10,19 @@ import java.util.Arrays;
 
 import com.cecilectomy.dmge.Utility.RectangleEx;
 
-/**
- * DeadMarsLibrary QuadTreeNode class
- * 
- * @author Daniel Cecil
- */
 public class QuadTreeNode {
-
-	/**
-	 * Whether or not this node has been split.
-	 */
+	
 	protected boolean isSplit;
-
-	/**
-	 * Callback handler for the resize event. A node will attempt to call this
-	 * when an item goes out of the QuadTree bounds. If there is no resize
-	 * callback set, the item is allowed to exist outside the QuadTree bounds,
-	 * and resides in the rootNode. A resize event is expensive.
-	 */
 	protected QuadTreeResizeDelegate resize;
-
-	/**
-	 * A reference to this nodes parent node. If null, then this node is the
-	 * rootNode.
-	 */
 	protected QuadTreeNode parentNode;
-
-	/**
-	 * A reference to this nodes Top Left child node.
-	 */
 	protected QuadTreeNode tlNode;
-
-	/**
-	 * A reference to this nodes Top Right child node.
-	 */
 	protected QuadTreeNode trNode;
-
-	/**
-	 * A reference to this nodes Bottom Left child node.
-	 */
 	protected QuadTreeNode blNode;
-
-	/**
-	 * A reference to this nodes Bottom Right child node.
-	 */
 	protected QuadTreeNode brNode;
-
-	/**
-	 * A list of all the items contained directly within this node.
-	 */
 	protected ArrayList<QuadTreeNodeItem> itemList = new ArrayList<>();
-
-	/**
-	 * The 2d space that this node encompasses.
-	 */
 	protected Rectangle rect;
-
-	/**
-	 * The maximum number of items that may exist in this node before the node
-	 * is split. There may exist more items than the maximum, only if the items
-	 * are on the boundaries of 2 child nodes.
-	 */
 	protected int maxItems;
-
-	/**
-	 * Get the rectangle of the 2d space this node encompasses.
-	 * 
-	 * @return node rectangle
-	 */
+	
 	public Rectangle getRect() {
 		return rect;
 	}
@@ -85,37 +30,18 @@ public class QuadTreeNode {
 	protected void setMaxItems(int m) {
 		maxItems = m;
 	}
-
-	/**
-	 * Get the maximum number of items this node can contain.
-	 * 
-	 * @return max items
-	 */
+	
 	public int getMaxItems() {
 		return maxItems;
 	}
-
-	/**
-	 * Class Constructor
-	 * 
-	 * @param parent
-	 * @param r
-	 * @param m
-	 */
+	
 	public QuadTreeNode(QuadTreeNode parent, Rectangle r, int m) {
 		parentNode = parent;
 		rect = r;
 		maxItems = m;
 		isSplit = false;
 	}
-
-	/**
-	 * Class Constructor
-	 * 
-	 * @param r
-	 * @param m
-	 * @param rd
-	 */
+	
 	public QuadTreeNode(Rectangle r, int m, QuadTreeResizeDelegate rd) {
 		parentNode = null;
 		rect = r;

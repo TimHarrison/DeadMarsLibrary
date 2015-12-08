@@ -10,11 +10,6 @@ import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
-/**
- * DeadMarsLibrary Screen Class
- * 
- * @author Daniel Cecil
- */
 public class Screen {
 
 	private boolean isPopup = false;
@@ -25,12 +20,7 @@ public class Screen {
 	private boolean isExiting = false;
 	private boolean otherScreenHasFocus;
 	private ScreenManager screenManager;
-
-	/**
-	 * Retrieves whether this {@link Screen} is a pop-up or not.
-	 * 
-	 * @return whether Screen is pup-up.
-	 */
+	
 	public boolean getIsPopup() {
 		return isPopup;
 	}
@@ -38,12 +28,7 @@ public class Screen {
 	protected void setIsPopup(boolean flag) {
 		isPopup = flag;
 	}
-
-	/**
-	 * Retrieves the {@link TimeSpan} of this {@link Screen}'s transition to on.
-	 * 
-	 * @return {@link TimeSpan}.
-	 */
+	
 	public TimeSpan getTransitionOnTime() {
 		return transitionOnTime;
 	}
@@ -51,13 +36,7 @@ public class Screen {
 	protected void setTransitionOnTime(TimeSpan time) {
 		transitionOnTime = time;
 	}
-
-	/**
-	 * Retrieves the {@link TimeSpan} of this {@link Screen}'s transition to
-	 * off.
-	 * 
-	 * @return {@link TimeSpan}.
-	 */
+	
 	public TimeSpan getTransitionOffTime() {
 		return transitionOffTime;
 	}
@@ -65,12 +44,7 @@ public class Screen {
 	protected void setTransitionOffTime(TimeSpan time) {
 		transitionOffTime = time;
 	}
-
-	/**
-	 * Retrieves how far along in transition the screen is.
-	 * 
-	 * @return transition position.
-	 */
+	
 	public float getTransitionPosition() {
 		return transitionPosition;
 	}
@@ -78,21 +52,11 @@ public class Screen {
 	protected void setTransitionPosition(float time) {
 		transitionPosition = time;
 	}
-
-	/**
-	 * Retrieves an alpha value based on the transition position.
-	 * 
-	 * @return transition alpha.
-	 */
+	
 	public int getTransitionAlpha() {
 		return (int) (255 - getTransitionPosition() * 255);
 	}
-
-	/**
-	 * Retrieves the {@link ScreenState} of this {@link Screen}.
-	 * 
-	 * @return {@link ScreenState}.
-	 */
+	
 	public ScreenState getScreenState() {
 		return screenState;
 	}
@@ -100,12 +64,7 @@ public class Screen {
 	protected void setScreenState(ScreenState state) {
 		screenState = state;
 	}
-
-	/**
-	 * Retrieves whether this {@link Screen} is currently exiting.
-	 * 
-	 * @return whether {@link Screen} is exiting.
-	 */
+	
 	public boolean getIsExiting() {
 		return isExiting;
 	}
@@ -113,22 +72,12 @@ public class Screen {
 	protected void setIsExiting(boolean flag) {
 		isExiting = flag;
 	}
-
-	/**
-	 * Retrieves whether this {@link Screen} is currently active.
-	 * 
-	 * @return whether {@link Screen} is active.
-	 */
+	
 	public boolean getIsActive() {
 		return !otherScreenHasFocus
 				&& (screenState == ScreenState.TransitionOn || screenState == ScreenState.Active);
 	}
-
-	/**
-	 * Retrieves the {@link ScreenManager} associated with this {@link Screen}.
-	 * 
-	 * @return {@link ScreenManager}.
-	 */
+	
 	public ScreenManager getScreenManager() {
 		return screenManager;
 	}
@@ -145,14 +94,7 @@ public class Screen {
 
 	public void unloadContent() {
 	}
-
-	/**
-	 * Update this Screen's transition and state.
-	 * 
-	 * @param gameTime GameTime object to update with.
-	 * @param otherScreenHasFocus If other Screen has focus.
-	 * @param coveredByOtherScreen If this Screen Covered by another.
-	 */
+	
 	public void update(GameTime gameTime, boolean otherScreenHasFocus,
 			boolean coveredByOtherScreen) {
 		this.otherScreenHasFocus = otherScreenHasFocus;
@@ -211,14 +153,7 @@ public class Screen {
 	public List<RenderDetails> getRenderDetails() {
 		return null;
 	}
-
-	/**
-	 * Exit the screen.
-	 * <p>
-	 * If the transition off time is zero, the screen will exit immediately. If
-	 * there is a transition off time, the screen will be marked as exiting and
-	 * will exit automatically when it is done.
-	 */
+	
 	public void exitScreen() {
 		if (transitionOffTime == TimeSpan.Zero) {
 			screenManager.removeScreen(this);

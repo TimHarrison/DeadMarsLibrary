@@ -15,11 +15,6 @@ import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
-/**
- * DeadMarsLibrary MessageBoxScreen Class
- * 
- * @author Daniel Cecil
- */
 public class MessageBoxScreen extends Screen {
 
 	String message;

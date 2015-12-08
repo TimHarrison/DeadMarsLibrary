@@ -11,11 +11,6 @@ import com.cecilectomy.dmge.Rendering.Renderer;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTree;
 import com.cecilectomy.dmge.SpacialIndexing.QuadTree.QuadTreeNodeItem;
 
-/**
- * DeadMarsLib EntityManager Class
- * 
- * @author Daniel Cecil
- */
 public class EntityManager {
 
 	ArrayList<Entity> entities = new ArrayList<>();
@@ -25,68 +20,32 @@ public class EntityManager {
 	ArrayList<Entity> entitiesToRemove = new ArrayList<>();
 
 	QuadTree entityTree = null;
-
-	/**
-	 * Get an array that contains all of the entities contained in this
-	 * EntityManager.
-	 * 
-	 * @return An array of all entities in this EntityManager.
-	 */
+	
 	public Entity[] getEntities() {
 		return Arrays.copyOf(entities.toArray(), entities.toArray().length,
 				Entity[].class);
 	}
-
-	/**
-	 * Get an array that contains all of the Actor entities contained in this
-	 * EntityManager.
-	 * 
-	 * @return An array of all Actor entities in this EntityManager.
-	 */
+	
 	public Entity[] getEntityActors() {
 		return Arrays.copyOf(entityActors.toArray(),
 				entityActors.toArray().length, Entity[].class);
 	}
-
-	/**
-	 * Get an array that contains all of the Prop entities contained in this
-	 * EntityManager.
-	 * 
-	 * @return An array of all Prop entities in this EntityManager.
-	 */
+	
 	public Entity[] getEntityProps() {
 		return Arrays.copyOf(entityProps.toArray(),
 				entityProps.toArray().length, Entity[].class);
 	}
-
-	/**
-	 * Get an array that contains all of the Background entities contained in
-	 * this EntityManager.
-	 * 
-	 * @return An array of all Background entities in this EntityManager.
-	 */
+	
 	public Entity[] getEntityBackgrounds() {
 		return Arrays.copyOf(entityBackgrounds.toArray(),
 				entityBackgrounds.toArray().length, Entity[].class);
 	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param tArea The world space that the EntityManager manages.
-	 * @param maxItemsPerTreeNode Max amount of entities per tree node. Used internally by {@link QuadTree}.
-	 * @param dynamicTreeResize Whether or not to dynamically resize the tree as entities are added or move. Used internally by {@link QuadTree}.
-	 */
+	
 	public EntityManager(Rectangle tArea, int maxItemsPerTreeNode,
 			boolean dynamicTreeResize) {
 		entityTree = new QuadTree(tArea, maxItemsPerTreeNode, dynamicTreeResize);
 	}
-
-	/**
-	 * Inserts an {@link Entity} into the {@link EntityManager}.
-	 * 
-	 * @param ent {@link Entity} to insert.
-	 */
+	
 	public void addEntity(Entity ent) {
 		removeEntity(ent);
 
@@ -112,12 +71,7 @@ public class EntityManager {
 			}
 		}
 	}
-
-	/**
-	 * Removes an {@link Entity} from the {@link EntityManager}.
-	 * 
-	 * @param ent {@link Entity} to remove.
-	 */
+	
 	public void removeEntity(Entity ent) {
 		if (ent.entityManager == this) {
 			ent.entityManager = null;
@@ -131,24 +85,14 @@ public class EntityManager {
 			entityBackgrounds.remove(ent);
 		}
 	}
-
-	/**
-	 * Removes all entities from the {@link EntityManager}.
-	 */
+	
 	public void removeAllEntities() {
 		while (entities.size() > 0) {
 			Entity e = entities.get(0);
 			removeEntity(e);
 		}
 	}
-
-	/**
-	 * Updates all updatable entities in the {@link EntityManager}.
-	 * <p>
-	 * Collision detection is also performed here.
-	 * 
-	 * @param gameTime Reference to the GameTime.
-	 */
+	
 	public void updateEntities(GameTime gameTime) {
 		entitiesToRemove.clear();
 
@@ -196,18 +140,7 @@ public class EntityManager {
 			this.removeEntity(e);
 		}
 	}
-
-	/**
-	 * Renders all entities contained inside the specified rectangular view
-	 * area.
-	 * <p>
-	 * Filters out {@link Entity} classes that match classes in the supplied
-	 * filterout {@link Class} array.
-	 * 
-	 * @param filterout {@link Class} array of classes to filter out of the render.
-	 * @param renderViewArea View area to render entities from.
-	 * @param gameTime Reference to the GameTime.
-	 */
+	
 	public void renderEntities(Class<?> filterout[], Rectangle renderViewArea,
 			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
@@ -226,17 +159,7 @@ public class EntityManager {
 			e.render(renderer);
 		}
 	}
-
-	/**
-	 * Renders all entities contained inside the specified polygonal view area.
-	 * <p>
-	 * Filters out {@link Entity} classes that match classes in the supplied
-	 * filterout {@link Class} array.
-	 * 
-	 * @param filterout {@link Class} array of classes to filter out of the render.
-	 * @param renderViewArea View area to render entities from.
-	 * @param gameTime Reference to the GameTime.
-	 */
+	
 	public void renderEntities(Class<?> filterout[], Polygon renderViewArea,
 			Renderer renderer) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
@@ -255,15 +178,7 @@ public class EntityManager {
 			e.render(renderer);
 		}
 	}
-
-	/**
-	 * Retrieve an {@link ArrayList} of entities contained within the specified
-	 * rectangular view area.
-	 * 
-	 * @param filterout {@link Class} array of classes to filter out of the query.
-	 * @param viewArea Area to retrieve entities from.
-	 * @return {@link ArrayList} of entities.
-	 */
+	
 	public ArrayList<Entity> getEntities(Class<?> filterout[], Rectangle viewArea) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
 		ArrayList<Entity> entList = new ArrayList<>();
@@ -284,15 +199,7 @@ public class EntityManager {
 
 		return entList;
 	}
-
-	/**
-	 * Retrieve an {@link ArrayList} of entities contained within the specified
-	 * polygonal view area.
-	 * 
-	 * @param filterout {@link Class} array of classes to filter out of the query.
-	 * @param renderViewArea Area to retrieve entities from.
-	 * @return {@link ArrayList} of entities.
-	 */
+	
 	public ArrayList<Entity> getEntities(Class<?> filterout[],
 			Polygon renderViewArea) {
 		ArrayList<QuadTreeNodeItem> renderList = new ArrayList<>();
@@ -314,17 +221,7 @@ public class EntityManager {
 
 		return entList;
 	}
-
-	/**
-	 * Allows testing for collisions between a specified point and entities
-	 * within the EntityManager.
-	 * <p>
-	 * You must also specify class filters and collision definitions.
-	 * 
-	 * @param p Point to test collisions for.
-	 * @param classFilters Classes to test collisions for.
-	 * @param collisionDefinitions Collision definitions in the event a collisions occurs for specified classes.
-	 */
+	
 	public void externalCollision(Point p, Class<?>[] classFilters,
 			EntityCollision[] collisionDefinitions) {
 		if (classFilters != null && collisionDefinitions != null
@@ -349,17 +246,7 @@ public class EntityManager {
 			}
 		}
 	}
-
-	/**
-	 * Allows testing for collisions between a specified {@link Rectangle} and
-	 * entities within the EntityManager.
-	 * <p>
-	 * You must also specify class filters and collision definitions.
-	 * 
-	 * @param r Rectangle to test collisions for.
-	 * @param classFilters Classes to test collisions for.
-	 * @param collisionDefinitions Collision definitions in the event a collisions occurs for specified classes.
-	 */
+	
 	public void externalCollision(Rectangle r, Class<?>[] classFilters,
 			EntityCollision[] collisionDefinitions) {
 		if (classFilters != null && collisionDefinitions != null

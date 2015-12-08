@@ -9,21 +9,8 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Cryptography Class
- * 
- * @author Daniel Cecil
- */
 public class Cryptography {
-
-	/**
-	 * Create an MD5 hash of a string.
-	 * 
-	 * @deprecated
-	 * 
-	 * @param md5 String to hash.
-	 * @return String representation of hash.
-	 */
+	
 	public static String MD5(String md5) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");

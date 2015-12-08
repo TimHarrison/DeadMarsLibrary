@@ -15,11 +15,6 @@ import com.cecilectomy.dmge.Screens.ScreenManager;
 import com.cecilectomy.dmge.Screens.ScreenState;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
-/**
- * DeadMarsLibrary LoadingScreen Class
- * 
- * @author Daniel Cecil
- */
 public class LoadingScreen extends Screen {
 
 	boolean loadingIsSlow;

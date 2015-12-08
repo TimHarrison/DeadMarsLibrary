@@ -11,11 +11,6 @@ import com.cecilectomy.dmge.Rendering.RenderDetails;
 import com.cecilectomy.dmge.Screens.Screen;
 import com.cecilectomy.dmge.Utility.TimeSpan;
 
-/**
- * DeadMarsLibrary SplashScreen Class
- *
- * @author Daniel Cecil
- */
 public class SplashScreen extends Screen {
 
     private BufferedImage splashImage = null;
