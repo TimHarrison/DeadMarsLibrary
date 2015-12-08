@@ -201,16 +201,16 @@ public class GameBase implements Runnable {
 				unProcessedTime -= frameTime;
 				
 				render = true;
-				
+
 				this.update();
-				
-				if(frameCounter >= SECOND) {
-					updateFPSStats();
-					frameCounter = 0;
-				}
 			}
 			
-			if(render) {
+			if(frameCounter >= SECOND) {
+				updateFPSStats();
+				frameCounter -= SECOND;
+			}
+			
+			if(render && this.frameCount < this.frameRate) {
 				this.render();
 				this.frameCount++;
 			} else {
@@ -232,7 +232,7 @@ public class GameBase implements Runnable {
 		this.fpsStore[(int) this.statsCount % NUM_FPS] = this.frameCount;
 		this.upsStore[(int) this.statsCount % NUM_FPS] = this.updates;
 		this.statsCount++;
-		System.out.println(frameCount);
+		System.out.println("frames/updates: "+this.frameCount+"/"+this.updates);
 		this.frameCount = 0;
 		this.updates = 0;
 	
