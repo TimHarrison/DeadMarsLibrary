@@ -1,6 +1,4 @@
 package com.cecilectomy.dmge.examples;
-import java.awt.Dimension;
-
 import javax.swing.JApplet;
 
 import com.cecilectomy.dmge.Core.GameBase;
@@ -15,10 +13,11 @@ public class AppletMain extends JApplet {
 	
     @Override
     public void init() {
-    	GameWindowApplet applet = new GameWindowApplet(this,new Dimension(640,480));
+    	GameWindowApplet applet = new GameWindowApplet(this, 640, 480);
     	Renderer gameRenderer = new Java2DRenderer(applet);
 		gameRenderer.setResolution(640,480);
     	gameBase = new GameBase(gameRenderer);
+    	gameBase.setPreferredFPS(60L);
     	gameBase.startThreaded();
     }
     

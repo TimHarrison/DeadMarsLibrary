@@ -17,12 +17,12 @@ import com.cecilectomy.dmge.OpenGL.Mesh;
 import com.cecilectomy.dmge.OpenGL.Shader;
 import com.cecilectomy.dmge.Rendering.OpenGLRenderer;
 import com.cecilectomy.dmge.Rendering.RenderDetails;
-import com.cecilectomy.dmge.Window.GameWindowOGLFrame;
+import com.cecilectomy.dmge.Window.GameWindowOpenGLFrame;
 
-public class OpenGLMain extends GameWindowOGLFrame {
+public class OpenGLMain extends GameWindowOpenGLFrame {
 
 	public OpenGLMain() {
-		super("GameWindowOGL",new Dimension(640,480));
+		super("GameWindowOGL", 640, 480);
 	}
 	
 	public static void main(String[] args) {
@@ -51,7 +51,7 @@ public class OpenGLMain extends GameWindowOGLFrame {
 			protected void cleanUp() {
 				super.cleanUp();
 				
-				frame.cleanUp();
+				frame.deInitialize();
 			}
 		});
 		game.setPreferredFPS(60L);

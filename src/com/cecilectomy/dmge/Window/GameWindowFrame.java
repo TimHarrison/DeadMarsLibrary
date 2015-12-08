@@ -10,21 +10,28 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class GameWindowFrame extends Canvas implements GameWindow {
 
-	private JFrame window;
+	private JFrame WINDOW;
+	private int WIDTH;
+	private int HEIGHT;
+	private String TITLE;
 	
 	public GameWindowFrame() {
-		this.initialize("New Game Window Frame", 640, 480);
+		this("", 640, 480);
 	}
 	
 	public GameWindowFrame(String title, int width, int height) {
-		this.initialize(title, width, height);
+		this.TITLE = title;
+		this.WIDTH = width;
+		this.HEIGHT = height;
+		
+		this.initialize();
 	}
 
 	@Override
-	public void initialize(String title, int width, int height) {
-		this.cleanUp();
+	public void initialize() {
+		this.deInitialize();
 		
-		Dimension size = new Dimension(width, height);
+		Dimension size = new Dimension(this.WIDTH, this.HEIGHT);
 		
 		this.setSize(size);
 		this.setPreferredSize(size);
@@ -33,43 +40,34 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 		this.setFocusable(true);
 		this.requestFocus();
 		
-		window = new JFrame();
-		window.add(this);
-		window.pack();
-		window.setResizable(false);
-		window.setLocationRelativeTo(null);
-		window.setTitle(title);
-		window.setVisible(true);
+		this.WINDOW = new JFrame();
+		this.WINDOW.add(this);
+		this.WINDOW.pack();
+		this.WINDOW.setResizable(false);
+		this.WINDOW.setLocationRelativeTo(null);
+		this.WINDOW.setTitle(this.TITLE);
+		this.WINDOW.setVisible(true);
+		
+		this.WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
-	public void cleanUp() {
-		if(window != null) {
-			window.setVisible(false);
-			window.dispose();
+	public void deInitialize() {
+		if(this.WINDOW != null) {
+			this.WINDOW.setVisible(false);
+			this.WINDOW.dispose();
 		}
 	}
 
 	@Override
-	public String getTitle() {
-		return this.window.getTitle();
-	}
-
-	@Override
-	public void setTitle(String title) {
-		this.window.setTitle(title);
+	public Dimension getViewport() {
+		return new Dimension(this.getSize());
 	}
 
 	@Override
 	public void setViewport(int width, int height) {
 		Dimension size = new Dimension(width, height);
-		this.setSize(size);
-		this.setPreferredSize(size);
-		this.setMinimumSize(size);
-		this.setMaximumSize(size);
-
-		window.pack();
-		window.setLocationRelativeTo(null);
+		this.setViewport(size);
 	}
 
 	@Override
@@ -79,20 +77,14 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 		this.setMinimumSize(size);
 		this.setMaximumSize(size);
 
-		window.pack();
-		window.setLocationRelativeTo(null);
-	}
-
-	@Override
-	public Dimension getViewport() {
-		return this.getSize();
+		this.WINDOW.pack();
+		this.WINDOW.setLocationRelativeTo(null);
 	}
 	
 	public final JFrame getFrame() {
-		return window;
+		return this.WINDOW;
 	}
-
-	@Override
+	
 	public final void setFullScreen(boolean fullscreen) {
 		setFullScreen(fullscreen, false);
 	}
@@ -105,7 +97,7 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 		if (fullscreen) {
 			GraphicsDevice device = GraphicsEnvironment
 					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			device.setFullScreenWindow(window);
+			device.setFullScreenWindow(this.WINDOW);
 		} else {
 			GraphicsDevice device = GraphicsEnvironment
 					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -115,16 +107,24 @@ public class GameWindowFrame extends Canvas implements GameWindow {
 	}
 
 	private final void rebuildWindow(boolean decorated) {
-		window.setVisible(false);
-	    if(window.isDisplayable())window.dispose(); 
+		this.WINDOW.setVisible(false);
+	    if(this.WINDOW.isDisplayable()) this.WINDOW.dispose(); 
 
 		//window = new JFrame(title);		
 		//window.getContentPane().add(this);
 		//window.setResizable(false);
-		window.setUndecorated(!decorated);
-		window.setVisible(true);
-		window.pack();
-		window.setLocationRelativeTo(null);
+	    this.WINDOW.setUndecorated(!decorated);
+	    this.WINDOW.setVisible(true);
+	    this.WINDOW.pack();
+	    this.WINDOW.setLocationRelativeTo(null);
+	}
+	
+	public String getTitle() {
+		return this.WINDOW.getTitle();
+	}
+	
+	public void setTitle(String title) {
+		this.WINDOW.setTitle(title);
 	}
 
 }

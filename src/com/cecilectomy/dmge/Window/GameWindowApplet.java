@@ -4,74 +4,60 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JApplet;
-
-/**
- * DeadMarsLib GameApplet Class.
- * 
- * @author Daniel Cecil
- */
 @SuppressWarnings("serial")
 public class GameWindowApplet extends Canvas implements GameWindow {
 	
-	/**
-	 * GameApplet Constructor.
-	 * 
-	 * @param applet
-	 *            JApplet reference. Required.
-	 * @param size
-	 *            Size of applet window frame.
-	 * @param fps
-	 *            Desired game update speed.
-	 */
-	public GameWindowApplet(JApplet applet, Dimension size) {
-		this._init(applet, size);
+	private JApplet WINDOW;
+	private int WIDTH;
+	private int HEIGHT;
+	
+	public GameWindowApplet(JApplet applet) {
+		this(applet, 640, 480);
+	}
+	
+	public GameWindowApplet(JApplet applet, int width, int height) {
+		this.WINDOW = applet;
+		this.WIDTH = width;
+		this.HEIGHT = height;
+		
+		this.initialize();
 	}
 
-	private void _init(JApplet applet, Dimension size) {
+	@Override
+	public void initialize() {
+		Dimension size = new Dimension(this.WIDTH, this.HEIGHT);
 		this.setViewport(size);
 		
-		if (applet != null) {
-			applet.getContentPane().add(this);
-			applet.setSize(size);
-			applet.setFocusable(true);
-			applet.requestFocus();
+		if (this.WINDOW != null) {
+			this.WINDOW.getContentPane().add(this);
+			this.WINDOW.setSize(size);
+			this.WINDOW.setFocusable(true);
+			this.WINDOW.requestFocus();
 		}
 	}
 
+	@Override
+	public void deInitialize() {
+	}
+
+	public Dimension getViewport() {
+		return new Dimension(this.getSize());
+	}
+
 	public void setViewport(int width, int height) {
-		this.setSize(width, height);
 		Dimension size = new Dimension(width, height);
-		this.setPreferredSize(size);
+		this.setViewport(size);
 	}
 	
 	public void setViewport(Dimension size) {
 		this.setSize(size);
 		this.setPreferredSize(size);
+		this.setMinimumSize(size);
+		this.setMaximumSize(size);
 	}
-
-	public Dimension getViewport() {
-		return this.getSize();
-	}
-
-	@Override
-	public void initialize(String title, int width, int height) {
-	}
-
-	@Override
-	public void cleanUp() {
-	}
-
-	@Override
-	public String getTitle() {
-		return null;
-	}
-
-	@Override
-	public void setTitle(String title) {
-	}
-
-	@Override
-	public void setFullScreen(boolean fullscreen) {
+	
+	public JApplet getJApplet() {
+		return this.WINDOW;
 	}
 
 }
